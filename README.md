@@ -21,5 +21,5 @@ This C# SDK supports `Production`, `Early Access`, `Beta` and `Experimental` API
 
 | branch | status |
 | --- | --- |
-| `master` |  ![Nuget](https://img.shields.io/nuget/v/Finbourne.Notifications.Sdk?color=blue)|
+| `master` |  ![Nuget](https://img.shields.io/nuget/v/Finbourne.Notifications.Sdk?color=blue) [![Build](https://github.com/finbourne/finbourne-notifications-sdk-csharp/actions/workflows/build.yaml/badge.svg?branch=master)](https://github.com/finbourne/finbourne-notifications-sdk-csharp/actions/workflows/build.yaml) | 
 
