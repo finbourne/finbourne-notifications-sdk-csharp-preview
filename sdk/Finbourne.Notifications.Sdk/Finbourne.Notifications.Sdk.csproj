@@ -1,16 +1,20 @@
-<Project Sdk="Microsoft.NET.Sdk">
+﻿<Project Sdk="Microsoft.NET.Sdk">
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
     <Version>0.1.219</Version>
-    <PackageId>Finbourne.Notifications.Sdk</PackageId>
+    <PackageId>Finbourne.Notifications.Sdk.Preview</PackageId>
     <Authors>engineering@finbourne.com</Authors>
     <Company>FINBOURNE Technology Limited</Company>
-	  <Product>LUSID</Product>
-	  <Description>LUSID Notifications service SDK</Description>
-	  <RepositoryUrl>https://github.com/finbourne/finbourne-notifications-sdk-csharp</RepositoryUrl>
+	<Product>LUSID</Product>
+	<Description>FINBOURNE Notifications service SDK</Description>
+	<RepositoryUrl>https://github.com/finbourne/notifications-sdk-csharp</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
     <DocumentationFile></DocumentationFile>
+    <PackageLicenseFile>LICENSE.md</PackageLicenseFile>
   </PropertyGroup>
+  <ItemGroup>
+    <None Include="../../LICENSE.md" Pack="true" PackagePath="LICENSE.md"/>
+  </ItemGroup>	
   <ItemGroup>
     <PackageReference Include="JsonSubTypes" Version="1.8.0" />
     <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
