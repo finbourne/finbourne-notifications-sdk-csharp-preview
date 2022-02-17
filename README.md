@@ -9,7 +9,7 @@ For more details on other applications in the LUSID platform, see [Understanding
 
 ## Installation
 
-The NuGet package for the LUSID Notifications service SDK can installed from https://www.nuget.org/packages/Finbourne.Notifications.Sdk using the following:
+The NuGet package for the LUSID Notifications service SDK (Preview) can installed from https://www.nuget.org/packages/Finbourne.Notifications.Sdk.Preview using the following:
 
 ```
 $ dotnet add package Finbourne.Notifications.Sdk.Preview
