@@ -2,10 +2,10 @@ version: "3"
 
 services:
 
-  finbourne-notifications-sdk-csharp-build:
+  notifications-sdk-csharp-preview-build:
     build: .
-    container_name: finbourne-notifications-sdk-csharp-build
-    image: finbourne/finbourne-notifications-sdk-csharp-build
+    container_name: notifications-sdk-csharp-preview-build
+    image: finbourne/notifications-sdk-csharp-preview-build
     environment:
       - FBN_TOKEN_URL
       - FBN_USERNAME
