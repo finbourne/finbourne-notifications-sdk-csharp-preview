@@ -314,7 +314,6 @@ Name | Type | Description  | Notes
 |-------------|-------------|------------------|
 | **200** | Success |  -  |
 | **400** | The details of the input related failure |  -  |
-| **404** | No subscriptions exists with the provided filter(s) |  -  |
 | **0** | Error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
