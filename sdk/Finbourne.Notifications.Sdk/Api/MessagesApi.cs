@@ -24,65 +24,74 @@ namespace Finbourne.Notifications.Sdk.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IApplicationMetadataApiSync : IApiAccessor
+    public interface IMessagesApiSync : IApiAccessor
     {
         #region Synchronous Operations
         /// <summary>
-        /// [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control
+        /// [EXPERIMENTAL] ListUndeliveredMessages: List undelivered messages
         /// </summary>
-        /// <remarks>
-        /// Get the comprehensive set of resources that are available for access control
-        /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ResourceListOfAccessControlledResource</returns>
-        ResourceListOfAccessControlledResource ListAccessControlledResources();
+        /// <param name="page"> (optional)</param>
+        /// <param name="limit"> (optional)</param>
+        /// <param name="filter"> (optional)</param>
+        /// <returns>ResourceListOfUndeliveredMessage</returns>
+        ResourceListOfUndeliveredMessage ListUndeliveredMessages(string page = default(string), int? limit = default(int?), string filter = default(string));
 
         /// <summary>
-        /// [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control
+        /// [EXPERIMENTAL] ListUndeliveredMessages: List undelivered messages
         /// </summary>
         /// <remarks>
-        /// Get the comprehensive set of resources that are available for access control
+        /// 
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of ResourceListOfAccessControlledResource</returns>
-        ApiResponse<ResourceListOfAccessControlledResource> ListAccessControlledResourcesWithHttpInfo();
+        /// <param name="page"> (optional)</param>
+        /// <param name="limit"> (optional)</param>
+        /// <param name="filter"> (optional)</param>
+        /// <returns>ApiResponse of ResourceListOfUndeliveredMessage</returns>
+        ApiResponse<ResourceListOfUndeliveredMessage> ListUndeliveredMessagesWithHttpInfo(string page = default(string), int? limit = default(int?), string filter = default(string));
         #endregion Synchronous Operations
     }
 
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IApplicationMetadataApiAsync : IApiAccessor
+    public interface IMessagesApiAsync : IApiAccessor
     {
         #region Asynchronous Operations
         /// <summary>
-        /// [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control
+        /// [EXPERIMENTAL] ListUndeliveredMessages: List undelivered messages
         /// </summary>
         /// <remarks>
-        /// Get the comprehensive set of resources that are available for access control
+        /// 
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="page"> (optional)</param>
+        /// <param name="limit"> (optional)</param>
+        /// <param name="filter"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ResourceListOfAccessControlledResource</returns>
-        System.Threading.Tasks.Task<ResourceListOfAccessControlledResource> ListAccessControlledResourcesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ResourceListOfUndeliveredMessage</returns>
+        System.Threading.Tasks.Task<ResourceListOfUndeliveredMessage> ListUndeliveredMessagesAsync(string page = default(string), int? limit = default(int?), string filter = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
-        /// [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control
+        /// [EXPERIMENTAL] ListUndeliveredMessages: List undelivered messages
         /// </summary>
         /// <remarks>
-        /// Get the comprehensive set of resources that are available for access control
+        /// 
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="page"> (optional)</param>
+        /// <param name="limit"> (optional)</param>
+        /// <param name="filter"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ResourceListOfAccessControlledResource)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ResourceListOfAccessControlledResource>> ListAccessControlledResourcesWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        /// <returns>Task of ApiResponse (ResourceListOfUndeliveredMessage)</returns>
+        System.Threading.Tasks.Task<ApiResponse<ResourceListOfUndeliveredMessage>> ListUndeliveredMessagesWithHttpInfoAsync(string page = default(string), int? limit = default(int?), string filter = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public interface IApplicationMetadataApi : IApplicationMetadataApiSync, IApplicationMetadataApiAsync
+    public interface IMessagesApi : IMessagesApiSync, IMessagesApiAsync
     {
 
     }
@@ -90,23 +99,23 @@ namespace Finbourne.Notifications.Sdk.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class ApplicationMetadataApi : IApplicationMetadataApi
+    public partial class MessagesApi : IMessagesApi
     {
         private Finbourne.Notifications.Sdk.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationMetadataApi"/> class.
+        /// Initializes a new instance of the <see cref="MessagesApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public ApplicationMetadataApi() : this((string)null)
+        public MessagesApi() : this((string)null)
         {
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationMetadataApi"/> class.
+        /// Initializes a new instance of the <see cref="MessagesApi"/> class.
         /// </summary>
         /// <returns></returns>
-        public ApplicationMetadataApi(String basePath)
+        public MessagesApi(String basePath)
         {
             this.Configuration = Finbourne.Notifications.Sdk.Client.Configuration.MergeConfigurations(
                 Finbourne.Notifications.Sdk.Client.GlobalConfiguration.Instance,
@@ -118,12 +127,12 @@ namespace Finbourne.Notifications.Sdk.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationMetadataApi"/> class
+        /// Initializes a new instance of the <see cref="MessagesApi"/> class
         /// using Configuration object
         /// </summary>
         /// <param name="configuration">An instance of Configuration</param>
         /// <returns></returns>
-        public ApplicationMetadataApi(Finbourne.Notifications.Sdk.Client.Configuration configuration)
+        public MessagesApi(Finbourne.Notifications.Sdk.Client.Configuration configuration)
         {
             if (configuration == null) throw new ArgumentNullException("configuration");
 
@@ -134,13 +143,13 @@ namespace Finbourne.Notifications.Sdk.Api
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ApplicationMetadataApi"/> class
+        /// Initializes a new instance of the <see cref="MessagesApi"/> class
         /// using a Configuration object and client instance.
         /// </summary>
         /// <param name="client">The client interface for synchronous API access.</param>
         /// <param name="asyncClient">The client interface for asynchronous API access.</param>
         /// <param name="configuration">The configuration object.</param>
-        public ApplicationMetadataApi(Finbourne.Notifications.Sdk.Client.ISynchronousClient client, Finbourne.Notifications.Sdk.Client.IAsynchronousClient asyncClient, Finbourne.Notifications.Sdk.Client.IReadableConfiguration configuration)
+        public MessagesApi(Finbourne.Notifications.Sdk.Client.ISynchronousClient client, Finbourne.Notifications.Sdk.Client.IAsynchronousClient asyncClient, Finbourne.Notifications.Sdk.Client.IReadableConfiguration configuration)
         {
             if (client == null) throw new ArgumentNullException("client");
             if (asyncClient == null) throw new ArgumentNullException("asyncClient");
@@ -194,22 +203,28 @@ namespace Finbourne.Notifications.Sdk.Api
         }
 
         /// <summary>
-        /// [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control Get the comprehensive set of resources that are available for access control
+        /// [EXPERIMENTAL] ListUndeliveredMessages: List undelivered messages 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ResourceListOfAccessControlledResource</returns>
-        public ResourceListOfAccessControlledResource ListAccessControlledResources()
+        /// <param name="page"> (optional)</param>
+        /// <param name="limit"> (optional)</param>
+        /// <param name="filter"> (optional)</param>
+        /// <returns>ResourceListOfUndeliveredMessage</returns>
+        public ResourceListOfUndeliveredMessage ListUndeliveredMessages(string page = default(string), int? limit = default(int?), string filter = default(string))
         {
-            Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfAccessControlledResource> localVarResponse = ListAccessControlledResourcesWithHttpInfo();
+            Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfUndeliveredMessage> localVarResponse = ListUndeliveredMessagesWithHttpInfo(page, limit, filter);
             return localVarResponse.Data;
         }
 
         /// <summary>
-        /// [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control Get the comprehensive set of resources that are available for access control
+        /// [EXPERIMENTAL] ListUndeliveredMessages: List undelivered messages 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <returns>ApiResponse of ResourceListOfAccessControlledResource</returns>
-        public Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfAccessControlledResource> ListAccessControlledResourcesWithHttpInfo()
+        /// <param name="page"> (optional)</param>
+        /// <param name="limit"> (optional)</param>
+        /// <param name="filter"> (optional)</param>
+        /// <returns>ApiResponse of ResourceListOfUndeliveredMessage</returns>
+        public Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfUndeliveredMessage> ListUndeliveredMessagesWithHttpInfo(string page = default(string), int? limit = default(int?), string filter = default(string))
         {
             Finbourne.Notifications.Sdk.Client.RequestOptions localVarRequestOptions = new Finbourne.Notifications.Sdk.Client.RequestOptions();
 
@@ -218,9 +233,7 @@ namespace Finbourne.Notifications.Sdk.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
+                "application/json"
             };
 
             var localVarContentType = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
@@ -229,6 +242,18 @@ namespace Finbourne.Notifications.Sdk.Api
             var localVarAccept = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
+            if (page != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Finbourne.Notifications.Sdk.Client.ClientUtils.ParameterToMultiMap("", "page", page));
+            }
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Finbourne.Notifications.Sdk.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+            if (filter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Finbourne.Notifications.Sdk.Client.ClientUtils.ParameterToMultiMap("", "filter", filter));
+            }
 
             // authentication (oauth2) required
             // oauth required
@@ -242,11 +267,11 @@ namespace Finbourne.Notifications.Sdk.Api
             localVarRequestOptions.HeaderParameters.Add("X-LUSID-Sdk-Version", "0.1.296");
 
             // make the HTTP request
-            var localVarResponse = this.Client.Get<ResourceListOfAccessControlledResource>("/api/metadata/access/resources", localVarRequestOptions, this.Configuration);
+            var localVarResponse = this.Client.Get<ResourceListOfUndeliveredMessage>("/api/subscriptions/deliveries", localVarRequestOptions, this.Configuration);
 
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("ListAccessControlledResources", localVarResponse);
+                Exception _exception = this.ExceptionFactory("ListUndeliveredMessages", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 
@@ -254,24 +279,30 @@ namespace Finbourne.Notifications.Sdk.Api
         }
 
         /// <summary>
-        /// [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control Get the comprehensive set of resources that are available for access control
+        /// [EXPERIMENTAL] ListUndeliveredMessages: List undelivered messages 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="page"> (optional)</param>
+        /// <param name="limit"> (optional)</param>
+        /// <param name="filter"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ResourceListOfAccessControlledResource</returns>
-        public async System.Threading.Tasks.Task<ResourceListOfAccessControlledResource> ListAccessControlledResourcesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ResourceListOfUndeliveredMessage</returns>
+        public async System.Threading.Tasks.Task<ResourceListOfUndeliveredMessage> ListUndeliveredMessagesAsync(string page = default(string), int? limit = default(int?), string filter = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfAccessControlledResource> localVarResponse = await ListAccessControlledResourcesWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
+            Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfUndeliveredMessage> localVarResponse = await ListUndeliveredMessagesWithHttpInfoAsync(page, limit, filter, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
         /// <summary>
-        /// [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control Get the comprehensive set of resources that are available for access control
+        /// [EXPERIMENTAL] ListUndeliveredMessages: List undelivered messages 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
+        /// <param name="page"> (optional)</param>
+        /// <param name="limit"> (optional)</param>
+        /// <param name="filter"> (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
-        /// <returns>Task of ApiResponse (ResourceListOfAccessControlledResource)</returns>
-        public async System.Threading.Tasks.Task<Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfAccessControlledResource>> ListAccessControlledResourcesWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        /// <returns>Task of ApiResponse (ResourceListOfUndeliveredMessage)</returns>
+        public async System.Threading.Tasks.Task<Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfUndeliveredMessage>> ListUndeliveredMessagesWithHttpInfoAsync(string page = default(string), int? limit = default(int?), string filter = default(string), System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             Finbourne.Notifications.Sdk.Client.RequestOptions localVarRequestOptions = new Finbourne.Notifications.Sdk.Client.RequestOptions();
@@ -281,9 +312,7 @@ namespace Finbourne.Notifications.Sdk.Api
 
             // to determine the Accept header
             String[] _accepts = new String[] {
-                "text/plain",
-                "application/json",
-                "text/json"
+                "application/json"
             };
 
 
@@ -293,6 +322,18 @@ namespace Finbourne.Notifications.Sdk.Api
             var localVarAccept = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderAccept(_accepts);
             if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
+            if (page != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Finbourne.Notifications.Sdk.Client.ClientUtils.ParameterToMultiMap("", "page", page));
+            }
+            if (limit != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Finbourne.Notifications.Sdk.Client.ClientUtils.ParameterToMultiMap("", "limit", limit));
+            }
+            if (filter != null)
+            {
+                localVarRequestOptions.QueryParameters.Add(Finbourne.Notifications.Sdk.Client.ClientUtils.ParameterToMultiMap("", "filter", filter));
+            }
 
             // authentication (oauth2) required
             // oauth required
@@ -307,11 +348,11 @@ namespace Finbourne.Notifications.Sdk.Api
 
             // make the HTTP request
 
-            var localVarResponse = await this.AsynchronousClient.GetAsync<ResourceListOfAccessControlledResource>("/api/metadata/access/resources", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
+            var localVarResponse = await this.AsynchronousClient.GetAsync<ResourceListOfUndeliveredMessage>("/api/subscriptions/deliveries", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
-                Exception _exception = this.ExceptionFactory("ListAccessControlledResources", localVarResponse);
+                Exception _exception = this.ExceptionFactory("ListUndeliveredMessages", localVarResponse);
                 if (_exception != null) throw _exception;
             }
 

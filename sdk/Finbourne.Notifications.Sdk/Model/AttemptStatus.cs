@@ -27,35 +27,33 @@ using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConve
 namespace Finbourne.Notifications.Sdk.Model
 {
     /// <summary>
-    /// The status object of a notification
+    /// AttemptStatus
     /// </summary>
-    [DataContract(Name = "NotificationStatus")]
-    public partial class NotificationStatus : IEquatable<NotificationStatus>
+    [DataContract(Name = "AttemptStatus")]
+    public partial class AttemptStatus : IEquatable<AttemptStatus>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationStatus" /> class.
+        /// Initializes a new instance of the <see cref="AttemptStatus" /> class.
         /// </summary>
-        /// <param name="result">The status of the notification.</param>
-        /// <param name="lastUpdated">The time at which the notification status was last updated.</param>
-        public NotificationStatus(string result = default(string), DateTimeOffset lastUpdated = default(DateTimeOffset))
+        /// <param name="result">result.</param>
+        /// <param name="failureMessage">failureMessage.</param>
+        public AttemptStatus(string result = default(string), string failureMessage = default(string))
         {
             this.Result = result;
-            this.LastUpdated = lastUpdated;
+            this.FailureMessage = failureMessage;
         }
 
         /// <summary>
-        /// The status of the notification
+        /// Gets or Sets Result
         /// </summary>
-        /// <value>The status of the notification</value>
         [DataMember(Name = "result", EmitDefaultValue = true)]
         public string Result { get; set; }
 
         /// <summary>
-        /// The time at which the notification status was last updated
+        /// Gets or Sets FailureMessage
         /// </summary>
-        /// <value>The time at which the notification status was last updated</value>
-        [DataMember(Name = "lastUpdated", EmitDefaultValue = false)]
-        public DateTimeOffset LastUpdated { get; set; }
+        [DataMember(Name = "failureMessage", EmitDefaultValue = true)]
+        public string FailureMessage { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -64,9 +62,9 @@ namespace Finbourne.Notifications.Sdk.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class NotificationStatus {\n");
+            sb.Append("class AttemptStatus {\n");
             sb.Append("  Result: ").Append(Result).Append("\n");
-            sb.Append("  LastUpdated: ").Append(LastUpdated).Append("\n");
+            sb.Append("  FailureMessage: ").Append(FailureMessage).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -87,15 +85,15 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as NotificationStatus);
+            return this.Equals(input as AttemptStatus);
         }
 
         /// <summary>
-        /// Returns true if NotificationStatus instances are equal
+        /// Returns true if AttemptStatus instances are equal
         /// </summary>
-        /// <param name="input">Instance of NotificationStatus to be compared</param>
+        /// <param name="input">Instance of AttemptStatus to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(NotificationStatus input)
+        public bool Equals(AttemptStatus input)
         {
             if (input == null)
                 return false;
@@ -107,9 +105,9 @@ namespace Finbourne.Notifications.Sdk.Model
                     this.Result.Equals(input.Result))
                 ) && 
                 (
-                    this.LastUpdated == input.LastUpdated ||
-                    (this.LastUpdated != null &&
-                    this.LastUpdated.Equals(input.LastUpdated))
+                    this.FailureMessage == input.FailureMessage ||
+                    (this.FailureMessage != null &&
+                    this.FailureMessage.Equals(input.FailureMessage))
                 );
         }
 
@@ -124,8 +122,8 @@ namespace Finbourne.Notifications.Sdk.Model
                 int hashCode = 41;
                 if (this.Result != null)
                     hashCode = hashCode * 59 + this.Result.GetHashCode();
-                if (this.LastUpdated != null)
-                    hashCode = hashCode * 59 + this.LastUpdated.GetHashCode();
+                if (this.FailureMessage != null)
+                    hashCode = hashCode * 59 + this.FailureMessage.GetHashCode();
                 return hashCode;
             }
         }

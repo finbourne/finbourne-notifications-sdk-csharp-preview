@@ -27,28 +27,28 @@ using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConve
 namespace Finbourne.Notifications.Sdk.Model
 {
     /// <summary>
-    /// ResourceListOfNotification
+    /// ResourceListOfUndeliveredMessage
     /// </summary>
-    [DataContract(Name = "ResourceListOfNotification")]
-    public partial class ResourceListOfNotification : IEquatable<ResourceListOfNotification>
+    [DataContract(Name = "ResourceListOfUndeliveredMessage")]
+    public partial class ResourceListOfUndeliveredMessage : IEquatable<ResourceListOfUndeliveredMessage>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResourceListOfNotification" /> class.
+        /// Initializes a new instance of the <see cref="ResourceListOfUndeliveredMessage" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected ResourceListOfNotification() { }
+        protected ResourceListOfUndeliveredMessage() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="ResourceListOfNotification" /> class.
+        /// Initializes a new instance of the <see cref="ResourceListOfUndeliveredMessage" /> class.
         /// </summary>
         /// <param name="values">values (required).</param>
         /// <param name="href">href.</param>
         /// <param name="links">links.</param>
         /// <param name="nextPage">nextPage.</param>
         /// <param name="previousPage">previousPage.</param>
-        public ResourceListOfNotification(List<Notification> values = default(List<Notification>), string href = default(string), List<Link> links = default(List<Link>), string nextPage = default(string), string previousPage = default(string))
+        public ResourceListOfUndeliveredMessage(List<UndeliveredMessage> values = default(List<UndeliveredMessage>), string href = default(string), List<Link> links = default(List<Link>), string nextPage = default(string), string previousPage = default(string))
         {
             // to ensure "values" is required (not null)
-            this.Values = values ?? throw new ArgumentNullException("values is a required property for ResourceListOfNotification and cannot be null");
+            this.Values = values ?? throw new ArgumentNullException("values is a required property for ResourceListOfUndeliveredMessage and cannot be null");
             this.Href = href;
             this.Links = links;
             this.NextPage = nextPage;
@@ -59,7 +59,7 @@ namespace Finbourne.Notifications.Sdk.Model
         /// Gets or Sets Values
         /// </summary>
         [DataMember(Name = "values", IsRequired = true, EmitDefaultValue = false)]
-        public List<Notification> Values { get; set; }
+        public List<UndeliveredMessage> Values { get; set; }
 
         /// <summary>
         /// Gets or Sets Href
@@ -92,7 +92,7 @@ namespace Finbourne.Notifications.Sdk.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class ResourceListOfNotification {\n");
+            sb.Append("class ResourceListOfUndeliveredMessage {\n");
             sb.Append("  Values: ").Append(Values).Append("\n");
             sb.Append("  Href: ").Append(Href).Append("\n");
             sb.Append("  Links: ").Append(Links).Append("\n");
@@ -118,15 +118,15 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as ResourceListOfNotification);
+            return this.Equals(input as ResourceListOfUndeliveredMessage);
         }
 
         /// <summary>
-        /// Returns true if ResourceListOfNotification instances are equal
+        /// Returns true if ResourceListOfUndeliveredMessage instances are equal
         /// </summary>
-        /// <param name="input">Instance of ResourceListOfNotification to be compared</param>
+        /// <param name="input">Instance of ResourceListOfUndeliveredMessage to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(ResourceListOfNotification input)
+        public bool Equals(ResourceListOfUndeliveredMessage input)
         {
             if (input == null)
                 return false;
