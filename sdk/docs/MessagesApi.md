@@ -33,9 +33,9 @@ namespace Example
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new MessagesApi(config);
-            var page = page_example;  // string |  (optional) 
-            var limit = 56;  // int? |  (optional) 
-            var filter = filter_example;  // string |  (optional) 
+            var page = page_example;  // string | Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter field should not be supplied. (optional) 
+            var limit = 56;  // int? | The maximum number of messages to retrieve. (optional) 
+            var filter = filter_example;  // string | Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>. (optional) 
 
             try
             {
@@ -58,9 +58,9 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **page** | **string**|  | [optional] 
- **limit** | **int?**|  | [optional] 
- **filter** | **string**|  | [optional] 
+ **page** | **string**| Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter field should not be supplied. | [optional] 
+ **limit** | **int?**| The maximum number of messages to retrieve. | [optional] 
+ **filter** | **string**| Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. | [optional] 
 
 ### Return type
 
