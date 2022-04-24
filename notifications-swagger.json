@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.300",
+    "version": "0.1.308",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -317,13 +317,13 @@
           {
             "name": "sortBy",
             "in": "query",
-            "description": "Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>.",
+            "description": "Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID.",
             "schema": {
               "maxLength": 16384,
               "minLength": 1,
               "pattern": "^[\\s\\S]*$",
               "type": "string",
-              "description": "Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>.",
+              "description": "Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID.",
               "nullable": true
             }
           },
@@ -571,13 +571,13 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>.",
+            "description": "Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID.",
             "schema": {
               "maxLength": 16384,
               "minLength": 0,
               "pattern": "^[\\s\\S]*$",
               "type": "string",
-              "description": "Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>.",
+              "description": "Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID.",
               "nullable": true
             }
           }
