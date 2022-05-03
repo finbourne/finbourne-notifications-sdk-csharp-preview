@@ -37,7 +37,7 @@ namespace Example
             var apiInstance = new DeliveriesApi(config);
             var page = page_example;  // string | The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied. (optional) 
             var limit = 56;  // int? | The maximum number of delivery attempts to retrieve. Defaults to 5000 if not specified. (optional) 
-            var filter = filter_example;  // string | Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID. (optional) 
+            var filter = filter_example;  // string | Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914. (optional) 
 
             try
             {
@@ -62,7 +62,7 @@ Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
  **page** | **string**| The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied. | [optional] 
  **limit** | **int?**| The maximum number of delivery attempts to retrieve. Defaults to 5000 if not specified. | [optional] 
- **filter** | **string**| Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. | [optional] 
+ **filter** | **string**| Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914. | [optional] 
 
 ### Return type
 
