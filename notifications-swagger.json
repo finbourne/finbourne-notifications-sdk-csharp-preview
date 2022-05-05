@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.328",
+    "version": "0.1.329",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -79,19 +79,19 @@
                 "example": {
   "values": [
     {
-      "id": "4df781c3-34b4-4220-ae34-d96ef4b11d20",
+      "id": "b2a63a04-c85b-41dc-b6f0-b7fcb4ea5898",
       "eventId": "PortfolioCreated",
       "subscriptionId": {
         "scope": "Scope",
         "code": "Code"
       },
-      "notificationId": "5bc6071b-8ad0-495b-a2b2-12b23b5393b5",
+      "notificationId": "d451c6b4-6485-47bb-8986-978be51ce86e",
       "deliveryChannel": "Email",
       "messageDetails": "{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}",
       "attempts": [
         {
           "attemptNumber": 1,
-          "attemptTime": "2022-05-05T15:22:44.1301443+00:00",
+          "attemptTime": "2022-05-05T15:34:29.2044365+00:00",
           "status": {
             "result": "Failed",
             "detailedMessage": "Email server not responding."
@@ -100,19 +100,19 @@
       ]
     },
     {
-      "id": "39d87175-0a27-4a64-b1ad-cc81b152ffe6",
+      "id": "db9fff60-d118-41cc-bba0-1f3c0f5964ef",
       "eventId": "ReconciliationComplete",
       "subscriptionId": {
         "scope": "Scope",
         "code": "Code"
       },
-      "notificationId": "66f0a85f-dc85-405e-90cd-aba4056b2ceb",
+      "notificationId": "ab2af297-2709-4504-bde7-ca75da1c5325",
       "deliveryChannel": "SMS",
       "messageDetails": "{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}",
       "attempts": [
         {
           "attemptNumber": 1,
-          "attemptTime": "2022-05-05T15:22:44.1320177+00:00",
+          "attemptTime": "2022-05-05T15:34:29.2053494+00:00",
           "status": {
             "result": "Failed",
             "detailedMessage": "SMS limit reached."
@@ -241,7 +241,7 @@
             "content": {
               "application/json": {
                 "schema": {
-                  "$ref": "#/components/schemas/NoContent"
+                  "$ref": "#/components/schemas/EventDetails"
                 }
               }
             }
@@ -2773,6 +2773,20 @@
         },
         "additionalProperties": false
       },
+      "EventDetails": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The identifier of the event.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
       "EventTypeSchema": {
         "required": [
           "jsonSchema"
@@ -3050,10 +3064,6 @@
         },
         "additionalProperties": false,
         "description": "A matching pattern object"
-      },
-      "NoContent": {
-        "type": "object",
-        "additionalProperties": false
       },
       "Notification": {
         "required": [

@@ -27,41 +27,31 @@ using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConve
 namespace Finbourne.Notifications.Sdk.Model
 {
     /// <summary>
-    /// Status of the delivery attempt.
+    /// EventDetails
     /// </summary>
-    [DataContract(Name = "AttemptStatus")]
-    public partial class AttemptStatus : IEquatable<AttemptStatus>
+    [DataContract(Name = "EventDetails")]
+    public partial class EventDetails : IEquatable<EventDetails>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AttemptStatus" /> class.
+        /// Initializes a new instance of the <see cref="EventDetails" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected AttemptStatus() { }
+        protected EventDetails() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="AttemptStatus" /> class.
+        /// Initializes a new instance of the <see cref="EventDetails" /> class.
         /// </summary>
-        /// <param name="result">Result of the delivery. (required).</param>
-        /// <param name="detailedMessage">The detailed message from attempting to deliver the message..</param>
-        public AttemptStatus(string result = default(string), string detailedMessage = default(string))
+        /// <param name="id">The identifier of the event. (required).</param>
+        public EventDetails(Guid id = default(Guid))
         {
-            // to ensure "result" is required (not null)
-            this.Result = result ?? throw new ArgumentNullException("result is a required property for AttemptStatus and cannot be null");
-            this.DetailedMessage = detailedMessage;
+            this.Id = id;
         }
 
         /// <summary>
-        /// Result of the delivery.
+        /// The identifier of the event.
         /// </summary>
-        /// <value>Result of the delivery.</value>
-        [DataMember(Name = "result", IsRequired = true, EmitDefaultValue = false)]
-        public string Result { get; set; }
-
-        /// <summary>
-        /// The detailed message from attempting to deliver the message.
-        /// </summary>
-        /// <value>The detailed message from attempting to deliver the message.</value>
-        [DataMember(Name = "detailedMessage", EmitDefaultValue = true)]
-        public string DetailedMessage { get; set; }
+        /// <value>The identifier of the event.</value>
+        [DataMember(Name = "id", IsRequired = true, EmitDefaultValue = false)]
+        public Guid Id { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -70,9 +60,8 @@ namespace Finbourne.Notifications.Sdk.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class AttemptStatus {\n");
-            sb.Append("  Result: ").Append(Result).Append("\n");
-            sb.Append("  DetailedMessage: ").Append(DetailedMessage).Append("\n");
+            sb.Append("class EventDetails {\n");
+            sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -93,29 +82,24 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as AttemptStatus);
+            return this.Equals(input as EventDetails);
         }
 
         /// <summary>
-        /// Returns true if AttemptStatus instances are equal
+        /// Returns true if EventDetails instances are equal
         /// </summary>
-        /// <param name="input">Instance of AttemptStatus to be compared</param>
+        /// <param name="input">Instance of EventDetails to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(AttemptStatus input)
+        public bool Equals(EventDetails input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.Result == input.Result ||
-                    (this.Result != null &&
-                    this.Result.Equals(input.Result))
-                ) && 
-                (
-                    this.DetailedMessage == input.DetailedMessage ||
-                    (this.DetailedMessage != null &&
-                    this.DetailedMessage.Equals(input.DetailedMessage))
+                    this.Id == input.Id ||
+                    (this.Id != null &&
+                    this.Id.Equals(input.Id))
                 );
         }
 
@@ -128,10 +112,8 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Result != null)
-                    hashCode = hashCode * 59 + this.Result.GetHashCode();
-                if (this.DetailedMessage != null)
-                    hashCode = hashCode * 59 + this.DetailedMessage.GetHashCode();
+                if (this.Id != null)
+                    hashCode = hashCode * 59 + this.Id.GetHashCode();
                 return hashCode;
             }
         }

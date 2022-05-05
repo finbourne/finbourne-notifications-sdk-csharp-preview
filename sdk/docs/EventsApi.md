@@ -9,7 +9,7 @@ Method | HTTP request | Description
 
 <a name="createevent"></a>
 # **CreateEvent**
-> Object CreateEvent (Object body)
+> EventDetails CreateEvent (Object body)
 
 [EXPERIMENTAL] CreateEvent: Create a new event.
 
@@ -38,7 +38,7 @@ namespace Example
             try
             {
                 // [EXPERIMENTAL] CreateEvent: Create a new event.
-                Object result = apiInstance.CreateEvent(body);
+                EventDetails result = apiInstance.CreateEvent(body);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -60,7 +60,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-**Object**
+[**EventDetails**](EventDetails.md)
 
 ### Authorization
 
