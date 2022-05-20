@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.359",
+    "version": "0.1.360",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -79,19 +79,19 @@
                 "example": {
   "values": [
     {
-      "id": "7aba6555-e960-42d2-9b27-750afc5a8644",
+      "id": "a0765395-9bc7-439d-b003-07e96826d8fd",
       "eventId": "0f8fad5b-d9cb-469f-a165-70867728950e",
       "subscriptionId": {
         "scope": "Scope",
         "code": "Code"
       },
-      "notificationId": "1f1d32f3-e742-40d0-a79c-5199668f8137",
+      "notificationId": "d4e1d9b2-7ca8-4d5d-87f3-7b4e3deefa9a",
       "deliveryChannel": "Email",
       "messageDetails": "{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}",
       "attempts": [
         {
           "attemptNumber": 1,
-          "attemptTime": "2022-05-20T13:12:02.9926359+00:00",
+          "attemptTime": "2022-05-20T13:24:04.1757361+00:00",
           "status": {
             "result": "Failed",
             "detailedMessage": "Email server not responding."
@@ -100,19 +100,19 @@
       ]
     },
     {
-      "id": "99ee9265-4432-4e0a-9fdb-1f4c58228929",
+      "id": "94bd4d4f-965e-4507-b158-ac99052e61ed",
       "eventId": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
       "subscriptionId": {
         "scope": "Scope",
         "code": "Code"
       },
-      "notificationId": "feda104e-4c9f-4238-b198-f8a1cd3d4bd5",
+      "notificationId": "80f656a2-2c42-428e-aec0-adb7cf35946e",
       "deliveryChannel": "SMS",
       "messageDetails": "{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}",
       "attempts": [
         {
           "attemptNumber": 1,
-          "attemptTime": "2022-05-20T13:12:02.9936504+00:00",
+          "attemptTime": "2022-05-20T13:24:04.1766764+00:00",
           "status": {
             "result": "Failed",
             "detailedMessage": "SMS limit reached."
