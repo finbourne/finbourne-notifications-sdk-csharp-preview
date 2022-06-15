@@ -34,7 +34,7 @@ namespace Example
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new EventTypesApi(config);
-            var eventType = eventType_example;  // string | The event type
+            var eventType = eventType_example;  // string | The event type to retrieve schema for.
 
             try
             {
@@ -57,7 +57,7 @@ namespace Example
 
 Name | Type | Description  | Notes
 ------------- | ------------- | ------------- | -------------
- **eventType** | **string**| The event type | 
+ **eventType** | **string**| The event type to retrieve schema for. | 
 
 ### Return type
 

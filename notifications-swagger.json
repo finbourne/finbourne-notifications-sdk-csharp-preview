@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.385",
+    "version": "0.1.386",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -79,19 +79,19 @@
                 "example": {
   "values": [
     {
-      "id": "9cacdb2c-a040-4295-b44f-d7e6b5cd9688",
+      "id": "b8bebca3-ef98-464f-aa02-f06e7e4eae8f",
       "eventId": "0f8fad5b-d9cb-469f-a165-70867728950e",
       "subscriptionId": {
         "scope": "Scope",
         "code": "Code"
       },
-      "notificationId": "85e66ae4-2924-4981-849e-4e44ce9bf236",
+      "notificationId": "361a18b4-4b7e-4a83-9e7f-6ea7e5e27147",
       "deliveryChannel": "Email",
       "messageDetails": "{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}",
       "attempts": [
         {
           "attemptNumber": 1,
-          "attemptTime": "2022-06-15T14:05:07.1228744+00:00",
+          "attemptTime": "2022-06-15T16:08:52.6182900+00:00",
           "status": {
             "result": "Failed",
             "detailedMessage": "Email server not responding."
@@ -100,19 +100,19 @@
       ]
     },
     {
-      "id": "c5e4ada2-dd98-4314-a874-7eaee1fc2c54",
+      "id": "c518a605-8e16-41bf-ac18-a11ddb646cb7",
       "eventId": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
       "subscriptionId": {
         "scope": "Scope",
         "code": "Code"
       },
-      "notificationId": "7dea2282-77fb-4401-8b89-3db69853ab4d",
+      "notificationId": "4729d897-2836-48f1-9e94-af56306d632f",
       "deliveryChannel": "SMS",
       "messageDetails": "{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}",
       "attempts": [
         {
           "attemptNumber": 1,
-          "attemptTime": "2022-06-15T14:05:07.1239793+00:00",
+          "attemptTime": "2022-06-15T16:08:52.6191587+00:00",
           "status": {
             "result": "Failed",
             "detailedMessage": "SMS limit reached."
@@ -333,11 +333,14 @@
           {
             "name": "eventType",
             "in": "path",
-            "description": "The event type",
+            "description": "The event type to retrieve schema for.",
             "required": true,
             "schema": {
+              "maxLength": 512,
+              "minLength": 0,
+              "pattern": "^[a-zA-Z]*$",
               "type": "string",
-              "description": "The event type"
+              "description": "The event type to retrieve schema for."
             }
           }
         ],
@@ -3050,6 +3053,9 @@
         "type": "object",
         "properties": {
           "eventType": {
+            "maxLength": 512,
+            "minLength": 0,
+            "pattern": "^[a-zA-Z]*$",
             "type": "string",
             "description": "The type of event to subscribe to. Possible values are: Finbourne.Notifications.WebApi.Dtos.MatchingPattern.EventType"
           },
