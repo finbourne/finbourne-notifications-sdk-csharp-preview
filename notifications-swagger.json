@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.399",
+    "version": "0.1.400",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -79,19 +79,19 @@
                 "example": {
   "values": [
     {
-      "id": "b66a23e5-0596-41c4-b61e-ac81ad072149",
+      "id": "e8e2d8d3-0a15-414f-b44a-854cd937ee18",
       "eventId": "0f8fad5b-d9cb-469f-a165-70867728950e",
       "subscriptionId": {
         "scope": "Scope",
         "code": "Code"
       },
-      "notificationId": "1b668328-8f2e-4449-a79f-d9f2fd254634",
+      "notificationId": "9b4d74f0-ca9c-4ecb-983f-c53e75863b26",
       "deliveryChannel": "Email",
       "messageDetails": "{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}",
       "attempts": [
         {
           "attemptNumber": 1,
-          "attemptTime": "2022-06-23T17:46:24.3410062+00:00",
+          "attemptTime": "2021-08-03T12:00:00.0000000+00:00",
           "status": {
             "result": "Failed",
             "detailedMessage": "Email server not responding."
@@ -100,19 +100,19 @@
       ]
     },
     {
-      "id": "b57ca2ab-f716-4861-9368-af8c66c552d3",
+      "id": "ba2ffdbf-1765-457b-97c5-b36b5d4d990e",
       "eventId": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
       "subscriptionId": {
         "scope": "Scope",
         "code": "Code"
       },
-      "notificationId": "4a68e7f5-b570-4ffe-a5bd-f90fb1f917a4",
+      "notificationId": "e3fe3114-43c4-4d06-ae2d-f792fab9b57c",
       "deliveryChannel": "SMS",
       "messageDetails": "{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}",
       "attempts": [
         {
           "attemptNumber": 1,
-          "attemptTime": "2022-06-23T17:46:24.3419140+00:00",
+          "attemptTime": "2021-08-03T12:00:00.0000000+00:00",
           "status": {
             "result": "Failed",
             "detailedMessage": "SMS limit reached."
@@ -647,9 +647,9 @@
     "eventType": "Manual",
     "filter": "Entity eq 'Portfolio'"
   },
-  "createdAt": "0001-01-01T00:00:00.0000000+00:00",
+  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
   "createdBy": "TestClient",
-  "lastModifiedAt": "0001-01-01T00:00:00.0000000+00:00",
+  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
   "lastModifiedBy": "TestClient"
 }
               }
@@ -884,9 +884,9 @@
     "eventType": "Manual",
     "filter": "Entity eq 'Portfolio'"
   },
-  "createdAt": "0001-01-01T00:00:00.0000000+00:00",
+  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
   "createdBy": "TestClient",
-  "lastModifiedAt": "0001-01-01T00:00:00.0000000+00:00",
+  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
   "lastModifiedBy": "TestClient"
 }
               }
@@ -1234,11 +1234,11 @@
   },
   "status": {
     "result": "Sent",
-    "lastUpdated": "0001-01-01T00:00:00.0000000+00:00"
+    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
   },
-  "createdAt": "0001-01-01T00:00:00.0000000+00:00",
+  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
   "createdBy": "TestClient",
-  "lastModifiedAt": "0001-01-01T00:00:00.0000000+00:00",
+  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
   "lastModifiedBy": "TestClient"
 }
               }
@@ -1429,11 +1429,11 @@
   },
   "status": {
     "result": "Sent",
-    "lastUpdated": "0001-01-01T00:00:00.0000000+00:00"
+    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
   },
-  "createdAt": "0001-01-01T00:00:00.0000000+00:00",
+  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
   "createdBy": "TestClient",
-  "lastModifiedAt": "0001-01-01T00:00:00.0000000+00:00",
+  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
   "lastModifiedBy": "TestClient"
 }
               }
@@ -1588,11 +1588,11 @@
   },
   "status": {
     "result": "Sent",
-    "lastUpdated": "0001-01-01T00:00:00.0000000+00:00"
+    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
   },
-  "createdAt": "0001-01-01T00:00:00.0000000+00:00",
+  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
   "createdBy": "TestClient",
-  "lastModifiedAt": "0001-01-01T00:00:00.0000000+00:00",
+  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
   "lastModifiedBy": "TestClient"
 }
               }
@@ -1751,11 +1751,11 @@
   },
   "status": {
     "result": "Sent",
-    "lastUpdated": "0001-01-01T00:00:00.0000000+00:00"
+    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
   },
-  "createdAt": "0001-01-01T00:00:00.0000000+00:00",
+  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
   "createdBy": "TestClient",
-  "lastModifiedAt": "0001-01-01T00:00:00.0000000+00:00",
+  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
   "lastModifiedBy": "TestClient"
 }
               }
@@ -1938,11 +1938,11 @@
   },
   "status": {
     "result": "Sent",
-    "lastUpdated": "0001-01-01T00:00:00.0000000+00:00"
+    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
   },
-  "createdAt": "0001-01-01T00:00:00.0000000+00:00",
+  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
   "createdBy": "TestClient",
-  "lastModifiedAt": "0001-01-01T00:00:00.0000000+00:00",
+  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
   "lastModifiedBy": "TestClient"
 }
               }
@@ -2129,11 +2129,11 @@
   },
   "status": {
     "result": "Sent",
-    "lastUpdated": "0001-01-01T00:00:00.0000000+00:00"
+    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
   },
-  "createdAt": "0001-01-01T00:00:00.0000000+00:00",
+  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
   "createdBy": "TestClient",
-  "lastModifiedAt": "0001-01-01T00:00:00.0000000+00:00",
+  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
   "lastModifiedBy": "TestClient"
 }
               }
@@ -2248,11 +2248,11 @@
   },
   "status": {
     "result": "Sent",
-    "lastUpdated": "0001-01-01T00:00:00.0000000+00:00"
+    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
   },
-  "createdAt": "0001-01-01T00:00:00.0000000+00:00",
+  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
   "createdBy": "TestClient",
-  "lastModifiedAt": "0001-01-01T00:00:00.0000000+00:00",
+  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
   "lastModifiedBy": "TestClient"
 }
               }
@@ -2814,6 +2814,11 @@
           "eventName": {
             "type": "string",
             "description": "Identifier name of the event",
+            "nullable": true
+          },
+          "application": {
+            "type": "string",
+            "description": "The application associated with the event",
             "nullable": true
           },
           "jsonSchema": {

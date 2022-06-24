@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Description** | **string** | The summary of the event | [optional] 
 **Entity** | **string** | The entity against which the event originated | [optional] 
 **EventName** | **string** | Identifier name of the event | [optional] 
+**Application** | **string** | The application associated with the event | [optional] 
 **JsonSchema** | **Object** | The schema of the event | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
