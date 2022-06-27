@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.404",
+    "version": "0.1.405",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -85,7 +85,7 @@
         "scope": "Scope",
         "code": "Code"
       },
-      "notificationId": "a0277eb5-c7d1-477a-b04f-616252ffaea5",
+      "notificationId": "65996d60-27df-4406-bad8-21fbabcdb505",
       "deliveryChannel": "Email",
       "messageDetails": "{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}",
       "attempts": [
