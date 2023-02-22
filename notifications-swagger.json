@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.550",
+    "version": "0.1.553",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -37,9 +37,7 @@
               "maxLength": 500,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\+/]*={0,3}$",
-              "type": "string",
-              "description": "The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied.",
-              "nullable": true
+              "type": "string"
             }
           },
           {
@@ -48,9 +46,7 @@
             "description": "The maximum number of delivery attempts to retrieve. Defaults to 5000 if not specified.",
             "schema": {
               "type": "integer",
-              "description": "The maximum number of delivery attempts to retrieve. Defaults to 5000 if not specified.",
-              "format": "int32",
-              "nullable": true
+              "format": "int32"
             },
             "x-nullable": true
           },
@@ -62,9 +58,7 @@
               "maxLength": 16384,
               "minLength": 0,
               "pattern": "^[\\s\\S]*$",
-              "type": "string",
-              "description": "Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914.",
-              "nullable": true
+              "type": "string"
             }
           }
         ],
@@ -76,54 +70,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfDelivery"
                 },
-                "example": {
-  "values": [
-    {
-      "id": "e8e2d8d3-0a15-414f-b44a-854cd937ee18",
-      "eventId": "0f8fad5b-d9cb-469f-a165-70867728950e",
-      "subscriptionId": {
-        "scope": "Scope",
-        "code": "Code"
-      },
-      "notificationId": "80c1e37a-03b0-4a5d-9f4f-b4638926a57e",
-      "deliveryChannel": "Email",
-      "messageDetails": "{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}",
-      "attempts": [
-        {
-          "attemptNumber": 1,
-          "attemptTime": "2021-08-03T12:00:00.0000000+00:00",
-          "status": {
-            "result": "Failed",
-            "detailedMessage": "Email server not responding."
-          }
-        }
-      ]
-    },
-    {
-      "id": "ba2ffdbf-1765-457b-97c5-b36b5d4d990e",
-      "eventId": "7c9e6679-7425-40de-944b-e07fc1f90ae7",
-      "subscriptionId": {
-        "scope": "Scope",
-        "code": "Code"
-      },
-      "notificationId": "e3fe3114-43c4-4d06-ae2d-f792fab9b57c",
-      "deliveryChannel": "SMS",
-      "messageDetails": "{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}",
-      "attempts": [
-        {
-          "attemptNumber": 1,
-          "attemptTime": "2021-08-03T12:00:00.0000000+00:00",
-          "status": {
-            "result": "Failed",
-            "detailedMessage": "SMS limit reached."
-          }
-        }
-      ]
-    }
-  ],
-  "href": "http://example.com",
-  "links": []
-}
+                "example": {"values":[{"id":"e8e2d8d3-0a15-414f-b44a-854cd937ee18","eventId":"0f8fad5b-d9cb-469f-a165-70867728950e","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"80c1e37a-03b0-4a5d-9f4f-b4638926a57e","deliveryChannel":"Email","messageDetails":"{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"Email server not responding."}}]},{"id":"ba2ffdbf-1765-457b-97c5-b36b5d4d990e","eventId":"7c9e6679-7425-40de-944b-e07fc1f90ae7","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"e3fe3114-43c4-4d06-ae2d-f792fab9b57c","deliveryChannel":"SMS","messageDetails":"{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"SMS limit reached."}}]}],"href":"http://example.com","links":[]}
               }
             }
           },
@@ -177,67 +124,27 @@
           "description": "The data to create an event.",
           "content": {
             "application/json-patch+json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": false,
-                "description": "The data to create an event."
-              },
-              "example": {
-  "eventType": "Manual",
-  "id": "acb5722d-341a-4802-b9fd-cf740a6a7797",
-  "message": "TestMessage",
-  "subject": "TestSubject",
-  "eventTime": "2021-08-27T17:39:02.9427036+01:00"
-}
+              "schema": { },
+              "example": {"eventType":"Manual","id":"acb5722d-341a-4802-b9fd-cf740a6a7797","message":"TestMessage","subject":"TestSubject","eventTime":"2021-08-27T17:39:02.9427036+01:00"}
             },
             "application/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": false,
-                "description": "The data to create an event."
-              },
-              "example": {
-  "eventType": "Manual",
-  "id": "acb5722d-341a-4802-b9fd-cf740a6a7797",
-  "message": "TestMessage",
-  "subject": "TestSubject",
-  "eventTime": "2021-08-27T17:39:02.9427036+01:00"
-}
+              "schema": { },
+              "example": {"eventType":"Manual","id":"acb5722d-341a-4802-b9fd-cf740a6a7797","message":"TestMessage","subject":"TestSubject","eventTime":"2021-08-27T17:39:02.9427036+01:00"}
             },
             "text/json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": false,
-                "description": "The data to create an event."
-              },
-              "example": {
-  "eventType": "Manual",
-  "id": "acb5722d-341a-4802-b9fd-cf740a6a7797",
-  "message": "TestMessage",
-  "subject": "TestSubject",
-  "eventTime": "2021-08-27T17:39:02.9427036+01:00"
-}
+              "schema": { },
+              "example": {"eventType":"Manual","id":"acb5722d-341a-4802-b9fd-cf740a6a7797","message":"TestMessage","subject":"TestSubject","eventTime":"2021-08-27T17:39:02.9427036+01:00"}
             },
             "application/*+json": {
-              "schema": {
-                "type": "object",
-                "additionalProperties": false,
-                "description": "The data to create an event."
-              },
-              "example": {
-  "eventType": "Manual",
-  "id": "acb5722d-341a-4802-b9fd-cf740a6a7797",
-  "message": "TestMessage",
-  "subject": "TestSubject",
-  "eventTime": "2021-08-27T17:39:02.9427036+01:00"
-}
+              "schema": { },
+              "example": {"eventType":"Manual","id":"acb5722d-341a-4802-b9fd-cf740a6a7797","message":"TestMessage","subject":"TestSubject","eventTime":"2021-08-27T17:39:02.9427036+01:00"}
             }
           },
           "required": true
         },
         "responses": {
           "201": {
-            "description": "Success",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
@@ -339,8 +246,7 @@
               "maxLength": 512,
               "minLength": 0,
               "pattern": "^[a-zA-Z]*$",
-              "type": "string",
-              "description": "The event type to retrieve schema for."
+              "type": "string"
             }
           }
         ],
@@ -458,9 +364,7 @@
               "maxLength": 16384,
               "minLength": 0,
               "pattern": "^[\\s\\S]*$",
-              "type": "string",
-              "description": "Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>.",
-              "nullable": true
+              "type": "string"
             }
           },
           {
@@ -471,9 +375,7 @@
               "maxLength": 16384,
               "minLength": 1,
               "pattern": "^[\\s\\S]*$",
-              "type": "string",
-              "description": "Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID.",
-              "nullable": true
+              "type": "string"
             }
           },
           {
@@ -484,9 +386,7 @@
               "maxLength": 500,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\+/]*={0,3}$",
-              "type": "string",
-              "description": "Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied.",
-              "nullable": true
+              "type": "string"
             }
           },
           {
@@ -497,9 +397,7 @@
               "maximum": 5000,
               "minimum": 1,
               "type": "integer",
-              "description": "The maximum number of subscriptions to retrieve.",
-              "format": "int32",
-              "nullable": true
+              "format": "int32"
             },
             "x-nullable": true
           }
@@ -556,102 +454,38 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {
-  "id": {
-    "scope": "TestScope",
-    "code": "TestCode"
-  },
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Message eq 'TestMessage'"
-  }
-}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {
-  "id": {
-    "scope": "TestScope",
-    "code": "TestCode"
-  },
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Message eq 'TestMessage'"
-  }
-}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {
-  "id": {
-    "scope": "TestScope",
-    "code": "TestCode"
-  },
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Message eq 'TestMessage'"
-  }
-}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {
-  "id": {
-    "scope": "TestScope",
-    "code": "TestCode"
-  },
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Message eq 'TestMessage'"
-  }
-}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             }
           },
           "required": true
         },
         "responses": {
           "201": {
-            "description": "Success",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {
-  "id": {
-    "scope": "TestScope",
-    "code": "TestCode"
-  },
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Entity eq 'Portfolio'"
-  },
-  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
-  "createdBy": "TestClient",
-  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
-  "lastModifiedBy": "TestClient"
-}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -701,8 +535,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -714,8 +547,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           }
         ],
@@ -784,8 +616,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -797,8 +628,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           }
         ],
@@ -809,57 +639,25 @@
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Message eq 'TestMessage'"
-  }
-}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Message eq 'TestMessage'"
-  }
-}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Message eq 'TestMessage'"
-  }
-}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Message eq 'TestMessage'"
-  }
-}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             }
           },
           "required": true
@@ -872,23 +670,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {
-  "id": {
-    "scope": "TestScope",
-    "code": "TestCode"
-  },
-  "displayName": "TestDisplayName",
-  "description": "TestDescription",
-  "status": "Active",
-  "matchingPattern": {
-    "eventType": "Manual",
-    "filter": "Entity eq 'Portfolio'"
-  },
-  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
-  "createdBy": "TestClient",
-  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
-  "lastModifiedBy": "TestClient"
-}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -946,8 +728,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -959,14 +740,13 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           }
         ],
         "responses": {
           "204": {
-            "description": "Success"
+            "description": "No Content"
           },
           "400": {
             "description": "The details of the input related failure",
@@ -1024,8 +804,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -1037,8 +816,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           }
         ],
@@ -1109,8 +887,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -1122,8 +899,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           }
         ],
@@ -1134,113 +910,38 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateEmailNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "subject": "Event with id of {{id}}",
-  "plainTextBody": "Event with message {{message}} and subject {{subject}}",
-  "htmlBody": "<p>Event with message {{message}} and subject {{subject}}</p>",
-  "emailAddressTo": [
-    "recipient@finbourne.com"
-  ],
-  "emailAddressCc": [
-    "recipientcc@finbourne.com"
-  ],
-  "emailAddressBcc": [
-    "recipientbcc@finbourne.com"
-  ]
-}
+              "example": {"description":"TestDescription","subject":"Event with id of {{id}}","plainTextBody":"Event with message {{message}} and subject {{subject}}","htmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","emailAddressTo":["recipient@finbourne.com"],"emailAddressCc":["recipientcc@finbourne.com"],"emailAddressBcc":["recipientbcc@finbourne.com"]}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateEmailNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "subject": "Event with id of {{id}}",
-  "plainTextBody": "Event with message {{message}} and subject {{subject}}",
-  "htmlBody": "<p>Event with message {{message}} and subject {{subject}}</p>",
-  "emailAddressTo": [
-    "recipient@finbourne.com"
-  ],
-  "emailAddressCc": [
-    "recipientcc@finbourne.com"
-  ],
-  "emailAddressBcc": [
-    "recipientbcc@finbourne.com"
-  ]
-}
+              "example": {"description":"TestDescription","subject":"Event with id of {{id}}","plainTextBody":"Event with message {{message}} and subject {{subject}}","htmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","emailAddressTo":["recipient@finbourne.com"],"emailAddressCc":["recipientcc@finbourne.com"],"emailAddressBcc":["recipientbcc@finbourne.com"]}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateEmailNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "subject": "Event with id of {{id}}",
-  "plainTextBody": "Event with message {{message}} and subject {{subject}}",
-  "htmlBody": "<p>Event with message {{message}} and subject {{subject}}</p>",
-  "emailAddressTo": [
-    "recipient@finbourne.com"
-  ],
-  "emailAddressCc": [
-    "recipientcc@finbourne.com"
-  ],
-  "emailAddressBcc": [
-    "recipientbcc@finbourne.com"
-  ]
-}
+              "example": {"description":"TestDescription","subject":"Event with id of {{id}}","plainTextBody":"Event with message {{message}} and subject {{subject}}","htmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","emailAddressTo":["recipient@finbourne.com"],"emailAddressCc":["recipientcc@finbourne.com"],"emailAddressBcc":["recipientbcc@finbourne.com"]}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateEmailNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "subject": "Event with id of {{id}}",
-  "plainTextBody": "Event with message {{message}} and subject {{subject}}",
-  "htmlBody": "<p>Event with message {{message}} and subject {{subject}}</p>",
-  "emailAddressTo": [
-    "recipient@finbourne.com"
-  ],
-  "emailAddressCc": [
-    "recipientcc@finbourne.com"
-  ],
-  "emailAddressBcc": [
-    "recipientbcc@finbourne.com"
-  ]
-}
+              "example": {"description":"TestDescription","subject":"Event with id of {{id}}","plainTextBody":"Event with message {{message}} and subject {{subject}}","htmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","emailAddressTo":["recipient@finbourne.com"],"emailAddressCc":["recipientcc@finbourne.com"],"emailAddressBcc":["recipientbcc@finbourne.com"]}
             }
           },
           "required": true
         },
         "responses": {
           "201": {
-            "description": "Success",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {
-  "id": "TestId",
-  "description": "TestDescription",
-  "deliveryChannel": "Email",
-  "recipients": {
-    "to": "dummyEmail"
-  },
-  "content": {
-    "subject": "dummySubject",
-    "body": "dummyBody"
-  },
-  "status": {
-    "result": "Sent",
-    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
-  },
-  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
-  "createdBy": "TestClient",
-  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
-  "lastModifiedBy": "TestClient"
-}
+                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1290,8 +991,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -1303,8 +1003,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -1316,9 +1015,7 @@
               "maxLength": 40,
               "minLength": 30,
               "pattern": "^[a-zA-Z0-9\\-]+$",
-              "type": "string",
-              "description": "The unique identifier of the notification",
-              "nullable": true
+              "type": "string"
             }
           }
         ],
@@ -1329,81 +1026,25 @@
               "schema": {
                 "$ref": "#/components/schemas/UpdateEmailNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "subject": "Event with id of {{id}}",
-  "plainTextBody": "Event with message {{message}} and subject {{subject}}",
-  "htmlBody": "<p>Event with message {{message}} and subject {{subject}}</p>",
-  "emailAddressTo": [
-    "recipient@finbourne.com"
-  ],
-  "emailAddressCc": [
-    "recipientcc@finbourne.com"
-  ],
-  "emailAddressBcc": [
-    "recipientbcc@finbourne.com"
-  ]
-}
+              "example": {"description":"TestDescription","subject":"Event with id of {{id}}","plainTextBody":"Event with message {{message}} and subject {{subject}}","htmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","emailAddressTo":["recipient@finbourne.com"],"emailAddressCc":["recipientcc@finbourne.com"],"emailAddressBcc":["recipientbcc@finbourne.com"]}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateEmailNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "subject": "Event with id of {{id}}",
-  "plainTextBody": "Event with message {{message}} and subject {{subject}}",
-  "htmlBody": "<p>Event with message {{message}} and subject {{subject}}</p>",
-  "emailAddressTo": [
-    "recipient@finbourne.com"
-  ],
-  "emailAddressCc": [
-    "recipientcc@finbourne.com"
-  ],
-  "emailAddressBcc": [
-    "recipientbcc@finbourne.com"
-  ]
-}
+              "example": {"description":"TestDescription","subject":"Event with id of {{id}}","plainTextBody":"Event with message {{message}} and subject {{subject}}","htmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","emailAddressTo":["recipient@finbourne.com"],"emailAddressCc":["recipientcc@finbourne.com"],"emailAddressBcc":["recipientbcc@finbourne.com"]}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateEmailNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "subject": "Event with id of {{id}}",
-  "plainTextBody": "Event with message {{message}} and subject {{subject}}",
-  "htmlBody": "<p>Event with message {{message}} and subject {{subject}}</p>",
-  "emailAddressTo": [
-    "recipient@finbourne.com"
-  ],
-  "emailAddressCc": [
-    "recipientcc@finbourne.com"
-  ],
-  "emailAddressBcc": [
-    "recipientbcc@finbourne.com"
-  ]
-}
+              "example": {"description":"TestDescription","subject":"Event with id of {{id}}","plainTextBody":"Event with message {{message}} and subject {{subject}}","htmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","emailAddressTo":["recipient@finbourne.com"],"emailAddressCc":["recipientcc@finbourne.com"],"emailAddressBcc":["recipientbcc@finbourne.com"]}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateEmailNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "subject": "Event with id of {{id}}",
-  "plainTextBody": "Event with message {{message}} and subject {{subject}}",
-  "htmlBody": "<p>Event with message {{message}} and subject {{subject}}</p>",
-  "emailAddressTo": [
-    "recipient@finbourne.com"
-  ],
-  "emailAddressCc": [
-    "recipientcc@finbourne.com"
-  ],
-  "emailAddressBcc": [
-    "recipientbcc@finbourne.com"
-  ]
-}
+              "example": {"description":"TestDescription","subject":"Event with id of {{id}}","plainTextBody":"Event with message {{message}} and subject {{subject}}","htmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","emailAddressTo":["recipient@finbourne.com"],"emailAddressCc":["recipientcc@finbourne.com"],"emailAddressBcc":["recipientbcc@finbourne.com"]}
             }
           },
           "required": true
@@ -1416,26 +1057,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {
-  "id": "TestId",
-  "description": "TestDescription",
-  "deliveryChannel": "Email",
-  "recipients": {
-    "to": "dummyEmail"
-  },
-  "content": {
-    "subject": "dummySubject",
-    "body": "dummyBody"
-  },
-  "status": {
-    "result": "Sent",
-    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
-  },
-  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
-  "createdBy": "TestClient",
-  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
-  "lastModifiedBy": "TestClient"
-}
+                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1495,8 +1117,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -1508,8 +1129,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           }
         ],
@@ -1520,81 +1140,38 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateSmsNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "body": "Event with message {{message}} and subject {{subject}}",
-  "recipients": [
-    "+447000000000"
-  ]
-}
+              "example": {"description":"TestDescription","body":"Event with message {{message}} and subject {{subject}}","recipients":["+447000000000"]}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSmsNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "body": "Event with message {{message}} and subject {{subject}}",
-  "recipients": [
-    "+447000000000"
-  ]
-}
+              "example": {"description":"TestDescription","body":"Event with message {{message}} and subject {{subject}}","recipients":["+447000000000"]}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSmsNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "body": "Event with message {{message}} and subject {{subject}}",
-  "recipients": [
-    "+447000000000"
-  ]
-}
+              "example": {"description":"TestDescription","body":"Event with message {{message}} and subject {{subject}}","recipients":["+447000000000"]}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSmsNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "body": "Event with message {{message}} and subject {{subject}}",
-  "recipients": [
-    "+447000000000"
-  ]
-}
+              "example": {"description":"TestDescription","body":"Event with message {{message}} and subject {{subject}}","recipients":["+447000000000"]}
             }
           },
           "required": true
         },
         "responses": {
           "201": {
-            "description": "Success",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {
-  "id": "TestId",
-  "description": "TestDescription",
-  "deliveryChannel": "Email",
-  "recipients": {
-    "to": "dummyEmail"
-  },
-  "content": {
-    "subject": "dummySubject",
-    "body": "dummyBody"
-  },
-  "status": {
-    "result": "Sent",
-    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
-  },
-  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
-  "createdBy": "TestClient",
-  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
-  "lastModifiedBy": "TestClient"
-}
+                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1644,8 +1221,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -1657,8 +1233,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -1670,9 +1245,7 @@
               "maxLength": 40,
               "minLength": 30,
               "pattern": "^[a-zA-Z0-9\\-]+$",
-              "type": "string",
-              "description": "The unique identifier of the notification",
-              "nullable": true
+              "type": "string"
             }
           }
         ],
@@ -1683,49 +1256,25 @@
               "schema": {
                 "$ref": "#/components/schemas/UpdateSmsNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "body": "Event with message {{message}} and subject {{subject}}",
-  "recipients": [
-    "+447000000000"
-  ]
-}
+              "example": {"description":"TestDescription","body":"Event with message {{message}} and subject {{subject}}","recipients":["+447000000000"]}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSmsNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "body": "Event with message {{message}} and subject {{subject}}",
-  "recipients": [
-    "+447000000000"
-  ]
-}
+              "example": {"description":"TestDescription","body":"Event with message {{message}} and subject {{subject}}","recipients":["+447000000000"]}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSmsNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "body": "Event with message {{message}} and subject {{subject}}",
-  "recipients": [
-    "+447000000000"
-  ]
-}
+              "example": {"description":"TestDescription","body":"Event with message {{message}} and subject {{subject}}","recipients":["+447000000000"]}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSmsNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "body": "Event with message {{message}} and subject {{subject}}",
-  "recipients": [
-    "+447000000000"
-  ]
-}
+              "example": {"description":"TestDescription","body":"Event with message {{message}} and subject {{subject}}","recipients":["+447000000000"]}
             }
           },
           "required": true
@@ -1738,26 +1287,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {
-  "id": "TestId",
-  "description": "TestDescription",
-  "deliveryChannel": "Email",
-  "recipients": {
-    "to": "dummyEmail"
-  },
-  "content": {
-    "subject": "dummySubject",
-    "body": "dummyBody"
-  },
-  "status": {
-    "result": "Sent",
-    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
-  },
-  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
-  "createdBy": "TestClient",
-  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
-  "lastModifiedBy": "TestClient"
-}
+                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1817,8 +1347,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -1830,8 +1359,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           }
         ],
@@ -1842,109 +1370,38 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateWebhookNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "httpMethod": "Post",
-  "url": "https://example.com/api/{{id}}/path?examplequery={{id}}",
-  "authenticationType": "BearerToken",
-  "authenticationConfigurationItemPaths": {
-    "bearerToken": "config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"
-  },
-  "contentType": "Json",
-  "content": {
-    "Key": "Value Example",
-    "MessageKey": "{{message}}"
-  }
-}
+              "example": {"description":"TestDescription","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"contentType":"Json","content":{"Key":"Value Example","MessageKey":"{{message}}"}}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateWebhookNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "httpMethod": "Post",
-  "url": "https://example.com/api/{{id}}/path?examplequery={{id}}",
-  "authenticationType": "BearerToken",
-  "authenticationConfigurationItemPaths": {
-    "bearerToken": "config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"
-  },
-  "contentType": "Json",
-  "content": {
-    "Key": "Value Example",
-    "MessageKey": "{{message}}"
-  }
-}
+              "example": {"description":"TestDescription","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"contentType":"Json","content":{"Key":"Value Example","MessageKey":"{{message}}"}}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateWebhookNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "httpMethod": "Post",
-  "url": "https://example.com/api/{{id}}/path?examplequery={{id}}",
-  "authenticationType": "BearerToken",
-  "authenticationConfigurationItemPaths": {
-    "bearerToken": "config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"
-  },
-  "contentType": "Json",
-  "content": {
-    "Key": "Value Example",
-    "MessageKey": "{{message}}"
-  }
-}
+              "example": {"description":"TestDescription","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"contentType":"Json","content":{"Key":"Value Example","MessageKey":"{{message}}"}}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateWebhookNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "httpMethod": "Post",
-  "url": "https://example.com/api/{{id}}/path?examplequery={{id}}",
-  "authenticationType": "BearerToken",
-  "authenticationConfigurationItemPaths": {
-    "bearerToken": "config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"
-  },
-  "contentType": "Json",
-  "content": {
-    "Key": "Value Example",
-    "MessageKey": "{{message}}"
-  }
-}
+              "example": {"description":"TestDescription","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"contentType":"Json","content":{"Key":"Value Example","MessageKey":"{{message}}"}}
             }
           },
           "required": true
         },
         "responses": {
           "201": {
-            "description": "Success",
+            "description": "Created",
             "content": {
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {
-  "id": "TestId",
-  "description": "TestDescription",
-  "deliveryChannel": "Email",
-  "recipients": {
-    "to": "dummyEmail"
-  },
-  "content": {
-    "subject": "dummySubject",
-    "body": "dummyBody"
-  },
-  "status": {
-    "result": "Sent",
-    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
-  },
-  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
-  "createdBy": "TestClient",
-  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
-  "lastModifiedBy": "TestClient"
-}
+                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1994,8 +1451,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -2007,8 +1463,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -2020,9 +1475,7 @@
               "maxLength": 40,
               "minLength": 30,
               "pattern": "^[a-zA-Z0-9\\-]+$",
-              "type": "string",
-              "description": "The unique identifier of the notification",
-              "nullable": true
+              "type": "string"
             }
           }
         ],
@@ -2033,77 +1486,25 @@
               "schema": {
                 "$ref": "#/components/schemas/UpdateWebhookNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "httpMethod": "Post",
-  "url": "https://example.com/api/{{id}}/path?examplequery={{id}}",
-  "authenticationType": "BearerToken",
-  "authenticationConfigurationItemPaths": {
-    "bearerToken": "config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"
-  },
-  "contentType": "Json",
-  "content": {
-    "Key": "Value Example",
-    "MessageKey": "{{message}}"
-  }
-}
+              "example": {"description":"TestDescription","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"contentType":"Json","content":{"Key":"Value Example","MessageKey":"{{message}}"}}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateWebhookNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "httpMethod": "Post",
-  "url": "https://example.com/api/{{id}}/path?examplequery={{id}}",
-  "authenticationType": "BearerToken",
-  "authenticationConfigurationItemPaths": {
-    "bearerToken": "config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"
-  },
-  "contentType": "Json",
-  "content": {
-    "Key": "Value Example",
-    "MessageKey": "{{message}}"
-  }
-}
+              "example": {"description":"TestDescription","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"contentType":"Json","content":{"Key":"Value Example","MessageKey":"{{message}}"}}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateWebhookNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "httpMethod": "Post",
-  "url": "https://example.com/api/{{id}}/path?examplequery={{id}}",
-  "authenticationType": "BearerToken",
-  "authenticationConfigurationItemPaths": {
-    "bearerToken": "config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"
-  },
-  "contentType": "Json",
-  "content": {
-    "Key": "Value Example",
-    "MessageKey": "{{message}}"
-  }
-}
+              "example": {"description":"TestDescription","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"contentType":"Json","content":{"Key":"Value Example","MessageKey":"{{message}}"}}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateWebhookNotification"
               },
-              "example": {
-  "description": "TestDescription",
-  "httpMethod": "Post",
-  "url": "https://example.com/api/{{id}}/path?examplequery={{id}}",
-  "authenticationType": "BearerToken",
-  "authenticationConfigurationItemPaths": {
-    "bearerToken": "config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"
-  },
-  "contentType": "Json",
-  "content": {
-    "Key": "Value Example",
-    "MessageKey": "{{message}}"
-  }
-}
+              "example": {"description":"TestDescription","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"contentType":"Json","content":{"Key":"Value Example","MessageKey":"{{message}}"}}
             }
           },
           "required": true
@@ -2116,26 +1517,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {
-  "id": "TestId",
-  "description": "TestDescription",
-  "deliveryChannel": "Email",
-  "recipients": {
-    "to": "dummyEmail"
-  },
-  "content": {
-    "subject": "dummySubject",
-    "body": "dummyBody"
-  },
-  "status": {
-    "result": "Sent",
-    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
-  },
-  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
-  "createdBy": "TestClient",
-  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
-  "lastModifiedBy": "TestClient"
-}
+                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -2195,8 +1577,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -2208,8 +1589,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -2221,9 +1601,7 @@
               "maxLength": 40,
               "minLength": 30,
               "pattern": "^[a-zA-Z0-9\\-]+$",
-              "type": "string",
-              "description": "The unique identifier of the notification",
-              "nullable": true
+              "type": "string"
             }
           }
         ],
@@ -2235,26 +1613,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {
-  "id": "TestId",
-  "description": "TestDescription",
-  "deliveryChannel": "Email",
-  "recipients": {
-    "to": "dummyEmail"
-  },
-  "content": {
-    "subject": "dummySubject",
-    "body": "dummyBody"
-  },
-  "status": {
-    "result": "Sent",
-    "lastUpdated": "2020-06-15T12:00:00.0000000+00:00"
-  },
-  "createdAt": "2020-06-15T12:00:00.0000000+00:00",
-  "createdBy": "TestClient",
-  "lastModifiedAt": "2020-06-20T12:00:00.0000000+00:00",
-  "lastModifiedBy": "TestClient"
-}
+                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -2312,8 +1671,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The scope that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -2325,8 +1683,7 @@
               "maxLength": 64,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
-              "type": "string",
-              "description": "The code that identifies a subscription"
+              "type": "string"
             }
           },
           {
@@ -2338,15 +1695,13 @@
               "maxLength": 40,
               "minLength": 30,
               "pattern": "^[a-zA-Z0-9\\-]+$",
-              "type": "string",
-              "description": "The unique identifier of the notification",
-              "nullable": true
+              "type": "string"
             }
           }
         ],
         "responses": {
           "204": {
-            "description": "Success"
+            "description": "No Content"
           },
           "400": {
             "description": "The details of the input related failure",
@@ -2398,6 +1753,7 @@
         "type": "object",
         "properties": {
           "description": {
+            "minLength": 1,
             "type": "string"
           },
           "action": {
@@ -2436,6 +1792,7 @@
             "nullable": true
           },
           "description": {
+            "minLength": 1,
             "type": "string"
           },
           "actions": {
@@ -2519,6 +1876,7 @@
         "type": "object",
         "properties": {
           "result": {
+            "minLength": 1,
             "type": "string",
             "description": "Result of the delivery."
           },
@@ -2570,8 +1928,8 @@
             "nullable": true
           },
           "emailAddressTo": {
-            "maxLength": 10,
-            "minLength": 1,
+            "maxItems": 10,
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string"
@@ -2579,8 +1937,8 @@
             "description": "'To' recipients of the email"
           },
           "emailAddressCc": {
-            "maxLength": 10,
-            "minLength": 0,
+            "maxItems": 10,
+            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -2589,8 +1947,8 @@
             "nullable": true
           },
           "emailAddressBcc": {
-            "maxLength": 10,
-            "minLength": 0,
+            "maxItems": 10,
+            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -2625,8 +1983,8 @@
             "description": "The body of the SMS"
           },
           "recipients": {
-            "maxLength": 10,
-            "minLength": 1,
+            "maxItems": 10,
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string"
@@ -2665,6 +2023,7 @@
             "description": "The summary of the services provided by the subscription"
           },
           "status": {
+            "minLength": 1,
             "type": "string",
             "description": "The current status of the subscription. Possible values are: Active, Inactive"
           },
@@ -2692,6 +2051,7 @@
             "description": "The summary of the services provided by the notification"
           },
           "httpMethod": {
+            "minLength": 1,
             "type": "string",
             "description": "The HTTP method such as GET, POST, etc. to use on the request"
           },
@@ -2703,13 +2063,15 @@
             "description": "The URL to send the request to"
           },
           "authenticationType": {
+            "minLength": 1,
             "type": "string",
             "description": "The type of authentication to use on the request"
           },
           "authenticationConfigurationItemPaths": {
             "type": "object",
             "additionalProperties": {
-              "type": "string"
+              "type": "string",
+              "nullable": true
             },
             "description": "The paths of the Configuration Store configuration items that contain the authentication configuration. Each\r\nauthentication type requires different keys:\r\n- Lusid - None required\r\n- BasicAuth - Requires 'Username' and 'Password'\r\n- BearerToken - Requires 'BearerToken' and optionally 'BearerScheme'\r\n            \r\ne.g. the following would be valid assuming that the config is present in the configuration store at the\r\nspecified paths:\r\n            \r\n    \"authenticationType\": \"BasicAuth\",\r\n    \"authenticationConfigurationItemPaths\": {\r\n        \"Username\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminUser\",\r\n        \"Password\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminPassword\"\r\n    }",
             "nullable": true
@@ -2720,8 +2082,6 @@
             "nullable": true
           },
           "content": {
-            "type": "object",
-            "additionalProperties": false,
             "description": "The content of the request",
             "nullable": true
           }
@@ -2747,6 +2107,7 @@
             "format": "uuid"
           },
           "eventId": {
+            "minLength": 1,
             "type": "string",
             "description": "The identifier of the associated event."
           },
@@ -2759,10 +2120,12 @@
             "format": "uuid"
           },
           "deliveryChannel": {
+            "minLength": 1,
             "type": "string",
             "description": "The delivery channel of the message."
           },
           "messageDetails": {
+            "minLength": 1,
             "type": "string",
             "description": "The Details of the delivery message as JSON string."
           },
@@ -2822,8 +2185,6 @@
             "nullable": true
           },
           "jsonSchema": {
-            "type": "object",
-            "additionalProperties": false,
             "description": "The schema of the event"
           }
         },
@@ -2845,12 +2206,15 @@
             "format": "int32"
           },
           "name": {
+            "minLength": 1,
             "type": "string"
           },
           "displayName": {
+            "minLength": 1,
             "type": "string"
           },
           "description": {
+            "minLength": 1,
             "type": "string"
           },
           "required": {
@@ -2881,7 +2245,7 @@
             }
           },
           "actions": {
-            "minLength": 1,
+            "minItems": 1,
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/ActionId"
@@ -2935,6 +2299,7 @@
         "type": "object",
         "properties": {
           "name": {
+            "minLength": 1,
             "type": "string"
           },
           "errorDetails": {
@@ -2971,15 +2336,6 @@
           "instance": {
             "type": "string",
             "nullable": true
-          },
-          "extensions": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object",
-              "additionalProperties": false
-            },
-            "nullable": true,
-            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -2992,6 +2348,7 @@
         "type": "object",
         "properties": {
           "name": {
+            "minLength": 1,
             "type": "string"
           },
           "errorDetails": {
@@ -3038,15 +2395,6 @@
           "instance": {
             "type": "string",
             "nullable": true
-          },
-          "extensions": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "object",
-              "additionalProperties": false
-            },
-            "nullable": true,
-            "readOnly": true
           }
         },
         "additionalProperties": false
@@ -3090,6 +2438,7 @@
         "type": "object",
         "properties": {
           "id": {
+            "minLength": 1,
             "type": "string",
             "description": "The identifier of the notification"
           },
@@ -3102,14 +2451,14 @@
             "nullable": true
           },
           "deliveryChannel": {
+            "minLength": 1,
             "type": "string",
             "description": "The medium through which the notification is delivered"
           },
           "recipients": {
             "type": "object",
             "additionalProperties": {
-              "type": "object",
-              "additionalProperties": false
+              "nullable": true
             },
             "description": "Recipient of the notification"
           },
@@ -3117,8 +2466,7 @@
             "maxLength": 5,
             "type": "object",
             "additionalProperties": {
-              "type": "object",
-              "additionalProperties": false
+              "nullable": true
             },
             "description": "The contents of the notification"
           },
@@ -3131,6 +2479,7 @@
             "format": "date-time"
           },
           "createdBy": {
+            "minLength": 1,
             "type": "string",
             "description": "The user who made the subscription"
           },
@@ -3140,6 +2489,7 @@
             "format": "date-time"
           },
           "lastModifiedBy": {
+            "minLength": 1,
             "type": "string",
             "description": "The user who last modified the subscription"
           }
@@ -3379,6 +2729,7 @@
             "$ref": "#/components/schemas/ResourceId"
           },
           "displayName": {
+            "minLength": 1,
             "type": "string",
             "description": "The name of the subscription"
           },
@@ -3388,6 +2739,7 @@
             "nullable": true
           },
           "status": {
+            "minLength": 1,
             "type": "string",
             "description": "The current status of the subscription"
           },
@@ -3400,6 +2752,7 @@
             "format": "date-time"
           },
           "createdBy": {
+            "minLength": 1,
             "type": "string",
             "description": "The user who made the subscription"
           },
@@ -3409,6 +2762,7 @@
             "format": "date-time"
           },
           "lastModifiedBy": {
+            "minLength": 1,
             "type": "string",
             "description": "The user who last modified the subscription"
           }
@@ -3441,6 +2795,7 @@
             "$ref": "#/components/schemas/ResourceId"
           },
           "displayName": {
+            "minLength": 1,
             "type": "string",
             "description": "The name of the subscription"
           },
@@ -3450,6 +2805,7 @@
             "nullable": true
           },
           "status": {
+            "minLength": 1,
             "type": "string",
             "description": "The current status of the subscription"
           },
@@ -3462,6 +2818,7 @@
             "format": "date-time"
           },
           "createdBy": {
+            "minLength": 1,
             "type": "string",
             "description": "The user who made the subscription"
           },
@@ -3471,6 +2828,7 @@
             "format": "date-time"
           },
           "lastModifiedBy": {
+            "minLength": 1,
             "type": "string",
             "description": "The user who last modified the subscription"
           }
@@ -3517,8 +2875,8 @@
             "nullable": true
           },
           "emailAddressTo": {
-            "maxLength": 10,
-            "minLength": 1,
+            "maxItems": 10,
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string"
@@ -3526,8 +2884,8 @@
             "description": "'To' recipients of the email"
           },
           "emailAddressCc": {
-            "maxLength": 10,
-            "minLength": 0,
+            "maxItems": 10,
+            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -3536,8 +2894,8 @@
             "nullable": true
           },
           "emailAddressBcc": {
-            "maxLength": 10,
-            "minLength": 0,
+            "maxItems": 10,
+            "minItems": 0,
             "type": "array",
             "items": {
               "type": "string"
@@ -3572,8 +2930,8 @@
             "description": "The body of the SMS"
           },
           "recipients": {
-            "maxLength": 10,
-            "minLength": 1,
+            "maxItems": 10,
+            "minItems": 1,
             "type": "array",
             "items": {
               "type": "string"
@@ -3608,6 +2966,7 @@
             "description": "The summary of the services provided by the subscription"
           },
           "status": {
+            "minLength": 1,
             "type": "string",
             "description": "The current status of the subscription. Possible values are: Active, Inactive"
           },
@@ -3635,6 +2994,7 @@
             "description": "The summary of the services provided by the notification"
           },
           "httpMethod": {
+            "minLength": 1,
             "type": "string",
             "description": "The HTTP method such as GET, POST, etc. to use on the request"
           },
@@ -3646,13 +3006,15 @@
             "description": "The URL to send the request to"
           },
           "authenticationType": {
+            "minLength": 1,
             "type": "string",
             "description": "The type of authentication to use on the request"
           },
           "authenticationConfigurationItemPaths": {
             "type": "object",
             "additionalProperties": {
-              "type": "string"
+              "type": "string",
+              "nullable": true
             },
             "description": "The paths of the Configuration Store configuration items that contain the authentication configuration. Each\r\nauthentication type requires different keys:\r\n- Lusid - None required\r\n- BasicAuth - Requires 'Username' and 'Password'\r\n- BearerToken - Requires 'BearerToken' and optionally 'BearerScheme'\r\n            \r\ne.g. the following would be valid assuming that the config is present in the configuration store at the\r\nspecified paths:\r\n            \r\n    \"authenticationType\": \"BasicAuth\",\r\n    \"authenticationConfigurationItemPaths\": {\r\n        \"Username\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminUser\",\r\n        \"Password\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminPassword\"\r\n    }",
             "nullable": true
@@ -3663,8 +3025,6 @@
             "nullable": true
           },
           "content": {
-            "type": "object",
-            "additionalProperties": false,
             "description": "The content of the request",
             "nullable": true
           }
