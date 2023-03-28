@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.605",
+    "version": "0.1.614",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -532,7 +532,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -544,7 +544,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -613,7 +613,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -625,7 +625,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -725,7 +725,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -737,7 +737,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -801,7 +801,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -813,7 +813,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -884,7 +884,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -896,7 +896,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -988,7 +988,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1000,7 +1000,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1114,7 +1114,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1126,7 +1126,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1218,7 +1218,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1230,7 +1230,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1344,7 +1344,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1356,7 +1356,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1448,7 +1448,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1460,7 +1460,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1574,7 +1574,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1586,7 +1586,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1668,7 +1668,7 @@
             "description": "The scope that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
@@ -1680,7 +1680,7 @@
             "description": "The code that identifies a subscription",
             "required": true,
             "schema": {
-              "maxLength": 64,
+              "maxLength": 100,
               "minLength": 1,
               "pattern": "^[a-zA-Z0-9\\-_]+$",
               "type": "string"
