@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.616",
+    "version": "0.1.621",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -70,7 +70,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfDelivery"
                 },
-                "example": {"values":[{"id":"e8e2d8d3-0a15-414f-b44a-854cd937ee18","eventId":"0f8fad5b-d9cb-469f-a165-70867728950e","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"80c1e37a-03b0-4a5d-9f4f-b4638926a57e","deliveryChannel":"Email","messageDetails":"{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"Email server not responding."}}]},{"id":"ba2ffdbf-1765-457b-97c5-b36b5d4d990e","eventId":"7c9e6679-7425-40de-944b-e07fc1f90ae7","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"e3fe3114-43c4-4d06-ae2d-f792fab9b57c","deliveryChannel":"SMS","messageDetails":"{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"SMS limit reached."}}]}],"href":"http://example.com","links":[]}
+                "example": {"values":[{"id":"e8e2d8d3-0a15-414f-b44a-854cd937ee18","eventId":"0f8fad5b-d9cb-469f-a165-70867728950e","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"80c1e37a-03b0-4a5d-9f4f-b4638926a57e","deliveryChannel":"Email","messageDetails":"{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"Email server not responding."}}]},{"id":"ba2ffdbf-1765-457b-97c5-b36b5d4d990e","eventId":"7c9e6679-7425-40de-944b-e07fc1f90ae7","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"E3FE3114-43C4-4D06-AE2D-F792FAB9B57C","deliveryChannel":"SMS","messageDetails":"{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"SMS limit reached."}}]}],"href":"http://example.com","links":[]}
               }
             }
           },
@@ -941,7 +941,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1057,7 +1057,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1171,7 +1171,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1287,7 +1287,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1401,7 +1401,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1517,7 +1517,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -1613,7 +1613,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"TestId","description":"TestDescription","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
@@ -2115,9 +2115,9 @@
             "$ref": "#/components/schemas/ResourceId"
           },
           "notificationId": {
+            "minLength": 1,
             "type": "string",
-            "description": "The identifier of the associated notification.",
-            "format": "uuid"
+            "description": "The identifier of the associated notification."
           },
           "deliveryChannel": {
             "minLength": 1,
@@ -2448,6 +2448,14 @@
             "pattern": "^[\\s\\S]*$",
             "type": "string",
             "description": "The summary of the services provided by the notification",
+            "nullable": true
+          },
+          "displayName": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The name of the notification",
             "nullable": true
           },
           "deliveryChannel": {

@@ -7,7 +7,7 @@ Name | Type | Description | Notes
 **Id** | **Guid** | The identifier of the delivery. | 
 **EventId** | **string** | The identifier of the associated event. | 
 **SubscriptionId** | [**ResourceId**](ResourceId.md) |  | 
-**NotificationId** | **Guid** | The identifier of the associated notification. | 
+**NotificationId** | **string** | The identifier of the associated notification. | 
 **DeliveryChannel** | **string** | The delivery channel of the message. | 
 **MessageDetails** | **string** | The Details of the delivery message as JSON string. | 
 **Attempts** | [**List&lt;Attempt&gt;**](Attempt.md) | A list of all the delivery attempts made for this message. | 
