@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.624",
+    "version": "0.1.625",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -2451,8 +2451,8 @@
             "nullable": true
           },
           "displayName": {
-            "maxLength": 512,
-            "minLength": 1,
+            "maxLength": 64,
+            "minLength": 0,
             "pattern": "^[\\s\\S]*$",
             "type": "string",
             "description": "The name of the notification",
