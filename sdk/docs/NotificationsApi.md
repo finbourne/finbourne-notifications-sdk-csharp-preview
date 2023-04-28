@@ -4,16 +4,96 @@ All URIs are relative to *https://www.lusid.com/notifications*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateAwsSqsNotification**](NotificationsApi.md#createawssqsnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/awssqs | [EXPERIMENTAL] CreateAwsSqsNotification: Add an AWS SQS notification to a subscription.
 [**CreateEmailNotification**](NotificationsApi.md#createemailnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/email | [EXPERIMENTAL] CreateEmailNotification: Add an email notification to a subscription.
 [**CreateSmsNotification**](NotificationsApi.md#createsmsnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/sms | [EXPERIMENTAL] CreateSmsNotification: Add an SMS notification to a subscription.
 [**CreateWebhookNotification**](NotificationsApi.md#createwebhooknotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/webhook | [EXPERIMENTAL] CreateWebhookNotification: Add a Webhook notification to a subscription.
 [**DeleteNotification**](NotificationsApi.md#deletenotification) | **DELETE** /api/subscriptions/{scope}/{code}/notifications/{id} | [EXPERIMENTAL] DeleteNotification: Delete a notification for a given subscription.
 [**GetNotification**](NotificationsApi.md#getnotification) | **GET** /api/subscriptions/{scope}/{code}/notifications/{id} | [EXPERIMENTAL] GetNotification: Get a notification on a subscription.
 [**ListNotifications**](NotificationsApi.md#listnotifications) | **GET** /api/subscriptions/{scope}/{code}/notifications | [EXPERIMENTAL] ListNotifications: List all notifications on a subscription.
+[**UpdateAwsSqsNotification**](NotificationsApi.md#updateawssqsnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/awssqs/{id} | [EXPERIMENTAL] UpdateAwsSqsNotification: Update an AWS SQS notification for a given subscription.
 [**UpdateEmailNotification**](NotificationsApi.md#updateemailnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/email/{id} | [EXPERIMENTAL] UpdateEmailNotification: Update an email notification for a given subscription.
 [**UpdateSmsNotification**](NotificationsApi.md#updatesmsnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/sms/{id} | [EXPERIMENTAL] UpdateSmsNotification: Update an SMS notification for a given subscription.
 [**UpdateWebhookNotification**](NotificationsApi.md#updatewebhooknotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/webhook/{id} | [EXPERIMENTAL] UpdateWebhookNotification: Update a Webhook notification for a given subscription.
 
+
+<a name="createawssqsnotification"></a>
+# **CreateAwsSqsNotification**
+> Notification CreateAwsSqsNotification (string scope, string code, CreateAwsSqsNotification createAwsSqsNotification)
+
+[EXPERIMENTAL] CreateAwsSqsNotification: Add an AWS SQS notification to a subscription.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Finbourne.Notifications.Sdk.Api;
+using Finbourne.Notifications.Sdk.Client;
+using Finbourne.Notifications.Sdk.Model;
+
+namespace Example
+{
+    public class CreateAwsSqsNotificationExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.lusid.com/notifications";
+            // Configure OAuth2 access token for authorization: oauth2
+            config.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new NotificationsApi(config);
+            var scope = scope_example;  // string | The scope that identifies a notification
+            var code = code_example;  // string | The code that identifies a notification
+            var createAwsSqsNotification = new CreateAwsSqsNotification(); // CreateAwsSqsNotification | The data to create an message sent to AWS Simple Queue Service
+
+            try
+            {
+                // [EXPERIMENTAL] CreateAwsSqsNotification: Add an AWS SQS notification to a subscription.
+                Notification result = apiInstance.CreateAwsSqsNotification(scope, code, createAwsSqsNotification);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling NotificationsApi.CreateAwsSqsNotification: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scope** | **string**| The scope that identifies a notification | 
+ **code** | **string**| The code that identifies a notification | 
+ **createAwsSqsNotification** | [**CreateAwsSqsNotification**](CreateAwsSqsNotification.md)| The data to create an message sent to AWS Simple Queue Service | 
+
+### Return type
+
+[**Notification**](Notification.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  -  |
+| **400** | The details of the input related failure |  -  |
+| **0** | Error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="createemailnotification"></a>
 # **CreateEmailNotification**
@@ -479,6 +559,87 @@ Name | Type | Description  | Notes
 | **200** | Success |  -  |
 | **400** | The details of the input related failure |  -  |
 | **404** | No notifications exists with the provided filter(s) |  -  |
+| **0** | Error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="updateawssqsnotification"></a>
+# **UpdateAwsSqsNotification**
+> Notification UpdateAwsSqsNotification (string scope, string code, string id, UpdateAwsSqsNotification updateAwsSqsNotification)
+
+[EXPERIMENTAL] UpdateAwsSqsNotification: Update an AWS SQS notification for a given subscription.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Finbourne.Notifications.Sdk.Api;
+using Finbourne.Notifications.Sdk.Client;
+using Finbourne.Notifications.Sdk.Model;
+
+namespace Example
+{
+    public class UpdateAwsSqsNotificationExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.lusid.com/notifications";
+            // Configure OAuth2 access token for authorization: oauth2
+            config.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new NotificationsApi(config);
+            var scope = scope_example;  // string | The scope that identifies a notification
+            var code = code_example;  // string | The code that identifies a notification
+            var id = id_example;  // string | The unique identifier of the notification
+            var updateAwsSqsNotification = new UpdateAwsSqsNotification(); // UpdateAwsSqsNotification | The data to update a notification
+
+            try
+            {
+                // [EXPERIMENTAL] UpdateAwsSqsNotification: Update an AWS SQS notification for a given subscription.
+                Notification result = apiInstance.UpdateAwsSqsNotification(scope, code, id, updateAwsSqsNotification);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling NotificationsApi.UpdateAwsSqsNotification: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scope** | **string**| The scope that identifies a notification | 
+ **code** | **string**| The code that identifies a notification | 
+ **id** | **string**| The unique identifier of the notification | 
+ **updateAwsSqsNotification** | [**UpdateAwsSqsNotification**](UpdateAwsSqsNotification.md)| The data to update a notification | 
+
+### Return type
+
+[**Notification**](Notification.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | No notification exists in current scope |  -  |
 | **0** | Error response |  -  |
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)

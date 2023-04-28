@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.627",
+    "version": "0.1.654",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -843,6 +843,236 @@
           },
           "404": {
             "description": "No notifications exists with the provided filter(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/subscriptions/{scope}/{code}/notifications/awssqs": {
+      "post": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "[EXPERIMENTAL] CreateAwsSqsNotification: Add an AWS SQS notification to a subscription.",
+        "operationId": "CreateAwsSqsNotification",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a notification",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a notification",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The data to create an message sent to AWS Simple Queue Service",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAwsSqsNotification"
+              },
+              "example": {"apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecret","body":"Event with message {{message}}","description":"Example description","queueUrlRef":"config://shared/official/system-a-config/queueUrl"}
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAwsSqsNotification"
+              },
+              "example": {"apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecret","body":"Event with message {{message}}","description":"Example description","queueUrlRef":"config://shared/official/system-a-config/queueUrl"}
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAwsSqsNotification"
+              },
+              "example": {"apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecret","body":"Event with message {{message}}","description":"Example description","queueUrlRef":"config://shared/official/system-a-config/queueUrl"}
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAwsSqsNotification"
+              },
+              "example": {"apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecret","body":"Event with message {{message}}","description":"Example description","queueUrlRef":"config://shared/official/system-a-config/queueUrl"}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                },
+                "example": {"id":"Example id","description":"Example description","displayName":"Example name","deliveryChannel":"AwsSqs","recipients":{"ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecretRef","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/subscriptions/{scope}/{code}/notifications/awssqs/{id}": {
+      "put": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "[EXPERIMENTAL] UpdateAwsSqsNotification: Update an AWS SQS notification for a given subscription.",
+        "operationId": "UpdateAwsSqsNotification",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a notification",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a notification",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the notification",
+            "required": true,
+            "schema": {
+              "maxLength": 40,
+              "minLength": 30,
+              "pattern": "^[a-zA-Z0-9\\-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The data to update a notification",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAwsSqsNotification"
+              },
+              "example": {"apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecret","body":"Event with message {{message}}","description":"Example description","queueUrlRef":"config://shared/official/system-a-config/queueUrl"}
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAwsSqsNotification"
+              },
+              "example": {"apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecret","body":"Event with message {{message}}","description":"Example description","queueUrlRef":"config://shared/official/system-a-config/queueUrl"}
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAwsSqsNotification"
+              },
+              "example": {"apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecret","body":"Event with message {{message}}","description":"Example description","queueUrlRef":"config://shared/official/system-a-config/queueUrl"}
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAwsSqsNotification"
+              },
+              "example": {"apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecret","body":"Event with message {{message}}","description":"Example description","queueUrlRef":"config://shared/official/system-a-config/queueUrl"}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                },
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No notification exists in current scope",
             "content": {
               "application/json": {
                 "schema": {
@@ -1889,6 +2119,49 @@
         "additionalProperties": false,
         "description": "Status of the delivery attempt."
       },
+      "CreateAwsSqsNotification": {
+        "required": [
+          "apiKeyRef",
+          "apiSecretRef",
+          "body",
+          "description",
+          "queueUrlRef"
+        ],
+        "type": "object",
+        "properties": {
+          "apiKeyRef": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to API key from Configuration Store"
+          },
+          "apiSecretRef": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to API secret from Configuration Store"
+          },
+          "body": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The body of the Amazon Queue Message"
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The summary of the services provided by the notification"
+          },
+          "queueUrlRef": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to queue url from Configuration Store"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to create a notification which, when processed, will send an notification to Amazon SQS"
+      },
       "CreateEmailNotification": {
         "required": [
           "description",
@@ -2843,6 +3116,49 @@
         },
         "additionalProperties": false,
         "description": "Subscription that contains its list of notifications"
+      },
+      "UpdateAwsSqsNotification": {
+        "required": [
+          "apiKeyRef",
+          "apiSecretRef",
+          "body",
+          "description",
+          "queueUrlRef"
+        ],
+        "type": "object",
+        "properties": {
+          "apiKeyRef": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to API key from Configuration Store"
+          },
+          "apiSecretRef": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to API secret from Configuration Store"
+          },
+          "body": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The body of the Amazon Queue Message"
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The summary of the services provided by the notification"
+          },
+          "queueUrlRef": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to queue url from Configuration Store"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to create a notification which, when processed, will send an notification to Amazon SQS"
       },
       "UpdateEmailNotification": {
         "required": [
