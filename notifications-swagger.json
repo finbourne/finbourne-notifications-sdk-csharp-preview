@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.668",
+    "version": "0.1.669",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -558,7 +558,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/SubscriptionDetail"
-                }
+                },
+                "example": {"notifications":[{"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}],"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
               }
             }
           },
