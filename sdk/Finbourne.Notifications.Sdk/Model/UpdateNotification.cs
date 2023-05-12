@@ -27,61 +27,61 @@ using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConve
 namespace Finbourne.Notifications.Sdk.Model
 {
     /// <summary>
-    /// The information required to update a subscription
+    /// The information required to update a notification
     /// </summary>
-    [DataContract(Name = "UpdateSubscription")]
-    public partial class UpdateSubscription : IEquatable<UpdateSubscription>
+    [DataContract(Name = "UpdateNotification")]
+    public partial class UpdateNotification : IEquatable<UpdateNotification>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateSubscription" /> class.
+        /// Initializes a new instance of the <see cref="UpdateNotification" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected UpdateSubscription() { }
+        protected UpdateNotification() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateSubscription" /> class.
+        /// Initializes a new instance of the <see cref="UpdateNotification" /> class.
         /// </summary>
-        /// <param name="displayName">The name of the subscription (required).</param>
-        /// <param name="description">The summary of the services provided by the subscription (required).</param>
-        /// <param name="status">The current status of the subscription. Possible values are: Active, Inactive (required).</param>
-        /// <param name="matchingPattern">matchingPattern (required).</param>
-        public UpdateSubscription(string displayName = default(string), string description = default(string), string status = default(string), MatchingPattern matchingPattern = default(MatchingPattern))
+        /// <param name="displayName">The name of the notification.</param>
+        /// <param name="description">The summary of the services provided by the notification (required).</param>
+        /// <param name="notificationType">The type of notification (required).</param>
+        /// <param name="notificationContent">The contents of the notification. (required).</param>
+        public UpdateNotification(string displayName = default(string), string description = default(string), string notificationType = default(string), Object notificationContent = default(Object))
         {
-            // to ensure "displayName" is required (not null)
-            this.DisplayName = displayName ?? throw new ArgumentNullException("displayName is a required property for UpdateSubscription and cannot be null");
             // to ensure "description" is required (not null)
-            this.Description = description ?? throw new ArgumentNullException("description is a required property for UpdateSubscription and cannot be null");
-            // to ensure "status" is required (not null)
-            this.Status = status ?? throw new ArgumentNullException("status is a required property for UpdateSubscription and cannot be null");
-            // to ensure "matchingPattern" is required (not null)
-            this.MatchingPattern = matchingPattern ?? throw new ArgumentNullException("matchingPattern is a required property for UpdateSubscription and cannot be null");
+            this.Description = description ?? throw new ArgumentNullException("description is a required property for UpdateNotification and cannot be null");
+            // to ensure "notificationType" is required (not null)
+            this.NotificationType = notificationType ?? throw new ArgumentNullException("notificationType is a required property for UpdateNotification and cannot be null");
+            // to ensure "notificationContent" is required (not null)
+            this.NotificationContent = notificationContent ?? throw new ArgumentNullException("notificationContent is a required property for UpdateNotification and cannot be null");
+            this.DisplayName = displayName;
         }
 
         /// <summary>
-        /// The name of the subscription
+        /// The name of the notification
         /// </summary>
-        /// <value>The name of the subscription</value>
-        [DataMember(Name = "displayName", IsRequired = true, EmitDefaultValue = false)]
+        /// <value>The name of the notification</value>
+        [DataMember(Name = "displayName", EmitDefaultValue = true)]
         public string DisplayName { get; set; }
 
         /// <summary>
-        /// The summary of the services provided by the subscription
+        /// The summary of the services provided by the notification
         /// </summary>
-        /// <value>The summary of the services provided by the subscription</value>
+        /// <value>The summary of the services provided by the notification</value>
         [DataMember(Name = "description", IsRequired = true, EmitDefaultValue = false)]
         public string Description { get; set; }
 
         /// <summary>
-        /// The current status of the subscription. Possible values are: Active, Inactive
+        /// The type of notification
         /// </summary>
-        /// <value>The current status of the subscription. Possible values are: Active, Inactive</value>
-        [DataMember(Name = "status", IsRequired = true, EmitDefaultValue = false)]
-        public string Status { get; set; }
+        /// <value>The type of notification</value>
+        [DataMember(Name = "notificationType", IsRequired = true, EmitDefaultValue = false)]
+        public string NotificationType { get; set; }
 
         /// <summary>
-        /// Gets or Sets MatchingPattern
+        /// The contents of the notification.
         /// </summary>
-        [DataMember(Name = "matchingPattern", IsRequired = true, EmitDefaultValue = false)]
-        public MatchingPattern MatchingPattern { get; set; }
+        /// <value>The contents of the notification.</value>
+        [DataMember(Name = "notificationContent", IsRequired = true, EmitDefaultValue = true)]
+        public Object NotificationContent { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -90,11 +90,11 @@ namespace Finbourne.Notifications.Sdk.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class UpdateSubscription {\n");
+            sb.Append("class UpdateNotification {\n");
             sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Status: ").Append(Status).Append("\n");
-            sb.Append("  MatchingPattern: ").Append(MatchingPattern).Append("\n");
+            sb.Append("  NotificationType: ").Append(NotificationType).Append("\n");
+            sb.Append("  NotificationContent: ").Append(NotificationContent).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -115,15 +115,15 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as UpdateSubscription);
+            return this.Equals(input as UpdateNotification);
         }
 
         /// <summary>
-        /// Returns true if UpdateSubscription instances are equal
+        /// Returns true if UpdateNotification instances are equal
         /// </summary>
-        /// <param name="input">Instance of UpdateSubscription to be compared</param>
+        /// <param name="input">Instance of UpdateNotification to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(UpdateSubscription input)
+        public bool Equals(UpdateNotification input)
         {
             if (input == null)
                 return false;
@@ -140,14 +140,14 @@ namespace Finbourne.Notifications.Sdk.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
-                    this.Status == input.Status ||
-                    (this.Status != null &&
-                    this.Status.Equals(input.Status))
+                    this.NotificationType == input.NotificationType ||
+                    (this.NotificationType != null &&
+                    this.NotificationType.Equals(input.NotificationType))
                 ) && 
                 (
-                    this.MatchingPattern == input.MatchingPattern ||
-                    (this.MatchingPattern != null &&
-                    this.MatchingPattern.Equals(input.MatchingPattern))
+                    this.NotificationContent == input.NotificationContent ||
+                    (this.NotificationContent != null &&
+                    this.NotificationContent.Equals(input.NotificationContent))
                 );
         }
 
@@ -164,10 +164,10 @@ namespace Finbourne.Notifications.Sdk.Model
                     hashCode = hashCode * 59 + this.DisplayName.GetHashCode();
                 if (this.Description != null)
                     hashCode = hashCode * 59 + this.Description.GetHashCode();
-                if (this.Status != null)
-                    hashCode = hashCode * 59 + this.Status.GetHashCode();
-                if (this.MatchingPattern != null)
-                    hashCode = hashCode * 59 + this.MatchingPattern.GetHashCode();
+                if (this.NotificationType != null)
+                    hashCode = hashCode * 59 + this.NotificationType.GetHashCode();
+                if (this.NotificationContent != null)
+                    hashCode = hashCode * 59 + this.NotificationContent.GetHashCode();
                 return hashCode;
             }
         }

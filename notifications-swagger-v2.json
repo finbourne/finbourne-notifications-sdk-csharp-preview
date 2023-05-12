@@ -1,0 +1,2511 @@
+{
+  "openapi": "3.0.1",
+  "info": {
+    "title": "FINBOURNE Notifications API",
+    "termsOfService": "https://www.finbourne.com/legal/terms-conditions",
+    "contact": {
+      "name": "FINBOURNE Technology",
+      "url": "https://www.finbourne.com",
+      "email": "info@finbourne.com"
+    },
+    "version": "0.1.679",
+    "x-logo": {
+      "url": "https://www.lusid.com/app/assets/logo_white.png",
+      "backgroundColor": "#415464"
+    }
+  },
+  "servers": [
+    {
+      "url": "https://www.lusid.com/notification"
+    }
+  ],
+  "paths": {
+    "/api/deliveries": {
+      "get": {
+        "tags": [
+          "Deliveries"
+        ],
+        "summary": "[EXPERIMENTAL] ListDeliveries: List Deliveries",
+        "description": "Currently only returns deliveries with failed attempts.",
+        "operationId": "ListDeliveries",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied.",
+            "schema": {
+              "maxLength": 500,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\+/]*={0,3}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of delivery attempts to retrieve. Defaults to 5000 if not specified.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-nullable": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914.",
+            "schema": {
+              "maxLength": 16384,
+              "minLength": 0,
+              "pattern": "^[\\s\\S]*$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceListOfDelivery"
+                },
+                "example": {"values":[{"id":"e8e2d8d3-0a15-414f-b44a-854cd937ee18","eventId":"0f8fad5b-d9cb-469f-a165-70867728950e","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"80c1e37a-03b0-4a5d-9f4f-b4638926a57e","deliveryChannel":"Email","messageDetails":"{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"Email server not responding."}}]},{"id":"ba2ffdbf-1765-457b-97c5-b36b5d4d990e","eventId":"7c9e6679-7425-40de-944b-e07fc1f90ae7","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"E3FE3114-43C4-4D06-AE2D-F792FAB9B57C","deliveryChannel":"SMS","messageDetails":"{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"SMS limit reached."}}]}],"href":"http://example.com","links":[]}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No deliveries exists with the provided filter(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/events": {
+      "post": {
+        "tags": [
+          "Events"
+        ],
+        "summary": "[EXPERIMENTAL] CreateEvent: Create a new event.",
+        "operationId": "CreateEvent",
+        "requestBody": {
+          "description": "The data to create an event.",
+          "content": {
+            "application/json-patch+json": {
+              "schema": { },
+              "example": {"eventType":"Manual","id":"acb5722d-341a-4802-b9fd-cf740a6a7797","message":"TestMessage","subject":"TestSubject","eventTime":"2021-08-27T17:39:02.9427036+01:00"}
+            },
+            "application/json": {
+              "schema": { },
+              "example": {"eventType":"Manual","id":"acb5722d-341a-4802-b9fd-cf740a6a7797","message":"TestMessage","subject":"TestSubject","eventTime":"2021-08-27T17:39:02.9427036+01:00"}
+            },
+            "text/json": {
+              "schema": { },
+              "example": {"eventType":"Manual","id":"acb5722d-341a-4802-b9fd-cf740a6a7797","message":"TestMessage","subject":"TestSubject","eventTime":"2021-08-27T17:39:02.9427036+01:00"}
+            },
+            "application/*+json": {
+              "schema": { },
+              "example": {"eventType":"Manual","id":"acb5722d-341a-4802-b9fd-cf740a6a7797","message":"TestMessage","subject":"TestSubject","eventTime":"2021-08-27T17:39:02.9427036+01:00"}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventDetails"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/eventtypes": {
+      "get": {
+        "tags": [
+          "EventTypes"
+        ],
+        "summary": "[EXPERIMENTAL] ListEventTypes: Lists all of the available event types.",
+        "operationId": "ListEventTypes",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceListOfEventTypeSchema"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No event types found",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/eventtypes/{eventType}": {
+      "get": {
+        "tags": [
+          "EventTypes"
+        ],
+        "summary": "[EXPERIMENTAL] GetEventType: Gets the specified event type schema.",
+        "operationId": "GetEventType",
+        "parameters": [
+          {
+            "name": "eventType",
+            "in": "path",
+            "description": "The event type to retrieve schema for.",
+            "required": true,
+            "schema": {
+              "maxLength": 512,
+              "minLength": 0,
+              "pattern": "^[a-zA-Z]*$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/EventTypeSchema"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No event type exists with the specified type",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/metadata/access/resources": {
+      "get": {
+        "tags": [
+          "Application Metadata"
+        ],
+        "summary": "[EARLY ACCESS] ListAccessControlledResources: Get resources available for access control",
+        "description": "Get the comprehensive set of resources that are available for access control",
+        "operationId": "ListAccessControlledResources",
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "text/plain": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceListOfAccessControlledResource"
+                }
+              },
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceListOfAccessControlledResource"
+                }
+              },
+              "text/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceListOfAccessControlledResource"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "EarlyAccess"
+      }
+    },
+    "/api/subscriptions": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "[EXPERIMENTAL] ListSubscriptions: List subscriptions.",
+        "operationId": "ListSubscriptions",
+        "parameters": [
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>.",
+            "schema": {
+              "maxLength": 16384,
+              "minLength": 0,
+              "pattern": "^[\\s\\S]*$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "sortBy",
+            "in": "query",
+            "description": "Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID.",
+            "schema": {
+              "maxLength": 16384,
+              "minLength": 1,
+              "pattern": "^[\\s\\S]*$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "page",
+            "in": "query",
+            "description": "Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied.",
+            "schema": {
+              "maxLength": 500,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\+/]*={0,3}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of subscriptions to retrieve.",
+            "schema": {
+              "maximum": 5000,
+              "minimum": 1,
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-nullable": true
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceListOfSubscription"
+                },
+                "example": {"values":[{"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      },
+      "post": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "[EXPERIMENTAL] CreateSubscription: Create a new subscription.",
+        "operationId": "CreateSubscription",
+        "requestBody": {
+          "description": "The data to create a subscription",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubscription"
+              },
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubscription"
+              },
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubscription"
+              },
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateSubscription"
+              },
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                },
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/subscriptions/{scope}/{code}": {
+      "get": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "[EXPERIMENTAL] GetSubscription: Get a subscription.",
+        "operationId": "GetSubscription",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/SubscriptionDetail"
+                },
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No subscription exists in current scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      },
+      "put": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "[EXPERIMENTAL] UpdateSubscription: Update an existing subscription.",
+        "operationId": "UpdateSubscription",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The data to update a subscription",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubscription"
+              },
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubscription"
+              },
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubscription"
+              },
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateSubscription"
+              },
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Subscription"
+                },
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No subscription exists in current scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      },
+      "delete": {
+        "tags": [
+          "Subscriptions"
+        ],
+        "summary": "[EXPERIMENTAL] DeleteSubscription: Delete a subscription.",
+        "operationId": "DeleteSubscription",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No subscription exists in current scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/subscriptions/{scope}/{code}/notifications": {
+      "get": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "[EXPERIMENTAL] ListNotifications: List all notifications on a subscription.",
+        "operationId": "ListNotifications",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceListOfNotification"
+                }
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No notifications exists with the provided filter(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      },
+      "post": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "[EXPERIMENTAL] CreateNotification: Add a notification to a subscription.",
+        "operationId": "CreateNotification",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The data to create a notification",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNotification"
+              },
+              "examples": {
+                "Create Email Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Email","notificationContent":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]}}
+                },
+                "Create SMS Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Sms","notificationContent":{"Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
+                },
+                "Create Api Request Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"ApiRequest","notificationContent":{"HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Create Webhook Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Webhook","notificationContent":{"HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Create AWS SQS Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":"AmazonSqs","notificationContent":{"Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNotification"
+              },
+              "examples": {
+                "Create Email Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Email","notificationContent":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]}}
+                },
+                "Create SMS Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Sms","notificationContent":{"Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
+                },
+                "Create Api Request Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"ApiRequest","notificationContent":{"HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Create Webhook Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Webhook","notificationContent":{"HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Create AWS SQS Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":"AmazonSqs","notificationContent":{"Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNotification"
+              },
+              "examples": {
+                "Create Email Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Email","notificationContent":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]}}
+                },
+                "Create SMS Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Sms","notificationContent":{"Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
+                },
+                "Create Api Request Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"ApiRequest","notificationContent":{"HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Create Webhook Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Webhook","notificationContent":{"HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Create AWS SQS Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":"AmazonSqs","notificationContent":{"Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateNotification"
+              },
+              "examples": {
+                "Create Email Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Email","notificationContent":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]}}
+                },
+                "Create SMS Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Sms","notificationContent":{"Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
+                },
+                "Create Api Request Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"ApiRequest","notificationContent":{"HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Create Webhook Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":"Webhook","notificationContent":{"HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Create AWS SQS Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":"AmazonSqs","notificationContent":{"Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                },
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/subscriptions/{scope}/{code}/notifications/{id}": {
+      "get": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "[EXPERIMENTAL] GetNotification: Get a notification on a subscription.",
+        "operationId": "GetNotification",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the notification",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                },
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No notification exists in current scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      },
+      "put": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "[EXPERIMENTAL] UpdateNotification: Update an email notification for a given subscription.",
+        "operationId": "UpdateNotification",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the notification",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The data to update a notification",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNotification"
+              },
+              "examples": {
+                "Update Email Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Email","notificationContent":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]}}
+                },
+                "Update SMS Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Sms","notificationContent":{"Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
+                },
+                "Update Api Request Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"ApiRequest","notificationContent":{"HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Update Webhook Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Webhook","notificationContent":{"HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Update AWS SQS Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"AmazonSqs","notificationContent":{"Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                }
+              }
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNotification"
+              },
+              "examples": {
+                "Update Email Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Email","notificationContent":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]}}
+                },
+                "Update SMS Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Sms","notificationContent":{"Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
+                },
+                "Update Api Request Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"ApiRequest","notificationContent":{"HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Update Webhook Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Webhook","notificationContent":{"HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Update AWS SQS Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"AmazonSqs","notificationContent":{"Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                }
+              }
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNotification"
+              },
+              "examples": {
+                "Update Email Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Email","notificationContent":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]}}
+                },
+                "Update SMS Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Sms","notificationContent":{"Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
+                },
+                "Update Api Request Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"ApiRequest","notificationContent":{"HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Update Webhook Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Webhook","notificationContent":{"HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Update AWS SQS Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"AmazonSqs","notificationContent":{"Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                }
+              }
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateNotification"
+              },
+              "examples": {
+                "Update Email Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Email","notificationContent":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]}}
+                },
+                "Update SMS Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Sms","notificationContent":{"Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
+                },
+                "Update Api Request Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"ApiRequest","notificationContent":{"HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Update Webhook Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"Webhook","notificationContent":{"HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
+                },
+                "Update AWS SQS Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":"AmazonSqs","notificationContent":{"Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                }
+              }
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                },
+                "example": {"id":"TestId","description":"TestDescription","displayName":"TestDisplayName","deliveryChannel":"Email","recipients":{"To":"dummyEmail"},"content":{"Subject":"dummySubject","Body":"dummyBody"},"status":{"result":"Sent","lastUpdated":"2020-06-15T12:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No notification exists in current scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      },
+      "delete": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "[EXPERIMENTAL] DeleteNotification: Delete a notification for a given subscription.",
+        "operationId": "DeleteNotification",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a subscription",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the notification",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "No Content"
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No notification exists in current scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "AccessControlledAction": {
+        "required": [
+          "action",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "action": {
+            "$ref": "#/components/schemas/ActionId"
+          },
+          "limitedSet": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdSelectorDefinition"
+            },
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "AccessControlledResource": {
+        "required": [
+          "actions",
+          "description"
+        ],
+        "type": "object",
+        "properties": {
+          "application": {
+            "type": "string",
+            "nullable": true
+          },
+          "name": {
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "actions": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccessControlledAction"
+            }
+          },
+          "identifierParts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/IdentifierPartSchema"
+            },
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ActionId": {
+        "required": [
+          "activity",
+          "entity",
+          "scope"
+        ],
+        "type": "object",
+        "properties": {
+          "scope": {
+            "maxLength": 100,
+            "minLength": 3,
+            "type": "string"
+          },
+          "activity": {
+            "maxLength": 25,
+            "minLength": 3,
+            "type": "string"
+          },
+          "entity": {
+            "maxLength": 25,
+            "minLength": 3,
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "Attempt": {
+        "required": [
+          "attemptNumber",
+          "attemptTime",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "attemptNumber": {
+            "type": "integer",
+            "description": "The attempt number of the delivery.",
+            "format": "int32"
+          },
+          "attemptTime": {
+            "type": "string",
+            "description": "The time that the delivery was attempted.",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/AttemptStatus"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of an attempt of delivery."
+      },
+      "AttemptStatus": {
+        "required": [
+          "result"
+        ],
+        "type": "object",
+        "properties": {
+          "result": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Result of the delivery."
+          },
+          "detailedMessage": {
+            "type": "string",
+            "description": "The detailed message from attempting to deliver the message.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Status of the delivery attempt."
+      },
+      "CreateNotification": {
+        "required": [
+          "description",
+          "notificationContent",
+          "notificationId",
+          "notificationType"
+        ],
+        "type": "object",
+        "properties": {
+          "notificationId": {
+            "maxLength": 100,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9\\-_]+$",
+            "type": "string",
+            "description": "The identifier of the notification."
+          },
+          "displayName": {
+            "maxLength": 64,
+            "minLength": 0,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The name of the notification",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The summary of the services provided by the notification"
+          },
+          "notificationType": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The type of notification"
+          },
+          "notificationContent": {
+            "description": "The contents of the notification."
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to create a notification"
+      },
+      "CreateSubscription": {
+        "required": [
+          "description",
+          "displayName",
+          "id",
+          "matchingPattern",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "displayName": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The name of the subscription"
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The summary of the services provided by the subscription"
+          },
+          "status": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The current status of the subscription. Possible values are: Active, Inactive"
+          },
+          "matchingPattern": {
+            "$ref": "#/components/schemas/MatchingPattern"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to create a subscription"
+      },
+      "Delivery": {
+        "required": [
+          "attempts",
+          "deliveryChannel",
+          "eventId",
+          "id",
+          "messageDetails",
+          "notificationId",
+          "subscriptionId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The identifier of the delivery.",
+            "format": "uuid"
+          },
+          "eventId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The identifier of the associated event."
+          },
+          "subscriptionId": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "notificationId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The identifier of the associated notification."
+          },
+          "deliveryChannel": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The delivery channel of the message."
+          },
+          "messageDetails": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The Details of the delivery message as JSON string."
+          },
+          "attempts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Attempt"
+            },
+            "description": "A list of all the delivery attempts made for this message."
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventDetails": {
+        "required": [
+          "id"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The identifier of the event.",
+            "format": "uuid"
+          }
+        },
+        "additionalProperties": false
+      },
+      "EventTypeSchema": {
+        "required": [
+          "jsonSchema"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The identifier of the event type",
+            "nullable": true
+          },
+          "description": {
+            "type": "string",
+            "description": "The summary of the event",
+            "nullable": true
+          },
+          "entity": {
+            "type": "string",
+            "description": "The entity against which the event originated",
+            "nullable": true
+          },
+          "eventName": {
+            "type": "string",
+            "description": "Identifier name of the event",
+            "nullable": true
+          },
+          "application": {
+            "type": "string",
+            "description": "The application associated with the event",
+            "nullable": true
+          },
+          "jsonSchema": {
+            "description": "The schema of the event"
+          }
+        },
+        "additionalProperties": false,
+        "description": "An EventType object"
+      },
+      "IdentifierPartSchema": {
+        "required": [
+          "description",
+          "displayName",
+          "index",
+          "name",
+          "required"
+        ],
+        "type": "object",
+        "properties": {
+          "index": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "description": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "required": {
+            "type": "boolean"
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "IdSelectorDefinition": {
+        "required": [
+          "actions",
+          "identifier"
+        ],
+        "type": "object",
+        "properties": {
+          "identifier": {
+            "minLength": 1,
+            "type": "object",
+            "additionalProperties": {
+              "type": "string"
+            }
+          },
+          "actions": {
+            "minItems": 1,
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/ActionId"
+            }
+          },
+          "name": {
+            "maxLength": 100,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 1024,
+            "minLength": 0,
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Link": {
+        "required": [
+          "href",
+          "method",
+          "relation"
+        ],
+        "type": "object",
+        "properties": {
+          "relation": {
+            "type": "string"
+          },
+          "href": {
+            "type": "string",
+            "format": "uri"
+          },
+          "description": {
+            "type": "string",
+            "nullable": true
+          },
+          "method": {
+            "type": "string"
+          }
+        },
+        "additionalProperties": false
+      },
+      "LusidProblemDetails": {
+        "required": [
+          "code",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "errorDetails": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "nullable": true
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "LusidValidationProblemDetails": {
+        "required": [
+          "code",
+          "name"
+        ],
+        "type": "object",
+        "properties": {
+          "name": {
+            "minLength": 1,
+            "type": "string"
+          },
+          "errorDetails": {
+            "type": "array",
+            "items": {
+              "type": "object",
+              "additionalProperties": {
+                "type": "string"
+              }
+            },
+            "nullable": true
+          },
+          "code": {
+            "type": "integer",
+            "format": "int32"
+          },
+          "errors": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "array",
+              "items": {
+                "type": "string"
+              }
+            },
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "nullable": true
+          },
+          "title": {
+            "type": "string",
+            "nullable": true
+          },
+          "status": {
+            "type": "integer",
+            "format": "int32",
+            "nullable": true
+          },
+          "detail": {
+            "type": "string",
+            "nullable": true
+          },
+          "instance": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "MatchingPattern": {
+        "required": [
+          "eventType"
+        ],
+        "type": "object",
+        "properties": {
+          "eventType": {
+            "maxLength": 512,
+            "minLength": 0,
+            "pattern": "^[a-zA-Z]*$",
+            "type": "string",
+            "description": "The type of event to subscribe to. Possible values are: Finbourne.Notifications.WebApi.Dtos.MatchingPattern.EventType"
+          },
+          "filter": {
+            "maxLength": 16384,
+            "minLength": 0,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "A filter on the event. See https://support.lusid.com/filtering-results-from-lusid for more information. If not provided, all events will be matched",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "A matching pattern object"
+      },
+      "Notification": {
+        "required": [
+          "content",
+          "createdAt",
+          "createdBy",
+          "deliveryChannel",
+          "id",
+          "lastModifiedAt",
+          "lastModifiedBy",
+          "recipients"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The identifier of the notification"
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The summary of the services provided by the notification",
+            "nullable": true
+          },
+          "displayName": {
+            "maxLength": 64,
+            "minLength": 0,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The name of the notification",
+            "nullable": true
+          },
+          "deliveryChannel": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The medium through which the notification is delivered"
+          },
+          "recipients": {
+            "type": "object",
+            "additionalProperties": {
+              "nullable": true
+            },
+            "description": "Recipient of the notification"
+          },
+          "content": {
+            "maxLength": 5,
+            "type": "object",
+            "additionalProperties": {
+              "nullable": true
+            },
+            "description": "The contents of the notification"
+          },
+          "status": {
+            "$ref": "#/components/schemas/NotificationStatus"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "The time at which the subscription was made",
+            "format": "date-time"
+          },
+          "createdBy": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user who made the subscription"
+          },
+          "lastModifiedAt": {
+            "type": "string",
+            "description": "The time at which the subscription was last modified",
+            "format": "date-time"
+          },
+          "lastModifiedBy": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user who last modified the subscription"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A notification object"
+      },
+      "NotificationStatus": {
+        "type": "object",
+        "properties": {
+          "result": {
+            "type": "string",
+            "description": "The status of the notification",
+            "nullable": true
+          },
+          "lastUpdated": {
+            "type": "string",
+            "description": "The time at which the notification status was last updated",
+            "format": "date-time"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The status object of a notification"
+      },
+      "ResourceId": {
+        "required": [
+          "code",
+          "scope"
+        ],
+        "type": "object",
+        "properties": {
+          "scope": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string",
+            "description": "The scope used to identify an entity"
+          },
+          "code": {
+            "maxLength": 512,
+            "minLength": 1,
+            "type": "string",
+            "description": "The code used to identify an entity"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Identifiers of an entity"
+      },
+      "ResourceListOfAccessControlledResource": {
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/AccessControlledResource"
+            }
+          },
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          },
+          "nextPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousPage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResourceListOfDelivery": {
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Delivery"
+            }
+          },
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          },
+          "nextPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousPage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResourceListOfEventTypeSchema": {
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventTypeSchema"
+            }
+          },
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          },
+          "nextPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousPage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResourceListOfNotification": {
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Notification"
+            }
+          },
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          },
+          "nextPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousPage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "ResourceListOfSubscription": {
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Subscription"
+            }
+          },
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          },
+          "nextPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousPage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
+      "Subscription": {
+        "required": [
+          "createdAt",
+          "createdBy",
+          "displayName",
+          "id",
+          "lastModifiedAt",
+          "lastModifiedBy",
+          "matchingPattern",
+          "modifiedAt",
+          "status",
+          "userIdCreated",
+          "userIdModified"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the subscription"
+          },
+          "description": {
+            "type": "string",
+            "description": "The summary of the services provided by the subscription",
+            "nullable": true
+          },
+          "status": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The current status of the subscription"
+          },
+          "matchingPattern": {
+            "$ref": "#/components/schemas/MatchingPattern"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "The time at which the subscription was made",
+            "format": "date-time"
+          },
+          "userIdCreated": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user who made the subscription"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "description": "The time at which the subscription was last modified",
+            "format": "date-time"
+          },
+          "userIdModified": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user who last modified the subscription"
+          }
+        },
+        "additionalProperties": false,
+        "description": "A subscription object"
+      },
+      "SubscriptionDetail": {
+        "required": [
+          "createdAt",
+          "createdBy",
+          "displayName",
+          "id",
+          "lastModifiedAt",
+          "lastModifiedBy",
+          "matchingPattern",
+          "modifiedAt",
+          "status",
+          "userIdCreated",
+          "userIdModified"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "displayName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The name of the subscription"
+          },
+          "description": {
+            "type": "string",
+            "description": "The summary of the services provided by the subscription",
+            "nullable": true
+          },
+          "status": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The current status of the subscription"
+          },
+          "matchingPattern": {
+            "$ref": "#/components/schemas/MatchingPattern"
+          },
+          "createdAt": {
+            "type": "string",
+            "description": "The time at which the subscription was made",
+            "format": "date-time"
+          },
+          "userIdCreated": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user who made the subscription"
+          },
+          "modifiedAt": {
+            "type": "string",
+            "description": "The time at which the subscription was last modified",
+            "format": "date-time"
+          },
+          "userIdModified": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user who last modified the subscription"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Subscription that contains its list of notifications"
+      },
+      "UpdateNotification": {
+        "required": [
+          "description",
+          "notificationContent",
+          "notificationType"
+        ],
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "maxLength": 64,
+            "minLength": 0,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The name of the notification",
+            "nullable": true
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The summary of the services provided by the notification"
+          },
+          "notificationType": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The type of notification"
+          },
+          "notificationContent": {
+            "description": "The contents of the notification."
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to update a notification"
+      },
+      "UpdateSubscription": {
+        "required": [
+          "description",
+          "displayName",
+          "matchingPattern",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "displayName": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The name of the subscription"
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The summary of the services provided by the subscription"
+          },
+          "status": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The current status of the subscription. Possible values are: Active, Inactive"
+          },
+          "matchingPattern": {
+            "$ref": "#/components/schemas/MatchingPattern"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to update a subscription"
+      }
+    },
+    "securitySchemes": {
+      "oauth2": {
+        "type": "oauth2",
+        "description": "OAuth2 Implicit Grant",
+        "flows": {
+          "implicit": {
+            "authorizationUrl": "https://lusid.okta.com/oauth2/default/v1/authorize",
+            "scopes": { }
+          }
+        }
+      }
+    }
+  },
+  "security": [
+    { }
+  ],
+  "tags": [
+    {
+      "name": "Application Metadata",
+      "description": "Metadata about the application"
+    },
+    {
+      "name": "Deliveries",
+      "description": "Methods for managing attempted message deliveries."
+    },
+    {
+      "name": "EventTypes",
+      "description": "Methods for discovering possible event types."
+    },
+    {
+      "name": "Events",
+      "description": "Methods for triggering events."
+    },
+    {
+      "name": "Notifications",
+      "description": "Methods for managing a subscription's notifications."
+    },
+    {
+      "name": "Subscriptions",
+      "description": "Methods for managing subscriptions"
+    }
+  ],
+  "x-tagGroups": {
+    "name": "API",
+    "tags": [
+      "Application Metadata",
+      "Deliveries",
+      "EventTypes",
+      "Events",
+      "Notifications",
+      "Subscriptions"
+    ]
+  }
+}
