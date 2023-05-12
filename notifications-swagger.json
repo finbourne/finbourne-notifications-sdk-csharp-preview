@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.673",
+    "version": "0.1.679",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -409,7 +409,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfSubscription"
-                }
+                },
+                "example": {"values":[{"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },
@@ -2997,7 +2998,10 @@
           "lastModifiedAt",
           "lastModifiedBy",
           "matchingPattern",
-          "status"
+          "modifiedAt",
+          "status",
+          "userIdCreated",
+          "userIdModified"
         ],
         "type": "object",
         "properties": {
@@ -3030,17 +3034,20 @@
           "createdBy": {
             "minLength": 1,
             "type": "string",
-            "description": "The user who made the subscription"
+            "description": "The user who made the subscription",
+            "readOnly": true
           },
           "lastModifiedAt": {
             "type": "string",
             "description": "The time at which the subscription was last modified",
-            "format": "date-time"
+            "format": "date-time",
+            "readOnly": true
           },
           "lastModifiedBy": {
             "minLength": 1,
             "type": "string",
-            "description": "The user who last modified the subscription"
+            "description": "The user who last modified the subscription",
+            "readOnly": true
           }
         },
         "additionalProperties": false,
@@ -3055,7 +3062,10 @@
           "lastModifiedAt",
           "lastModifiedBy",
           "matchingPattern",
-          "status"
+          "modifiedAt",
+          "status",
+          "userIdCreated",
+          "userIdModified"
         ],
         "type": "object",
         "properties": {
@@ -3096,17 +3106,20 @@
           "createdBy": {
             "minLength": 1,
             "type": "string",
-            "description": "The user who made the subscription"
+            "description": "The user who made the subscription",
+            "readOnly": true
           },
           "lastModifiedAt": {
             "type": "string",
             "description": "The time at which the subscription was last modified",
-            "format": "date-time"
+            "format": "date-time",
+            "readOnly": true
           },
           "lastModifiedBy": {
             "minLength": 1,
             "type": "string",
-            "description": "The user who last modified the subscription"
+            "description": "The user who last modified the subscription",
+            "readOnly": true
           }
         },
         "additionalProperties": false,

@@ -11,9 +11,9 @@ Name | Type | Description | Notes
 **Status** | **string** | The current status of the subscription | 
 **MatchingPattern** | [**MatchingPattern**](MatchingPattern.md) |  | 
 **CreatedAt** | **DateTimeOffset** | The time at which the subscription was made | 
-**CreatedBy** | **string** | The user who made the subscription | 
-**LastModifiedAt** | **DateTimeOffset** | The time at which the subscription was last modified | 
-**LastModifiedBy** | **string** | The user who last modified the subscription | 
+**CreatedBy** | **string** | The user who made the subscription | [readonly] 
+**LastModifiedAt** | **DateTimeOffset** | The time at which the subscription was last modified | [readonly] 
+**LastModifiedBy** | **string** | The user who last modified the subscription | [readonly] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
