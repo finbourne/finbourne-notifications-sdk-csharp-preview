@@ -6,9 +6,9 @@ An EventType object
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **Id** | **string** | The identifier of the event type | [optional] 
+**EventName** | **string** | Identifier name of the event | [optional] [readonly] 
 **Description** | **string** | The summary of the event | [optional] 
 **Entity** | **string** | The entity against which the event originated | [optional] 
-**EventName** | **string** | Identifier name of the event | [optional] 
 **Application** | **string** | The application associated with the event | [optional] 
 **JsonSchema** | **Object** | The schema of the event | 
 

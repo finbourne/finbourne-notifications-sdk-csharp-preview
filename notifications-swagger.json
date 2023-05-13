@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.679",
+    "version": "0.1.683",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -2433,6 +2433,12 @@
             "description": "The identifier of the event type",
             "nullable": true
           },
+          "eventName": {
+            "type": "string",
+            "description": "Identifier name of the event",
+            "nullable": true,
+            "readOnly": true
+          },
           "description": {
             "type": "string",
             "description": "The summary of the event",
@@ -2441,11 +2447,6 @@
           "entity": {
             "type": "string",
             "description": "The entity against which the event originated",
-            "nullable": true
-          },
-          "eventName": {
-            "type": "string",
-            "description": "Identifier name of the event",
             "nullable": true
           },
           "application": {
