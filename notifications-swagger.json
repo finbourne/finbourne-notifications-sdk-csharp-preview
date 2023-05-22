@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.687",
+    "version": "0.1.702",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -2680,7 +2680,7 @@
             "minLength": 0,
             "pattern": "^[a-zA-Z]*$",
             "type": "string",
-            "description": "The type of event to subscribe to. Possible values are: Finbourne.Notifications.WebApi.Dtos.MatchingPattern.EventType"
+            "description": "The type of event to subscribe to. The list of available event types can be discovered\r\nby calling the ‘List available EventTypes’ API endpoint."
           },
           "filter": {
             "maxLength": 16384,
