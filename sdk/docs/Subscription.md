@@ -5,6 +5,7 @@ A subscription object
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**Notifications** | [**List&lt;Notification&gt;**](Notification.md) | List of notifications belonging to a subscription | [optional] [readonly] 
 **Id** | [**ResourceId**](ResourceId.md) |  | 
 **DisplayName** | **string** | The name of the subscription | 
 **Description** | **string** | The summary of the services provided by the subscription | [optional] 

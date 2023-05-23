@@ -163,7 +163,7 @@ void (empty response body)
 
 <a name="getsubscription"></a>
 # **GetSubscription**
-> SubscriptionDetail GetSubscription (string scope, string code)
+> Subscription GetSubscription (string scope, string code)
 
 [EXPERIMENTAL] GetSubscription: Get a subscription.
 
@@ -193,7 +193,7 @@ namespace Example
             try
             {
                 // [EXPERIMENTAL] GetSubscription: Get a subscription.
-                SubscriptionDetail result = apiInstance.GetSubscription(scope, code);
+                Subscription result = apiInstance.GetSubscription(scope, code);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
@@ -216,7 +216,7 @@ Name | Type | Description  | Notes
 
 ### Return type
 
-[**SubscriptionDetail**](SubscriptionDetail.md)
+[**Subscription**](Subscription.md)
 
 ### Authorization
 
