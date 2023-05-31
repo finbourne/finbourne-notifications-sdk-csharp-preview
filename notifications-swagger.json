@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.715",
+    "version": "0.1.716",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -2758,8 +2758,7 @@
           "id": {
             "minLength": 1,
             "type": "string",
-            "description": "The identifier of the notification",
-            "readOnly": true
+            "description": "The identifier of the notification"
           },
           "displayName": {
             "maxLength": 64,
@@ -2808,20 +2807,17 @@
           "createdBy": {
             "minLength": 1,
             "type": "string",
-            "description": "The user who made the subscription",
-            "readOnly": true
+            "description": "The user who made the subscription"
           },
           "lastModifiedAt": {
             "type": "string",
             "description": "The time at which the subscription was last modified",
-            "format": "date-time",
-            "readOnly": true
+            "format": "date-time"
           },
           "lastModifiedBy": {
             "minLength": 1,
             "type": "string",
-            "description": "The user who last modified the subscription",
-            "readOnly": true
+            "description": "The user who last modified the subscription"
           }
         },
         "additionalProperties": false,
