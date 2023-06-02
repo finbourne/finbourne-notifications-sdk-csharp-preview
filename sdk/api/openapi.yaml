@@ -1,0 +1,3431 @@
+openapi: 3.0.1
+info:
+  contact:
+    email: info@finbourne.com
+    name: FINBOURNE Technology
+    url: https://www.finbourne.com
+  termsOfService: https://www.finbourne.com/legal/terms-conditions
+  title: FINBOURNE Notifications API
+  version: 0.1.719
+  x-logo:
+    url: https://www.lusid.com/app/assets/logo_white.png
+    backgroundColor: '#415464'
+servers:
+- url: https://www.lusid.com/notification
+security:
+- {}
+tags:
+- description: Metadata about the application
+  name: Application Metadata
+- description: Methods for managing attempted message deliveries.
+  name: Deliveries
+- description: Methods for discovering possible event types.
+  name: EventTypes
+- description: Methods for triggering events.
+  name: ManualEvent
+- description: Methods for managing a subscription's notifications.
+  name: Notifications
+- description: Methods for managing subscriptions
+  name: Subscriptions
+paths:
+  /api/deliveries:
+    get:
+      description: Currently only returns deliveries with failed attempts.
+      operationId: ListDeliveries
+      parameters:
+      - description: The pagination token to use to continue listing delivery attempts.
+          This value is returned from the previous call. When this field is supplied
+          the filter field should not be supplied.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - description: The maximum number of delivery attempts to retrieve. Defaults
+          to 5000 if not specified.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          type: integer
+        style: form
+        x-nullable: true
+      - description: "Expression to filter the result set. For more information about\
+          \ filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914."
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - id: e8e2d8d3-0a15-414f-b44a-854cd937ee18
+                  eventId: 0f8fad5b-d9cb-469f-a165-70867728950e
+                  subscriptionId:
+                    scope: Scope
+                    code: Code
+                  notificationId: 80c1e37a-03b0-4a5d-9f4f-b4638926a57e
+                  deliveryChannel: Email
+                  messageDetails: "{\"BccAddresses\":[\"AlanShearer@email.com\"],\
+                    \ \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\"\
+                    :[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\"\
+                    , \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\"\
+                    :\"<p>Body</p>\"}"
+                  attempts:
+                  - attemptNumber: 1
+                    attemptTime: 2021-08-03T12:00:00.0000000+00:00
+                    status:
+                      result: Failed
+                      detailedMessage: Email server not responding.
+                - id: ba2ffdbf-1765-457b-97c5-b36b5d4d990e
+                  eventId: 7c9e6679-7425-40de-944b-e07fc1f90ae7
+                  subscriptionId:
+                    scope: Scope
+                    code: Code
+                  notificationId: E3FE3114-43C4-4D06-AE2D-F792FAB9B57C
+                  deliveryChannel: SMS
+                  messageDetails: "{\"Recipient\":\"+447000000000\",\"TextBody\":\"\
+                    Your reconciliation request has completed.\"}"
+                  attempts:
+                  - attemptNumber: 1
+                    attemptTime: 2021-08-03T12:00:00.0000000+00:00
+                    status:
+                      result: Failed
+                      detailedMessage: SMS limit reached.
+                href: http://example.com
+                links: []
+              schema:
+                $ref: '#/components/schemas/ResourceListOfDelivery'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No deliveries exists with the provided filter(s)
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListDeliveries: List Deliveries"
+      tags:
+      - Deliveries
+      x-fbn-apistatus: Experimental
+  /api/eventtypes:
+    get:
+      operationId: ListEventTypes
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfEventTypeSchema'
+          description: Success
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No event types found
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListEventTypes: Lists all of the available event types."
+      tags:
+      - EventTypes
+      x-fbn-apistatus: Experimental
+  /api/eventtypes/{eventType}:
+    get:
+      operationId: GetEventType
+      parameters:
+      - description: The event type to retrieve schema for.
+        explode: false
+        in: path
+        name: eventType
+        required: true
+        schema:
+          maxLength: 512
+          minLength: 0
+          pattern: "^[a-zA-Z]*$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/EventTypeSchema'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No event type exists with the specified type
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetEventType: Gets the specified event type schema."
+      tags:
+      - EventTypes
+      x-fbn-apistatus: Experimental
+  /api/manualevent:
+    post:
+      operationId: TriggerManualEvent
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              Body:
+                subject: TestSubject
+                message: TestMessage
+                jsonMessage:
+                  TestField1: TestValue1
+                  TestField2: TestValue2
+            schema:
+              $ref: '#/components/schemas/ManualEventRequest'
+          application/json:
+            example:
+              Body:
+                subject: TestSubject
+                message: TestMessage
+                jsonMessage:
+                  TestField1: TestValue1
+                  TestField2: TestValue2
+            schema:
+              $ref: '#/components/schemas/ManualEventRequest'
+          text/json:
+            example:
+              Body:
+                subject: TestSubject
+                message: TestMessage
+                jsonMessage:
+                  TestField1: TestValue1
+                  TestField2: TestValue2
+            schema:
+              $ref: '#/components/schemas/ManualEventRequest'
+          application/*+json:
+            example:
+              Body:
+                subject: TestSubject
+                message: TestMessage
+                jsonMessage:
+                  TestField1: TestValue1
+                  TestField2: TestValue2
+            schema:
+              $ref: '#/components/schemas/ManualEventRequest'
+        description: The data required to trigger a manual event.
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              example:
+                header:
+                  timestamp: 1970-01-01T00:00:00.0000000+00:00
+                  eventId: TestEventId
+                  userId: TestUserId
+                  requestId: TestRequestId
+                body:
+                  subject: TestSubject
+                  message: TestMessage
+                  jsonMessage:
+                    TestField1: TestValue1
+                    TestField2: TestValue2
+              schema:
+                $ref: '#/components/schemas/ManualEvent'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] TriggerManualEvent: Trigger a manual event."
+      tags:
+      - ManualEvent
+      x-fbn-apistatus: Experimental
+  /api/metadata/access/resources:
+    get:
+      description: Get the comprehensive set of resources that are available for access
+        control
+      operationId: ListAccessControlledResources
+      responses:
+        "200":
+          content:
+            text/plain:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
+            text/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfAccessControlledResource'
+          description: Success
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EARLY ACCESS] ListAccessControlledResources: Get resources available\
+        \ for access control"
+      tags:
+      - Application Metadata
+      x-fbn-apistatus: EarlyAccess
+  /api/subscriptions:
+    get:
+      operationId: ListSubscriptions
+      parameters:
+      - description: Expression to filter the result set. Read more about <see href="https://support.lusid.com/filtering-results-from-lusid">
+          filtering results from LUSID</see>.
+        explode: true
+        in: query
+        name: filter
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: Fields to order the result set. Read more about <see href="https://support.lusid.com/filtering-results-from-lusid"
+          /> filtering results from LUSID.
+        explode: true
+        in: query
+        name: sortBy
+        required: false
+        schema:
+          maxLength: 16384
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        style: form
+      - description: Encoded page string returned from a previous search result that
+          will retrieve the next page of data. When this field is supplied the filter  field
+          should not be supplied.
+        explode: true
+        in: query
+        name: page
+        required: false
+        schema:
+          maxLength: 500
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\+/]*={0,3}$"
+          type: string
+        style: form
+      - description: The maximum number of subscriptions to retrieve.
+        explode: true
+        in: query
+        name: limit
+        required: false
+        schema:
+          format: int32
+          maximum: 5000
+          minimum: 1
+          type: integer
+        style: form
+        x-nullable: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                values:
+                - id:
+                    scope: TestScope
+                    code: TestCode
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  status: Active
+                  matchingPattern:
+                    eventType: Manual
+                    filter: Entity eq 'Portfolio'
+                  createdAt: 2020-06-15T12:00:00.0000000+00:00
+                  userIdCreated: TestClient
+                  modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                  userIdModified: TestClient
+                href: Test:hrefUriString
+                nextPage: nextString
+                previousPage: previousString
+                links:
+                - relation: NextPage
+                  href: Test:nextUriString
+                  method: GET
+                - relation: PreviousPage
+                  href: Test:previousUriString
+                  method: GET
+              schema:
+                $ref: '#/components/schemas/ResourceListOfSubscription'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListSubscriptions: List subscriptions."
+      tags:
+      - Subscriptions
+      x-fbn-apistatus: Experimental
+    post:
+      operationId: CreateSubscription
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              id:
+                scope: TestScope
+                code: TestCode
+              displayName: TestDisplayName
+              description: TestDescription
+              status: Active
+              matchingPattern:
+                eventType: Manual
+                filter: Message eq 'TestMessage'
+            schema:
+              $ref: '#/components/schemas/CreateSubscription'
+          application/json:
+            example:
+              id:
+                scope: TestScope
+                code: TestCode
+              displayName: TestDisplayName
+              description: TestDescription
+              status: Active
+              matchingPattern:
+                eventType: Manual
+                filter: Message eq 'TestMessage'
+            schema:
+              $ref: '#/components/schemas/CreateSubscription'
+          text/json:
+            example:
+              id:
+                scope: TestScope
+                code: TestCode
+              displayName: TestDisplayName
+              description: TestDescription
+              status: Active
+              matchingPattern:
+                eventType: Manual
+                filter: Message eq 'TestMessage'
+            schema:
+              $ref: '#/components/schemas/CreateSubscription'
+          application/*+json:
+            example:
+              id:
+                scope: TestScope
+                code: TestCode
+              displayName: TestDisplayName
+              description: TestDescription
+              status: Active
+              matchingPattern:
+                eventType: Manual
+                filter: Message eq 'TestMessage'
+            schema:
+              $ref: '#/components/schemas/CreateSubscription'
+        description: The data to create a subscription
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              example:
+                id:
+                  scope: TestScope
+                  code: TestCode
+                displayName: TestDisplayName
+                description: TestDescription
+                status: Active
+                matchingPattern:
+                  eventType: Manual
+                  filter: Entity eq 'Portfolio'
+                createdAt: 2020-06-15T12:00:00.0000000+00:00
+                userIdCreated: TestClient
+                modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                userIdModified: TestClient
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] CreateSubscription: Create a new subscription."
+      tags:
+      - Subscriptions
+      x-fbn-apistatus: Experimental
+  /api/subscriptions/{scope}/{code}:
+    delete:
+      operationId: DeleteSubscription
+      parameters:
+      - description: The scope that identifies a subscription
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a subscription
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No subscription exists in current scope
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] DeleteSubscription: Delete a subscription."
+      tags:
+      - Subscriptions
+      x-fbn-apistatus: Experimental
+    get:
+      operationId: GetSubscription
+      parameters:
+      - description: The scope that identifies a subscription
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a subscription
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id:
+                  scope: TestScope
+                  code: TestCode
+                displayName: TestDisplayName
+                description: TestDescription
+                status: Active
+                matchingPattern:
+                  eventType: Manual
+                  filter: Entity eq 'Portfolio'
+                createdAt: 2020-06-15T12:00:00.0000000+00:00
+                userIdCreated: TestClient
+                modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                userIdModified: TestClient
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No subscription exists in current scope
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetSubscription: Get a subscription."
+      tags:
+      - Subscriptions
+      x-fbn-apistatus: Experimental
+    put:
+      operationId: UpdateSubscription
+      parameters:
+      - description: The scope that identifies a subscription
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a subscription
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            example:
+              displayName: TestDisplayName
+              description: TestDescription
+              status: Active
+              matchingPattern:
+                eventType: Manual
+                filter: Message eq 'TestMessage'
+            schema:
+              $ref: '#/components/schemas/UpdateSubscription'
+          application/json:
+            example:
+              displayName: TestDisplayName
+              description: TestDescription
+              status: Active
+              matchingPattern:
+                eventType: Manual
+                filter: Message eq 'TestMessage'
+            schema:
+              $ref: '#/components/schemas/UpdateSubscription'
+          text/json:
+            example:
+              displayName: TestDisplayName
+              description: TestDescription
+              status: Active
+              matchingPattern:
+                eventType: Manual
+                filter: Message eq 'TestMessage'
+            schema:
+              $ref: '#/components/schemas/UpdateSubscription'
+          application/*+json:
+            example:
+              displayName: TestDisplayName
+              description: TestDescription
+              status: Active
+              matchingPattern:
+                eventType: Manual
+                filter: Message eq 'TestMessage'
+            schema:
+              $ref: '#/components/schemas/UpdateSubscription'
+        description: The data to update a subscription
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                id:
+                  scope: TestScope
+                  code: TestCode
+                displayName: TestDisplayName
+                description: TestDescription
+                status: Active
+                matchingPattern:
+                  eventType: Manual
+                  filter: Entity eq 'Portfolio'
+                createdAt: 2020-06-15T12:00:00.0000000+00:00
+                userIdCreated: TestClient
+                modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                userIdModified: TestClient
+              schema:
+                $ref: '#/components/schemas/Subscription'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No subscription exists in current scope
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] UpdateSubscription: Update an existing subscription."
+      tags:
+      - Subscriptions
+      x-fbn-apistatus: Experimental
+  /api/subscriptions/{scope}/{code}/notifications:
+    get:
+      operationId: ListNotifications
+      parameters:
+      - description: The scope that identifies a subscription
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a subscription
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/ResourceListOfNotification'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No notifications exists with the provided filter(s)
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] ListNotifications: List all notifications on a subscription."
+      tags:
+      - Notifications
+      x-fbn-apistatus: Experimental
+    post:
+      operationId: CreateNotification
+      parameters:
+      - description: The scope that identifies a subscription
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a subscription
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            examples:
+              Create Email Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Email
+                    Subject: "Event with id of {{id}}"
+                    PlainTextBody: "Event with message {{message}} and subject {{subject}}"
+                    HtmlBody: "<p>Event with message {{message}} and subject {{subject}}</p>"
+                    EmailAddressTo:
+                    - recipient@finbourne.com
+                    EmailAddressCc:
+                    - recipientcc@finbourne.com
+                    EmailAddressBcc:
+                    - recipientbcc@finbourne.com
+              Create SMS Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Sms
+                    Body: "Event with message {{message}} and subject {{subject}}"
+                    Recipients:
+                    - +447000000000
+              Create Api Request Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: ApiRequest
+                    HttpMethod: Post
+                    PathAndQuery: "notification/api/{{id}}/path?examplequery={{id}}"
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Create Webhook Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Webhook
+                    HttpMethod: Post
+                    Url: "https://example.com/api/{{id}}/path?examplequery={{id}}"
+                    AuthenticationType: BearerToken
+                    AuthenticationConfigurationItemPaths:
+                      BearerToken: config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken
+                    ContentType: Json
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Create AWS SQS Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: AmazonSqs
+                    Body: "Event with message {{message}}"
+                    ApiKeyRef: config://shared/official/system-a-config/apiKey
+                    ApiSecretRef: config://shared/official/system-a-config/apiSecret
+                    QueueUrlRef: config://shared/official/system-a-config/queueUrl
+            schema:
+              $ref: '#/components/schemas/CreateNotificationRequest'
+          application/json:
+            examples:
+              Create Email Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Email
+                    Subject: "Event with id of {{id}}"
+                    PlainTextBody: "Event with message {{message}} and subject {{subject}}"
+                    HtmlBody: "<p>Event with message {{message}} and subject {{subject}}</p>"
+                    EmailAddressTo:
+                    - recipient@finbourne.com
+                    EmailAddressCc:
+                    - recipientcc@finbourne.com
+                    EmailAddressBcc:
+                    - recipientbcc@finbourne.com
+              Create SMS Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Sms
+                    Body: "Event with message {{message}} and subject {{subject}}"
+                    Recipients:
+                    - +447000000000
+              Create Api Request Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: ApiRequest
+                    HttpMethod: Post
+                    PathAndQuery: "notification/api/{{id}}/path?examplequery={{id}}"
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Create Webhook Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Webhook
+                    HttpMethod: Post
+                    Url: "https://example.com/api/{{id}}/path?examplequery={{id}}"
+                    AuthenticationType: BearerToken
+                    AuthenticationConfigurationItemPaths:
+                      BearerToken: config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken
+                    ContentType: Json
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Create AWS SQS Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: AmazonSqs
+                    Body: "Event with message {{message}}"
+                    ApiKeyRef: config://shared/official/system-a-config/apiKey
+                    ApiSecretRef: config://shared/official/system-a-config/apiSecret
+                    QueueUrlRef: config://shared/official/system-a-config/queueUrl
+            schema:
+              $ref: '#/components/schemas/CreateNotificationRequest'
+          text/json:
+            examples:
+              Create Email Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Email
+                    Subject: "Event with id of {{id}}"
+                    PlainTextBody: "Event with message {{message}} and subject {{subject}}"
+                    HtmlBody: "<p>Event with message {{message}} and subject {{subject}}</p>"
+                    EmailAddressTo:
+                    - recipient@finbourne.com
+                    EmailAddressCc:
+                    - recipientcc@finbourne.com
+                    EmailAddressBcc:
+                    - recipientbcc@finbourne.com
+              Create SMS Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Sms
+                    Body: "Event with message {{message}} and subject {{subject}}"
+                    Recipients:
+                    - +447000000000
+              Create Api Request Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: ApiRequest
+                    HttpMethod: Post
+                    PathAndQuery: "notification/api/{{id}}/path?examplequery={{id}}"
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Create Webhook Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Webhook
+                    HttpMethod: Post
+                    Url: "https://example.com/api/{{id}}/path?examplequery={{id}}"
+                    AuthenticationType: BearerToken
+                    AuthenticationConfigurationItemPaths:
+                      BearerToken: config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken
+                    ContentType: Json
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Create AWS SQS Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: AmazonSqs
+                    Body: "Event with message {{message}}"
+                    ApiKeyRef: config://shared/official/system-a-config/apiKey
+                    ApiSecretRef: config://shared/official/system-a-config/apiSecret
+                    QueueUrlRef: config://shared/official/system-a-config/queueUrl
+            schema:
+              $ref: '#/components/schemas/CreateNotificationRequest'
+          application/*+json:
+            examples:
+              Create Email Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Email
+                    Subject: "Event with id of {{id}}"
+                    PlainTextBody: "Event with message {{message}} and subject {{subject}}"
+                    HtmlBody: "<p>Event with message {{message}} and subject {{subject}}</p>"
+                    EmailAddressTo:
+                    - recipient@finbourne.com
+                    EmailAddressCc:
+                    - recipientcc@finbourne.com
+                    EmailAddressBcc:
+                    - recipientbcc@finbourne.com
+              Create SMS Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Sms
+                    Body: "Event with message {{message}} and subject {{subject}}"
+                    Recipients:
+                    - +447000000000
+              Create Api Request Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: ApiRequest
+                    HttpMethod: Post
+                    PathAndQuery: "notification/api/{{id}}/path?examplequery={{id}}"
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Create Webhook Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: TestDescription
+                  notificationType:
+                    Type: Webhook
+                    HttpMethod: Post
+                    Url: "https://example.com/api/{{id}}/path?examplequery={{id}}"
+                    AuthenticationType: BearerToken
+                    AuthenticationConfigurationItemPaths:
+                      BearerToken: config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken
+                    ContentType: Json
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Create AWS SQS Notification:
+                value:
+                  notificationId: TestId
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: AmazonSqs
+                    Body: "Event with message {{message}}"
+                    ApiKeyRef: config://shared/official/system-a-config/apiKey
+                    ApiSecretRef: config://shared/official/system-a-config/apiSecret
+                    QueueUrlRef: config://shared/official/system-a-config/queueUrl
+            schema:
+              $ref: '#/components/schemas/CreateNotificationRequest'
+        description: The data to create a notification
+        required: true
+      responses:
+        "201":
+          content:
+            application/json:
+              examples:
+                Email Notification:
+                  value:
+                    notificationId: Example id
+                    displayName: Example name
+                    description: Example description
+                    notificationType:
+                      Type: Email
+                      Subject: "Event with id of {{id}}"
+                      PlainTextBody: "Event with message {{message}} and subject {{subject}}"
+                      HtmlBody: "<p>Event with message {{message}} and subject {{subject}}</p>"
+                      EmailAddressTo:
+                      - recipient@finbourne.com
+                      EmailAddressCc:
+                      - recipientcc@finbourne.com
+                      EmailAddressBcc:
+                      - recipientbcc@finbourne.com
+                    createdAt: 2020-06-15T12:00:00.0000000+00:00
+                    userIdCreated: Example user
+                    modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                    userIdModified: Example user
+                SMS Notification:
+                  value:
+                    notificationId: Example id
+                    displayName: Example name
+                    description: Example description
+                    notificationType:
+                      Type: Sms
+                      Body: "Event with message {{message}} and subject {{subject}}"
+                      Recipients:
+                      - +447000000000
+                    createdAt: 2020-06-15T12:00:00.0000000+00:00
+                    userIdCreated: Example user
+                    modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                    userIdModified: Example user
+                Api Request Notification:
+                  value:
+                    notificationId: Example id
+                    displayName: Example name
+                    description: Example description
+                    notificationType:
+                      Type: ApiRequest
+                      HttpMethod: Post
+                      PathAndQuery: "notification/api/{{id}}/path?examplequery={{id}}"
+                      Content:
+                        Key: Value Example
+                        MessageKey: "{{message}}"
+                    createdAt: 2020-06-15T12:00:00.0000000+00:00
+                    userIdCreated: Example user
+                    modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                    userIdModified: Example user
+                Webhook Notification:
+                  value:
+                    notificationId: Example id
+                    displayName: Example name
+                    description: Example description
+                    notificationType:
+                      Content:
+                        Key: Value Example
+                        MessageKey: "{{message}}"
+                      Type: Webhook
+                      HttpMethod: Post
+                      Url: "https://example.com/api/{{id}}/path?examplequery={{id}}"
+                      AuthenticationType: BearerToken
+                      ContentType: Json
+                      AuthenticationConfigurationItemPaths:
+                        BearerToken: config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken
+                    createdAt: 2020-06-15T12:00:00.0000000+00:00
+                    userIdCreated: Example user
+                    modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                    userIdModified: Example user
+                AWS SQS Notification:
+                  value:
+                    notificationId: Example id
+                    displayName: Example name
+                    description: Example description
+                    notificationType:
+                      Type: AmazonSqs
+                      Body: "Event with message {{message}}"
+                      ApiKeyRef: config://shared/official/system-a-config/apiKey
+                      ApiSecretRef: config://shared/official/system-a-config/apiSecretRef
+                      QueueUrlRef: config://shared/official/system-a-config/queueUrl
+                    createdAt: 2020-06-15T12:00:00.0000000+00:00
+                    userIdCreated: Example user
+                    modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                    userIdModified: Example user
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: Created
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] CreateNotification: Add a Notification to a Subscription."
+      tags:
+      - Notifications
+      x-fbn-apistatus: Experimental
+  /api/subscriptions/{scope}/{code}/notifications/{id}:
+    delete:
+      operationId: DeleteNotification
+      parameters:
+      - description: The scope that identifies a subscription
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a subscription
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The unique identifier of the notification
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "204":
+          description: No Content
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No notification exists in current scope
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] DeleteNotification: Delete a notification for a given\
+        \ subscription."
+      tags:
+      - Notifications
+      x-fbn-apistatus: Experimental
+    get:
+      operationId: GetNotification
+      parameters:
+      - description: The scope that identifies a subscription
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a subscription
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The unique identifier of the notification
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          type: string
+        style: simple
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                notificationId: Example id
+                displayName: Example name
+                description: Example description
+                notificationType:
+                  Type: AmazonSqs
+                  Body: "Event with message {{message}}"
+                  ApiKeyRef: config://shared/official/system-a-config/apiKey
+                  ApiSecretRef: config://shared/official/system-a-config/apiSecretRef
+                  QueueUrlRef: config://shared/official/system-a-config/queueUrl
+                createdAt: 2020-06-15T12:00:00.0000000+00:00
+                userIdCreated: Example user
+                modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                userIdModified: Example user
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No notification exists in current scope
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] GetNotification: Get a notification on a subscription."
+      tags:
+      - Notifications
+      x-fbn-apistatus: Experimental
+    put:
+      operationId: UpdateNotification
+      parameters:
+      - description: The scope that identifies a subscription
+        explode: false
+        in: path
+        name: scope
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The code that identifies a subscription
+        explode: false
+        in: path
+        name: code
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      - description: The unique identifier of the notification
+        explode: false
+        in: path
+        name: id
+        required: true
+        schema:
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        style: simple
+      requestBody:
+        content:
+          application/json-patch+json:
+            examples:
+              Update Email Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Email
+                    Subject: "Event with id of {{id}}"
+                    PlainTextBody: "Event with message {{message}} and subject {{subject}}"
+                    HtmlBody: "<p>Event with message {{message}} and subject {{subject}}</p>"
+                    EmailAddressTo:
+                    - recipient@finbourne.com
+                    EmailAddressCc:
+                    - recipientcc@finbourne.com
+                    EmailAddressBcc:
+                    - recipientbcc@finbourne.com
+              Update SMS Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Sms
+                    Body: "Event with message {{message}} and subject {{subject}}"
+                    Recipients:
+                    - +447000000000
+              Update Api Request Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: ApiRequest
+                    HttpMethod: Post
+                    PathAndQuery: "notification/api/{{id}}/path?examplequery={{id}}"
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Update Webhook Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Webhook
+                    HttpMethod: Post
+                    Url: "https://example.com/api/{{id}}/path?examplequery={{id}}"
+                    AuthenticationType: BearerToken
+                    AuthenticationConfigurationItemPaths:
+                      BearerToken: config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken
+                    ContentType: Json
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Update AWS SQS Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: AmazonSqs
+                    Body: "Event with message {{message}}"
+                    ApiKeyRef: config://shared/official/system-a-config/apiKey
+                    ApiSecretRef: config://shared/official/system-a-config/apiSecret
+                    QueueUrlRef: config://shared/official/system-a-config/queueUrl
+            schema:
+              $ref: '#/components/schemas/UpdateNotificationRequest'
+          application/json:
+            examples:
+              Update Email Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Email
+                    Subject: "Event with id of {{id}}"
+                    PlainTextBody: "Event with message {{message}} and subject {{subject}}"
+                    HtmlBody: "<p>Event with message {{message}} and subject {{subject}}</p>"
+                    EmailAddressTo:
+                    - recipient@finbourne.com
+                    EmailAddressCc:
+                    - recipientcc@finbourne.com
+                    EmailAddressBcc:
+                    - recipientbcc@finbourne.com
+              Update SMS Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Sms
+                    Body: "Event with message {{message}} and subject {{subject}}"
+                    Recipients:
+                    - +447000000000
+              Update Api Request Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: ApiRequest
+                    HttpMethod: Post
+                    PathAndQuery: "notification/api/{{id}}/path?examplequery={{id}}"
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Update Webhook Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Webhook
+                    HttpMethod: Post
+                    Url: "https://example.com/api/{{id}}/path?examplequery={{id}}"
+                    AuthenticationType: BearerToken
+                    AuthenticationConfigurationItemPaths:
+                      BearerToken: config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken
+                    ContentType: Json
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Update AWS SQS Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: AmazonSqs
+                    Body: "Event with message {{message}}"
+                    ApiKeyRef: config://shared/official/system-a-config/apiKey
+                    ApiSecretRef: config://shared/official/system-a-config/apiSecret
+                    QueueUrlRef: config://shared/official/system-a-config/queueUrl
+            schema:
+              $ref: '#/components/schemas/UpdateNotificationRequest'
+          text/json:
+            examples:
+              Update Email Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Email
+                    Subject: "Event with id of {{id}}"
+                    PlainTextBody: "Event with message {{message}} and subject {{subject}}"
+                    HtmlBody: "<p>Event with message {{message}} and subject {{subject}}</p>"
+                    EmailAddressTo:
+                    - recipient@finbourne.com
+                    EmailAddressCc:
+                    - recipientcc@finbourne.com
+                    EmailAddressBcc:
+                    - recipientbcc@finbourne.com
+              Update SMS Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Sms
+                    Body: "Event with message {{message}} and subject {{subject}}"
+                    Recipients:
+                    - +447000000000
+              Update Api Request Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: ApiRequest
+                    HttpMethod: Post
+                    PathAndQuery: "notification/api/{{id}}/path?examplequery={{id}}"
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Update Webhook Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Webhook
+                    HttpMethod: Post
+                    Url: "https://example.com/api/{{id}}/path?examplequery={{id}}"
+                    AuthenticationType: BearerToken
+                    AuthenticationConfigurationItemPaths:
+                      BearerToken: config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken
+                    ContentType: Json
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Update AWS SQS Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: AmazonSqs
+                    Body: "Event with message {{message}}"
+                    ApiKeyRef: config://shared/official/system-a-config/apiKey
+                    ApiSecretRef: config://shared/official/system-a-config/apiSecret
+                    QueueUrlRef: config://shared/official/system-a-config/queueUrl
+            schema:
+              $ref: '#/components/schemas/UpdateNotificationRequest'
+          application/*+json:
+            examples:
+              Update Email Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Email
+                    Subject: "Event with id of {{id}}"
+                    PlainTextBody: "Event with message {{message}} and subject {{subject}}"
+                    HtmlBody: "<p>Event with message {{message}} and subject {{subject}}</p>"
+                    EmailAddressTo:
+                    - recipient@finbourne.com
+                    EmailAddressCc:
+                    - recipientcc@finbourne.com
+                    EmailAddressBcc:
+                    - recipientbcc@finbourne.com
+              Update SMS Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Sms
+                    Body: "Event with message {{message}} and subject {{subject}}"
+                    Recipients:
+                    - +447000000000
+              Update Api Request Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: ApiRequest
+                    HttpMethod: Post
+                    PathAndQuery: "notification/api/{{id}}/path?examplequery={{id}}"
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Update Webhook Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: Webhook
+                    HttpMethod: Post
+                    Url: "https://example.com/api/{{id}}/path?examplequery={{id}}"
+                    AuthenticationType: BearerToken
+                    AuthenticationConfigurationItemPaths:
+                      BearerToken: config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken
+                    ContentType: Json
+                    Content:
+                      Key: Value Example
+                      MessageKey: "{{message}}"
+              Update AWS SQS Notification:
+                value:
+                  displayName: TestDisplayName
+                  description: Example description
+                  notificationType:
+                    Type: AmazonSqs
+                    Body: "Event with message {{message}}"
+                    ApiKeyRef: config://shared/official/system-a-config/apiKey
+                    ApiSecretRef: config://shared/official/system-a-config/apiSecret
+                    QueueUrlRef: config://shared/official/system-a-config/queueUrl
+            schema:
+              $ref: '#/components/schemas/UpdateNotificationRequest'
+        description: The data to update a notification
+        required: true
+      responses:
+        "200":
+          content:
+            application/json:
+              example:
+                notificationId: Example id
+                displayName: Example name
+                description: Example description
+                notificationType:
+                  Type: AmazonSqs
+                  Body: "Event with message {{message}}"
+                  ApiKeyRef: config://shared/official/system-a-config/apiKey
+                  ApiSecretRef: config://shared/official/system-a-config/apiSecretRef
+                  QueueUrlRef: config://shared/official/system-a-config/queueUrl
+                createdAt: 2020-06-15T12:00:00.0000000+00:00
+                userIdCreated: Example user
+                modifiedAt: 2020-06-20T12:00:00.0000000+00:00
+                userIdModified: Example user
+              schema:
+                $ref: '#/components/schemas/Notification'
+          description: Success
+        "400":
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidValidationProblemDetails'
+          description: The details of the input related failure
+        "404":
+          content:
+            application/json:
+              schema:
+                type: string
+          description: No notification exists in current scope
+        default:
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/LusidProblemDetails'
+          description: Error response
+      security:
+      - oauth2: []
+      summary: "[EXPERIMENTAL] UpdateNotification: Update a Notification for a Subscription"
+      tags:
+      - Notifications
+      x-fbn-apistatus: Experimental
+components:
+  schemas:
+    AccessControlledAction:
+      additionalProperties: false
+      example:
+        limitedSet:
+        - identifier:
+            key: identifier
+          name: name
+          description: description
+          actions:
+          - activity: activity
+            scope: scope
+            entity: entity
+          - activity: activity
+            scope: scope
+            entity: entity
+        - identifier:
+            key: identifier
+          name: name
+          description: description
+          actions:
+          - activity: activity
+            scope: scope
+            entity: entity
+          - activity: activity
+            scope: scope
+            entity: entity
+        description: description
+        action:
+          activity: activity
+          scope: scope
+          entity: entity
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+      properties:
+        description:
+          minLength: 1
+          type: string
+        action:
+          $ref: '#/components/schemas/ActionId'
+        limitedSet:
+          items:
+            $ref: '#/components/schemas/IdSelectorDefinition'
+          nullable: true
+          type: array
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - action
+      - description
+      type: object
+    AccessControlledResource:
+      additionalProperties: false
+      example:
+        application: application
+        name: name
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        actions:
+        - limitedSet:
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          description: description
+          action:
+            activity: activity
+            scope: scope
+            entity: entity
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+        - limitedSet:
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          - identifier:
+              key: identifier
+            name: name
+            description: description
+            actions:
+            - activity: activity
+              scope: scope
+              entity: entity
+            - activity: activity
+              scope: scope
+              entity: entity
+          description: description
+          action:
+            activity: activity
+            scope: scope
+            entity: entity
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+        identifierParts:
+        - displayName: displayName
+          name: name
+          index: 0
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          required: true
+        - displayName: displayName
+          name: name
+          index: 0
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          required: true
+      properties:
+        application:
+          nullable: true
+          type: string
+        name:
+          nullable: true
+          type: string
+        description:
+          minLength: 1
+          type: string
+        actions:
+          items:
+            $ref: '#/components/schemas/AccessControlledAction'
+          type: array
+        identifierParts:
+          items:
+            $ref: '#/components/schemas/IdentifierPartSchema'
+          nullable: true
+          type: array
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - actions
+      - description
+      type: object
+    ActionId:
+      additionalProperties: false
+      example:
+        activity: activity
+        scope: scope
+        entity: entity
+      properties:
+        scope:
+          maxLength: 100
+          minLength: 3
+          type: string
+        activity:
+          maxLength: 25
+          minLength: 3
+          type: string
+        entity:
+          maxLength: 25
+          minLength: 3
+          type: string
+      required:
+      - activity
+      - entity
+      - scope
+      type: object
+    AmazonSqsNotificationType:
+      additionalProperties: false
+      description: The information required to create or update an AWS SQS notification
+      properties:
+        type:
+          description: The type of delivery mechanism for this notification
+          minLength: 1
+          type: string
+        apiKeyRef:
+          description: Reference to API key from Configuration Store
+          minLength: 1
+          type: string
+        apiSecretRef:
+          description: Reference to API secret from Configuration Store
+          minLength: 1
+          type: string
+        body:
+          description: The body of the Amazon Queue Message
+          maxLength: 1024
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        queueUrlRef:
+          description: Reference to queue url from Configuration Store
+          minLength: 1
+          type: string
+      required:
+      - apiKeyRef
+      - apiSecretRef
+      - body
+      - queueUrlRef
+      - type
+      type: object
+    ApiRequestNotificationType:
+      additionalProperties: false
+      description: The information required to create or update an Api request notification
+      properties:
+        type:
+          description: The type of delivery mechanism for this notification
+          minLength: 1
+          type: string
+        httpMethod:
+          description: "The HTTP method such as GET, POST, etc. to use on the Api\
+            \ Request"
+          minLength: 1
+          type: string
+        pathAndQuery:
+          description: The url to send the request to.
+          maxLength: 16384
+          minLength: 1
+          pattern: "^([A-Za-z0-9-._~:\\/?#[\\]@!$&'()*+,;%=]|(\\{\\{([a-zA-Z0-9\\\
+            s])*\\}\\}))*$"
+          type: string
+        content:
+          description: The content of the request
+          nullable: true
+      required:
+      - httpMethod
+      - pathAndQuery
+      - type
+      type: object
+    Attempt:
+      additionalProperties: false
+      description: Details of an attempt of delivery.
+      example:
+        attemptNumber: 0
+        attemptTime: 2000-01-23T04:56:07.000+00:00
+        status:
+          result: result
+          detailedMessage: detailedMessage
+      properties:
+        attemptNumber:
+          description: The attempt number of the delivery.
+          format: int32
+          type: integer
+        attemptTime:
+          description: The time that the delivery was attempted.
+          format: date-time
+          type: string
+        status:
+          $ref: '#/components/schemas/AttemptStatus'
+      required:
+      - attemptNumber
+      - attemptTime
+      - status
+      type: object
+    AttemptStatus:
+      additionalProperties: false
+      description: Status of the delivery attempt.
+      example:
+        result: result
+        detailedMessage: detailedMessage
+      properties:
+        result:
+          description: Result of the delivery.
+          minLength: 1
+          type: string
+        detailedMessage:
+          description: The detailed message from attempting to deliver the message.
+          nullable: true
+          type: string
+      required:
+      - result
+      type: object
+    CreateNotificationRequest:
+      additionalProperties: false
+      description: The information required to create a notification
+      example:
+        displayName: displayName
+        description: description
+        notificationId: notificationId
+        notificationType: null
+      properties:
+        notificationId:
+          description: The identifier of the notification.
+          maxLength: 100
+          minLength: 1
+          pattern: "^[a-zA-Z0-9\\-_]+$"
+          type: string
+        displayName:
+          description: The name of the notification
+          maxLength: 64
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        description:
+          description: The summary of the services provided by the notification
+          maxLength: 512
+          minLength: 1
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        notificationType:
+          $ref: '#/components/schemas/CreateNotificationRequest_notificationType'
+      required:
+      - displayName
+      - notificationId
+      - notificationType
+      type: object
+    CreateSubscription:
+      additionalProperties: false
+      description: The information required to create a subscription
+      example:
+        matchingPattern:
+          filter: filter
+          eventType: eventType
+        displayName: displayName
+        description: description
+        id:
+          code: code
+          scope: scope
+        status: status
+      properties:
+        id:
+          $ref: '#/components/schemas/ResourceId'
+        displayName:
+          description: The name of the subscription
+          maxLength: 64
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        description:
+          description: The summary of the services provided by the subscription
+          maxLength: 512
+          minLength: 1
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        status:
+          description: "The current status of the subscription. Possible values are:\
+            \ Active, Inactive"
+          minLength: 1
+          type: string
+        matchingPattern:
+          $ref: '#/components/schemas/MatchingPattern'
+      required:
+      - displayName
+      - id
+      - matchingPattern
+      - status
+      title: CreateSubscriptionRequest
+      type: object
+    Delivery:
+      additionalProperties: false
+      example:
+        eventId: eventId
+        messageDetails: messageDetails
+        deliveryChannel: deliveryChannel
+        notificationId: notificationId
+        id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+        subscriptionId:
+          code: code
+          scope: scope
+        attempts:
+        - attemptNumber: 0
+          attemptTime: 2000-01-23T04:56:07.000+00:00
+          status:
+            result: result
+            detailedMessage: detailedMessage
+        - attemptNumber: 0
+          attemptTime: 2000-01-23T04:56:07.000+00:00
+          status:
+            result: result
+            detailedMessage: detailedMessage
+      properties:
+        id:
+          description: The identifier of the delivery.
+          format: uuid
+          type: string
+        eventId:
+          description: The identifier of the associated event.
+          minLength: 1
+          type: string
+        subscriptionId:
+          $ref: '#/components/schemas/ResourceId'
+        notificationId:
+          description: The identifier of the associated notification.
+          minLength: 1
+          type: string
+        deliveryChannel:
+          description: The delivery channel of the message.
+          minLength: 1
+          type: string
+        messageDetails:
+          description: The Details of the delivery message as JSON string.
+          minLength: 1
+          type: string
+        attempts:
+          description: A list of all the delivery attempts made for this message.
+          items:
+            $ref: '#/components/schemas/Attempt'
+          type: array
+      required:
+      - attempts
+      - deliveryChannel
+      - eventId
+      - id
+      - messageDetails
+      - notificationId
+      - subscriptionId
+      type: object
+    EmailNotificationType:
+      additionalProperties: false
+      description: The information required to create or update an Email notification
+      properties:
+        type:
+          description: The type of delivery mechanism for this notification
+          minLength: 1
+          type: string
+        subject:
+          description: The subject of the email
+          maxLength: 1024
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        plainTextBody:
+          description: The plain text body of the email
+          maxLength: 2147483647
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        htmlBody:
+          description: The HTML body of the email (if any)
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        emailAddressTo:
+          description: '''To'' recipients of the email'
+          items:
+            type: string
+          maxItems: 10
+          minItems: 1
+          type: array
+        emailAddressCc:
+          description: '''Cc'' recipients of the email'
+          items:
+            type: string
+          maxItems: 10
+          minItems: 0
+          nullable: true
+          type: array
+        emailAddressBcc:
+          description: '''Bcc'' recipients of the email'
+          items:
+            type: string
+          maxItems: 10
+          minItems: 0
+          nullable: true
+          type: array
+      required:
+      - emailAddressTo
+      - plainTextBody
+      - subject
+      - type
+      type: object
+    EventTypeSchema:
+      additionalProperties: false
+      description: An EventType object
+      example:
+        application: application
+        jsonSchema: ""
+        displayName: displayName
+        description: description
+        id: id
+        href: https://openapi-generator.tech
+        entity: entity
+      properties:
+        id:
+          description: The identifier of the event type
+          nullable: true
+          type: string
+        displayName:
+          description: Identifier name of the event
+          nullable: true
+          type: string
+        description:
+          description: The summary of the event
+          nullable: true
+          type: string
+        entity:
+          description: The entity against which the event originated
+          nullable: true
+          type: string
+        application:
+          description: The application associated with the event
+          nullable: true
+          type: string
+        jsonSchema:
+          description: The schema of the event
+        href:
+          description: A URI for retrieving this schema
+          format: uri
+          nullable: true
+          type: string
+      required:
+      - jsonSchema
+      type: object
+    IdentifierPartSchema:
+      additionalProperties: false
+      example:
+        displayName: displayName
+        name: name
+        index: 0
+        description: description
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        required: true
+      properties:
+        index:
+          format: int32
+          type: integer
+        name:
+          minLength: 1
+          type: string
+        displayName:
+          minLength: 1
+          type: string
+        description:
+          minLength: 1
+          type: string
+        required:
+          type: boolean
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+      required:
+      - description
+      - displayName
+      - index
+      - name
+      - required
+      type: object
+    IdSelectorDefinition:
+      additionalProperties: false
+      example:
+        identifier:
+          key: identifier
+        name: name
+        description: description
+        actions:
+        - activity: activity
+          scope: scope
+          entity: entity
+        - activity: activity
+          scope: scope
+          entity: entity
+      properties:
+        identifier:
+          additionalProperties:
+            type: string
+          minLength: 1
+          type: object
+        actions:
+          items:
+            $ref: '#/components/schemas/ActionId'
+          minItems: 1
+          type: array
+        name:
+          maxLength: 100
+          minLength: 0
+          nullable: true
+          type: string
+        description:
+          maxLength: 1024
+          minLength: 0
+          nullable: true
+          type: string
+      required:
+      - actions
+      - identifier
+      type: object
+    Link:
+      additionalProperties: false
+      example:
+        method: method
+        description: description
+        href: https://openapi-generator.tech
+        relation: relation
+      properties:
+        relation:
+          type: string
+        href:
+          format: uri
+          type: string
+        description:
+          nullable: true
+          type: string
+        method:
+          type: string
+      required:
+      - href
+      - method
+      - relation
+      type: object
+    LusidProblemDetails:
+      additionalProperties: false
+      properties:
+        name:
+          minLength: 1
+          type: string
+        errorDetails:
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          nullable: true
+          type: array
+        code:
+          format: int32
+          type: integer
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      required:
+      - code
+      - name
+      type: object
+    LusidValidationProblemDetails:
+      additionalProperties: false
+      properties:
+        name:
+          minLength: 1
+          type: string
+        errorDetails:
+          items:
+            additionalProperties:
+              type: string
+            type: object
+          nullable: true
+          type: array
+        code:
+          format: int32
+          type: integer
+        errors:
+          additionalProperties:
+            items:
+              type: string
+            type: array
+          nullable: true
+          type: object
+        type:
+          nullable: true
+          type: string
+        title:
+          nullable: true
+          type: string
+        status:
+          format: int32
+          nullable: true
+          type: integer
+        detail:
+          nullable: true
+          type: string
+        instance:
+          nullable: true
+          type: string
+      required:
+      - code
+      - name
+      type: object
+    ManualEvent:
+      additionalProperties: false
+      description: Details of a manually triggered event
+      example:
+        header:
+          eventId: eventId
+          requestId: requestId
+          userId: userId
+          timestamp: 2000-01-23T04:56:07.000+00:00
+        body:
+          subject: subject
+          message: message
+          jsonMessage: ""
+      properties:
+        header:
+          $ref: '#/components/schemas/ManualEventHeader'
+        body:
+          $ref: '#/components/schemas/ManualEventBody'
+      required:
+      - body
+      - header
+      type: object
+    ManualEventBody:
+      additionalProperties: false
+      description: The body of the manual event
+      example:
+        subject: subject
+        message: message
+        jsonMessage: ""
+      properties:
+        subject:
+          description: The subject of the manual event
+          maxLength: 256
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        message:
+          description: The message of the manual event
+          maxLength: 2147483647
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        jsonMessage:
+          description: The JSON message of the manual event
+          nullable: true
+      required:
+      - message
+      - subject
+      type: object
+    ManualEventHeader:
+      additionalProperties: false
+      description: The header of the manual event
+      example:
+        eventId: eventId
+        requestId: requestId
+        userId: userId
+        timestamp: 2000-01-23T04:56:07.000+00:00
+      properties:
+        timestamp:
+          description: The timestamp of the manual event
+          format: date-time
+          type: string
+        eventId:
+          description: The event ID of the manual event
+          nullable: true
+          type: string
+        userId:
+          description: The user ID of the manual event
+          nullable: true
+          type: string
+        requestId:
+          description: The request ID of the manual event
+          nullable: true
+          type: string
+      type: object
+    ManualEventRequest:
+      additionalProperties: false
+      description: The information required to trigger a manual event
+      example:
+        body:
+          subject: subject
+          message: message
+          jsonMessage: ""
+      properties:
+        body:
+          $ref: '#/components/schemas/ManualEventBody'
+      required:
+      - body
+      type: object
+    MatchingPattern:
+      additionalProperties: false
+      description: A matching pattern object
+      example:
+        filter: filter
+        eventType: eventType
+      properties:
+        eventType:
+          description: "The type of event to subscribe to. The list of available event\
+            \ types can be discovered\r\nby calling the ‘List available EventTypes’\
+            \ API endpoint."
+          maxLength: 512
+          minLength: 0
+          pattern: "^[a-zA-Z]*$"
+          type: string
+        filter:
+          description: "A filter on the event. See https://support.lusid.com/filtering-results-from-lusid\
+            \ for more information. If not provided, all events will be matched"
+          maxLength: 16384
+          minLength: 0
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+      required:
+      - eventType
+      type: object
+    Notification:
+      additionalProperties: false
+      description: A notification object
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        userIdModified: userIdModified
+        displayName: displayName
+        modifiedAt: 2000-01-23T04:56:07.000+00:00
+        description: description
+        notificationId: notificationId
+        notificationType: ""
+        userIdCreated: userIdCreated
+      properties:
+        notificationId:
+          description: The identifier of the notification
+          minLength: 1
+          type: string
+        displayName:
+          description: The name of the notification
+          maxLength: 64
+          minLength: 0
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        description:
+          description: The summary of the services provided by the notification
+          maxLength: 512
+          minLength: 1
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        notificationType:
+          description: The type and contents of the notification
+        createdAt:
+          description: The time at which the subscription was made
+          format: date-time
+          type: string
+        userIdCreated:
+          description: The user who made the subscription
+          minLength: 1
+          type: string
+        modifiedAt:
+          description: The time at which the subscription was last modified
+          format: date-time
+          type: string
+        userIdModified:
+          description: The user who last modified the subscription
+          minLength: 1
+          type: string
+      required:
+      - createdAt
+      - modifiedAt
+      - notificationId
+      - notificationType
+      - userIdCreated
+      - userIdModified
+      type: object
+    NotificationStatus:
+      additionalProperties: false
+      description: The status object of a notification
+      properties:
+        result:
+          description: The status of the notification
+          nullable: true
+          type: string
+        lastUpdated:
+          description: The time at which the notification status was last updated
+          format: date-time
+          type: string
+      type: object
+    ResourceId:
+      additionalProperties: false
+      description: Identifiers of an entity
+      example:
+        code: code
+        scope: scope
+      properties:
+        scope:
+          description: The scope used to identify an entity
+          maxLength: 512
+          minLength: 1
+          type: string
+        code:
+          description: The code used to identify an entity
+          maxLength: 512
+          minLength: 1
+          type: string
+      required:
+      - code
+      - scope
+      type: object
+    ResourceListOfAccessControlledResource:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - application: application
+          name: name
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          actions:
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          identifierParts:
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+        - application: application
+          name: name
+          description: description
+          links:
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          - method: method
+            description: description
+            href: https://openapi-generator.tech
+            relation: relation
+          actions:
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          - limitedSet:
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            - identifier:
+                key: identifier
+              name: name
+              description: description
+              actions:
+              - activity: activity
+                scope: scope
+                entity: entity
+              - activity: activity
+                scope: scope
+                entity: entity
+            description: description
+            action:
+              activity: activity
+              scope: scope
+              entity: entity
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+          identifierParts:
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+          - displayName: displayName
+            name: name
+            index: 0
+            description: description
+            links:
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            - method: method
+              description: description
+              href: https://openapi-generator.tech
+              relation: relation
+            required: true
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/AccessControlledResource'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfDelivery:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - eventId: eventId
+          messageDetails: messageDetails
+          deliveryChannel: deliveryChannel
+          notificationId: notificationId
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          subscriptionId:
+            code: code
+            scope: scope
+          attempts:
+          - attemptNumber: 0
+            attemptTime: 2000-01-23T04:56:07.000+00:00
+            status:
+              result: result
+              detailedMessage: detailedMessage
+          - attemptNumber: 0
+            attemptTime: 2000-01-23T04:56:07.000+00:00
+            status:
+              result: result
+              detailedMessage: detailedMessage
+        - eventId: eventId
+          messageDetails: messageDetails
+          deliveryChannel: deliveryChannel
+          notificationId: notificationId
+          id: 046b6c7f-0b8a-43b9-b35d-6489e6daee91
+          subscriptionId:
+            code: code
+            scope: scope
+          attempts:
+          - attemptNumber: 0
+            attemptTime: 2000-01-23T04:56:07.000+00:00
+            status:
+              result: result
+              detailedMessage: detailedMessage
+          - attemptNumber: 0
+            attemptTime: 2000-01-23T04:56:07.000+00:00
+            status:
+              result: result
+              detailedMessage: detailedMessage
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/Delivery'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfEventTypeSchema:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - application: application
+          jsonSchema: ""
+          displayName: displayName
+          description: description
+          id: id
+          href: https://openapi-generator.tech
+          entity: entity
+        - application: application
+          jsonSchema: ""
+          displayName: displayName
+          description: description
+          id: id
+          href: https://openapi-generator.tech
+          entity: entity
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/EventTypeSchema'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfNotification:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          userIdModified: userIdModified
+          displayName: displayName
+          modifiedAt: 2000-01-23T04:56:07.000+00:00
+          description: description
+          notificationId: notificationId
+          notificationType: ""
+          userIdCreated: userIdCreated
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          userIdModified: userIdModified
+          displayName: displayName
+          modifiedAt: 2000-01-23T04:56:07.000+00:00
+          description: description
+          notificationId: notificationId
+          notificationType: ""
+          userIdCreated: userIdCreated
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/Notification'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    ResourceListOfSubscription:
+      additionalProperties: false
+      example:
+        previousPage: previousPage
+        nextPage: nextPage
+        values:
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          matchingPattern:
+            filter: filter
+            eventType: eventType
+          userIdModified: userIdModified
+          displayName: displayName
+          modifiedAt: 2000-01-23T04:56:07.000+00:00
+          description: description
+          id:
+            code: code
+            scope: scope
+          userIdCreated: userIdCreated
+          status: status
+        - createdAt: 2000-01-23T04:56:07.000+00:00
+          matchingPattern:
+            filter: filter
+            eventType: eventType
+          userIdModified: userIdModified
+          displayName: displayName
+          modifiedAt: 2000-01-23T04:56:07.000+00:00
+          description: description
+          id:
+            code: code
+            scope: scope
+          userIdCreated: userIdCreated
+          status: status
+        links:
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        - method: method
+          description: description
+          href: https://openapi-generator.tech
+          relation: relation
+        href: https://openapi-generator.tech
+      properties:
+        values:
+          items:
+            $ref: '#/components/schemas/Subscription'
+          type: array
+        href:
+          format: uri
+          nullable: true
+          type: string
+        links:
+          items:
+            $ref: '#/components/schemas/Link'
+          nullable: true
+          type: array
+        nextPage:
+          nullable: true
+          type: string
+        previousPage:
+          nullable: true
+          type: string
+      required:
+      - values
+      type: object
+    SmsNotificationType:
+      additionalProperties: false
+      description: The information required to create or update an SMS notification
+      properties:
+        type:
+          description: The type of delivery mechanism for this notification
+          minLength: 1
+          type: string
+        body:
+          description: The body of the SMS
+          maxLength: 1024
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        recipients:
+          description: The phone numbers to which the SMS will be sent to (E.164 format)
+          items:
+            type: string
+          maxItems: 10
+          minItems: 1
+          type: array
+      required:
+      - body
+      - recipients
+      - type
+      type: object
+    Subscription:
+      additionalProperties: false
+      description: A subscription object
+      example:
+        createdAt: 2000-01-23T04:56:07.000+00:00
+        matchingPattern:
+          filter: filter
+          eventType: eventType
+        userIdModified: userIdModified
+        displayName: displayName
+        modifiedAt: 2000-01-23T04:56:07.000+00:00
+        description: description
+        id:
+          code: code
+          scope: scope
+        userIdCreated: userIdCreated
+        status: status
+      properties:
+        id:
+          $ref: '#/components/schemas/ResourceId'
+        displayName:
+          description: The name of the subscription
+          minLength: 1
+          type: string
+        description:
+          description: The summary of the services provided by the subscription
+          nullable: true
+          type: string
+        status:
+          description: The current status of the subscription
+          minLength: 1
+          type: string
+        matchingPattern:
+          $ref: '#/components/schemas/MatchingPattern'
+        createdAt:
+          description: The time at which the subscription was made
+          format: date-time
+          type: string
+        userIdCreated:
+          description: The user who made the subscription
+          minLength: 1
+          type: string
+        modifiedAt:
+          description: The time at which the subscription was last modified
+          format: date-time
+          type: string
+        userIdModified:
+          description: The user who last modified the subscription
+          minLength: 1
+          type: string
+      required:
+      - createdAt
+      - displayName
+      - id
+      - matchingPattern
+      - modifiedAt
+      - status
+      - userIdCreated
+      - userIdModified
+      type: object
+    UpdateNotificationRequest:
+      additionalProperties: false
+      description: The information required to update a notification
+      example:
+        displayName: displayName
+        description: description
+        notificationType: null
+      properties:
+        displayName:
+          description: The name of the notification
+          maxLength: 64
+          minLength: 0
+          pattern: "^[\\s\\S]*$"
+          type: string
+        description:
+          description: The summary of the services provided by the notification
+          maxLength: 512
+          minLength: 1
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        notificationType:
+          $ref: '#/components/schemas/CreateNotificationRequest_notificationType'
+      required:
+      - displayName
+      - notificationType
+      type: object
+    UpdateSubscription:
+      additionalProperties: false
+      description: The information required to update a subscription
+      example:
+        matchingPattern:
+          filter: filter
+          eventType: eventType
+        displayName: displayName
+        description: description
+        status: status
+      properties:
+        displayName:
+          description: The name of the subscription
+          maxLength: 64
+          minLength: 1
+          pattern: "^[\\s\\S]*$"
+          type: string
+        description:
+          description: The summary of the services provided by the subscription
+          maxLength: 512
+          minLength: 1
+          nullable: true
+          pattern: "^[\\s\\S]*$"
+          type: string
+        status:
+          description: "The current status of the subscription. Possible values are:\
+            \ Active, Inactive"
+          minLength: 1
+          type: string
+        matchingPattern:
+          $ref: '#/components/schemas/MatchingPattern'
+      required:
+      - displayName
+      - matchingPattern
+      - status
+      title: UpdateSubscriptionRequest
+      type: object
+    WebhookNotificationType:
+      additionalProperties: false
+      description: The information required to create or update a Webhook notification
+      properties:
+        type:
+          description: The type of delivery mechanism for this notification
+          minLength: 1
+          type: string
+        httpMethod:
+          description: "The HTTP method such as GET, POST, etc. to use on the request"
+          minLength: 1
+          type: string
+        url:
+          description: The URL to send the request to
+          maxLength: 16384
+          minLength: 1
+          pattern: "^([A-Za-z0-9-._~:\\/?#[\\]@!$&'()*+,;%=]|(\\{\\{([a-zA-Z0-9\\\
+            s])*\\}\\}))*$"
+          type: string
+        authenticationType:
+          description: The type of authentication to use on the request
+          minLength: 1
+          type: string
+        authenticationConfigurationItemPaths:
+          additionalProperties:
+            nullable: true
+            type: string
+          description: "The paths of the Configuration Store configuration items that\
+            \ contain the authentication configuration. Each\r\nauthentication type\
+            \ requires different keys:\r\n- Lusid - None required\r\n- BasicAuth -\
+            \ Requires 'Username' and 'Password'\r\n- BearerToken - Requires 'BearerToken'\
+            \ and optionally 'BearerScheme'\r\n            \r\ne.g. the following\
+            \ would be valid assuming that the config is present in the configuration\
+            \ store at the\r\nspecified paths:\r\n            \r\n    \"authenticationType\"\
+            : \"BasicAuth\",\r\n    \"authenticationConfigurationItemPaths\": {\r\n\
+            \        \"Username\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminUser\"\
+            ,\r\n        \"Password\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminPassword\"\
+            \r\n    }"
+          nullable: true
+          type: object
+        contentType:
+          description: The type of the content e.g. Json
+          minLength: 1
+          type: string
+        content:
+          description: The content of the request
+          nullable: true
+      required:
+      - authenticationType
+      - contentType
+      - httpMethod
+      - type
+      - url
+      type: object
+    CreateNotificationRequest_notificationType:
+      description: The contents of the notification type.
+      oneOf:
+      - $ref: '#/components/schemas/AmazonSqsNotificationType'
+      - $ref: '#/components/schemas/ApiRequestNotificationType'
+      - $ref: '#/components/schemas/EmailNotificationType'
+      - $ref: '#/components/schemas/SmsNotificationType'
+      - $ref: '#/components/schemas/WebhookNotificationType'
+  securitySchemes:
+    oauth2:
+      description: OAuth2 Implicit Grant
+      flows:
+        implicit:
+          authorizationUrl: https://lusid.okta.com/oauth2/default/v1/authorize
+          scopes: {}
+      type: oauth2
+x-tagGroups:
+  name: API
+  tags:
+  - Application Metadata
+  - Deliveries
+  - EventTypes
+  - ManualEvent
+  - Notifications
+  - Subscriptions
+

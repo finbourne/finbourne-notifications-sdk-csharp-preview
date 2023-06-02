@@ -1,13 +1,12 @@
 # Finbourne.Notifications.Sdk.Api.ApplicationMetadataApi
 
-All URIs are relative to *https://www.lusid.com/notifications*
+All URIs are relative to *https://www.lusid.com/notification*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**ListAccessControlledResources**](ApplicationMetadataApi.md#listaccesscontrolledresources) | **GET** /api/metadata/access/resources | [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control
+| Method | HTTP request | Description |
+|--------|--------------|-------------|
+| [**ListAccessControlledResources**](ApplicationMetadataApi.md#listaccesscontrolledresources) | **GET** /api/metadata/access/resources | [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control |
 
-
-<a name="listaccesscontrolledresources"></a>
+<a id="listaccesscontrolledresources"></a>
 # **ListAccessControlledResources**
 > ResourceListOfAccessControlledResource ListAccessControlledResources ()
 
@@ -30,7 +29,7 @@ namespace Example
         public static void Main()
         {
             Configuration config = new Configuration();
-            config.BasePath = "https://www.lusid.com/notifications";
+            config.BasePath = "https://www.lusid.com/notification";
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
@@ -44,8 +43,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling ApplicationMetadataApi.ListAccessControlledResources: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling ApplicationMetadataApi.ListAccessControlledResources: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -53,9 +52,28 @@ namespace Example
 }
 ```
 
+#### Using the ListAccessControlledResourcesWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // [EARLY ACCESS] ListAccessControlledResources: Get resources available for access control
+    ApiResponse<ResourceListOfAccessControlledResource> response = apiInstance.ListAccessControlledResourcesWithHttpInfo();
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling ApplicationMetadataApi.ListAccessControlledResourcesWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 This endpoint does not need any parameter.
-
 ### Return type
 
 [**ResourceListOfAccessControlledResource**](ResourceListOfAccessControlledResource.md)
