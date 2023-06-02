@@ -426,14 +426,16 @@ namespace {{packageName}}.Client
 
             if (options.FileParameters != null)
             {
-                foreach (var fileParam in options.FileParameters)
+                var fileParam = options.FileParameters.SelectMany(kvp => kvp.Value.Select(v => (kvp.Key, v)));
+                
+                foreach (var (fileParamKey, fileParamValue) in fileParam)
                 {
-                    var bytes = ClientUtils.ReadAsBytes(fileParam.Value);
-                    var fileStream = fileParam.Value as FileStream;
+                    var bytes = ClientUtils.ReadAsBytes(fileParamValue);
+                    var fileStream = fileParamValue as FileStream;
                     if (fileStream != null)
-                        request.Files.Add(FileParameter.Create(fileParam.Key, bytes, System.IO.Path.GetFileName(fileStream.Name)));
+                        request.Files.Add(FileParameter.Create(fileParamKey, bytes, System.IO.Path.GetFileName(fileStream.Name)));
                     else
-                        request.Files.Add(FileParameter.Create(fileParam.Key, bytes, "no_file_name_provided"));
+                        request.Files.Add(FileParameter.Create(fileParamKey, bytes, "no_file_name_provided"));
                 }
             }
 
@@ -546,7 +548,7 @@ namespace {{packageName}}.Client
             if (RetryConfiguration.RetryPolicy != null)
             {
                 var policy = RetryConfiguration.RetryPolicy;
-                var policyResult = policy.ExecuteAndCapture(() => client.Execute(req));
+                var policyResult = policy.ExecuteAndCapture(() => (RestResponse)client.Execute(req));
                 response = (policyResult.Outcome == OutcomeType.Successful) ? client.Deserialize<T>(policyResult.Result) : new RestResponse<T>
                 {
                     Request = req,
@@ -676,7 +678,9 @@ namespace {{packageName}}.Client
             if (RetryConfiguration.AsyncRetryPolicy != null)
             {
                 var policy = RetryConfiguration.AsyncRetryPolicy;
-                var policyResult = await policy.ExecuteAndCaptureAsync((ct) => client.ExecuteAsync(req, ct), cancellationToken).ConfigureAwait(false);
+                var policyResult = await policy.ExecuteAndCaptureAsync(
+                    async ct => (RestResponse)await client.ExecuteAsync(req, ct),
+                    cancellationToken).ConfigureAwait(false);
                 response = (policyResult.Outcome == OutcomeType.Successful) ? client.Deserialize<T>(policyResult.Result) : new RestResponse<T>
                 {
                     Request = req,
