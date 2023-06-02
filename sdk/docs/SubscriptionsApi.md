@@ -2,16 +2,15 @@
 
 All URIs are relative to *https://www.lusid.com/notification*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**CreateSubscription**](SubscriptionsApi.md#createsubscription) | **POST** /api/subscriptions | [EXPERIMENTAL] CreateSubscription: Create a new subscription.
-[**DeleteSubscription**](SubscriptionsApi.md#deletesubscription) | **DELETE** /api/subscriptions/{scope}/{code} | [EXPERIMENTAL] DeleteSubscription: Delete a subscription.
-[**GetSubscription**](SubscriptionsApi.md#getsubscription) | **GET** /api/subscriptions/{scope}/{code} | [EXPERIMENTAL] GetSubscription: Get a subscription.
-[**ListSubscriptions**](SubscriptionsApi.md#listsubscriptions) | **GET** /api/subscriptions | [EXPERIMENTAL] ListSubscriptions: List subscriptions.
-[**UpdateSubscription**](SubscriptionsApi.md#updatesubscription) | **PUT** /api/subscriptions/{scope}/{code} | [EXPERIMENTAL] UpdateSubscription: Update an existing subscription.
+| Method | HTTP request | Description |
+|--------|--------------|-------------|
+| [**CreateSubscription**](SubscriptionsApi.md#createsubscription) | **POST** /api/subscriptions | [EXPERIMENTAL] CreateSubscription: Create a new subscription. |
+| [**DeleteSubscription**](SubscriptionsApi.md#deletesubscription) | **DELETE** /api/subscriptions/{scope}/{code} | [EXPERIMENTAL] DeleteSubscription: Delete a subscription. |
+| [**GetSubscription**](SubscriptionsApi.md#getsubscription) | **GET** /api/subscriptions/{scope}/{code} | [EXPERIMENTAL] GetSubscription: Get a subscription. |
+| [**ListSubscriptions**](SubscriptionsApi.md#listsubscriptions) | **GET** /api/subscriptions | [EXPERIMENTAL] ListSubscriptions: List subscriptions. |
+| [**UpdateSubscription**](SubscriptionsApi.md#updatesubscription) | **PUT** /api/subscriptions/{scope}/{code} | [EXPERIMENTAL] UpdateSubscription: Update an existing subscription. |
 
-
-<a name="createsubscription"></a>
+<a id="createsubscription"></a>
 # **CreateSubscription**
 > Subscription CreateSubscription (CreateSubscription createSubscription)
 
@@ -47,8 +46,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling SubscriptionsApi.CreateSubscription: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling SubscriptionsApi.CreateSubscription: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -56,11 +55,31 @@ namespace Example
 }
 ```
 
+#### Using the CreateSubscriptionWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // [EXPERIMENTAL] CreateSubscription: Create a new subscription.
+    ApiResponse<Subscription> response = apiInstance.CreateSubscriptionWithHttpInfo(createSubscription);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling SubscriptionsApi.CreateSubscriptionWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **createSubscription** | [**CreateSubscription**](CreateSubscription.md)| The data to create a subscription | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **createSubscription** | [**CreateSubscription**](CreateSubscription.md) | The data to create a subscription |  |
 
 ### Return type
 
@@ -72,7 +91,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
 
 
@@ -85,7 +104,7 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="deletesubscription"></a>
+<a id="deletesubscription"></a>
 # **DeleteSubscription**
 > void DeleteSubscription (string scope, string code)
 
@@ -111,8 +130,8 @@ namespace Example
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new SubscriptionsApi(config);
-            var scope = scope_example;  // string | The scope that identifies a subscription
-            var code = code_example;  // string | The code that identifies a subscription
+            var scope = "scope_example";  // string | The scope that identifies a subscription
+            var code = "code_example";  // string | The code that identifies a subscription
 
             try
             {
@@ -121,8 +140,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling SubscriptionsApi.DeleteSubscription: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling SubscriptionsApi.DeleteSubscription: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -130,12 +149,29 @@ namespace Example
 }
 ```
 
+#### Using the DeleteSubscriptionWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // [EXPERIMENTAL] DeleteSubscription: Delete a subscription.
+    apiInstance.DeleteSubscriptionWithHttpInfo(scope, code);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling SubscriptionsApi.DeleteSubscriptionWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **scope** | **string**| The scope that identifies a subscription | 
- **code** | **string**| The code that identifies a subscription | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **scope** | **string** | The scope that identifies a subscription |  |
+| **code** | **string** | The code that identifies a subscription |  |
 
 ### Return type
 
@@ -161,9 +197,9 @@ void (empty response body)
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="getsubscription"></a>
+<a id="getsubscription"></a>
 # **GetSubscription**
-> SubscriptionDetail GetSubscription (string scope, string code)
+> Subscription GetSubscription (string scope, string code)
 
 [EXPERIMENTAL] GetSubscription: Get a subscription.
 
@@ -187,19 +223,19 @@ namespace Example
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new SubscriptionsApi(config);
-            var scope = scope_example;  // string | The scope that identifies a subscription
-            var code = code_example;  // string | The code that identifies a subscription
+            var scope = "scope_example";  // string | The scope that identifies a subscription
+            var code = "code_example";  // string | The code that identifies a subscription
 
             try
             {
                 // [EXPERIMENTAL] GetSubscription: Get a subscription.
-                SubscriptionDetail result = apiInstance.GetSubscription(scope, code);
+                Subscription result = apiInstance.GetSubscription(scope, code);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling SubscriptionsApi.GetSubscription: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling SubscriptionsApi.GetSubscription: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -207,16 +243,36 @@ namespace Example
 }
 ```
 
+#### Using the GetSubscriptionWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // [EXPERIMENTAL] GetSubscription: Get a subscription.
+    ApiResponse<Subscription> response = apiInstance.GetSubscriptionWithHttpInfo(scope, code);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling SubscriptionsApi.GetSubscriptionWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **scope** | **string**| The scope that identifies a subscription | 
- **code** | **string**| The code that identifies a subscription | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **scope** | **string** | The scope that identifies a subscription |  |
+| **code** | **string** | The code that identifies a subscription |  |
 
 ### Return type
 
-[**SubscriptionDetail**](SubscriptionDetail.md)
+[**Subscription**](Subscription.md)
 
 ### Authorization
 
@@ -238,7 +294,7 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="listsubscriptions"></a>
+<a id="listsubscriptions"></a>
 # **ListSubscriptions**
 > ResourceListOfSubscription ListSubscriptions (string filter = null, string sortBy = null, string page = null, int? limit = null)
 
@@ -264,9 +320,9 @@ namespace Example
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new SubscriptionsApi(config);
-            var filter = filter_example;  // string | Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>. (optional) 
-            var sortBy = sortBy_example;  // string | Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID. (optional) 
-            var page = page_example;  // string | Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional) 
+            var filter = "filter_example";  // string | Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>. (optional) 
+            var sortBy = "sortBy_example";  // string | Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID. (optional) 
+            var page = "page_example";  // string | Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional) 
             var limit = 56;  // int? | The maximum number of subscriptions to retrieve. (optional) 
 
             try
@@ -277,8 +333,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling SubscriptionsApi.ListSubscriptions: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling SubscriptionsApi.ListSubscriptions: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -286,14 +342,34 @@ namespace Example
 }
 ```
 
+#### Using the ListSubscriptionsWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // [EXPERIMENTAL] ListSubscriptions: List subscriptions.
+    ApiResponse<ResourceListOfSubscription> response = apiInstance.ListSubscriptionsWithHttpInfo(filter, sortBy, page, limit);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling SubscriptionsApi.ListSubscriptionsWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **filter** | **string**| Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. | [optional] 
- **sortBy** | **string**| Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. | [optional] 
- **page** | **string**| Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. | [optional] 
- **limit** | **int?**| The maximum number of subscriptions to retrieve. | [optional] 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **filter** | **string** | Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. | [optional]  |
+| **sortBy** | **string** | Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. | [optional]  |
+| **page** | **string** | Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. | [optional]  |
+| **limit** | **int?** | The maximum number of subscriptions to retrieve. | [optional]  |
 
 ### Return type
 
@@ -318,7 +394,7 @@ Name | Type | Description  | Notes
 
 [[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
-<a name="updatesubscription"></a>
+<a id="updatesubscription"></a>
 # **UpdateSubscription**
 > Subscription UpdateSubscription (string scope, string code, UpdateSubscription updateSubscription)
 
@@ -344,8 +420,8 @@ namespace Example
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new SubscriptionsApi(config);
-            var scope = scope_example;  // string | The scope that identifies a subscription
-            var code = code_example;  // string | The code that identifies a subscription
+            var scope = "scope_example";  // string | The scope that identifies a subscription
+            var code = "code_example";  // string | The code that identifies a subscription
             var updateSubscription = new UpdateSubscription(); // UpdateSubscription | The data to update a subscription
 
             try
@@ -356,8 +432,8 @@ namespace Example
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling SubscriptionsApi.UpdateSubscription: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling SubscriptionsApi.UpdateSubscription: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -365,13 +441,33 @@ namespace Example
 }
 ```
 
+#### Using the UpdateSubscriptionWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // [EXPERIMENTAL] UpdateSubscription: Update an existing subscription.
+    ApiResponse<Subscription> response = apiInstance.UpdateSubscriptionWithHttpInfo(scope, code, updateSubscription);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling SubscriptionsApi.UpdateSubscriptionWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **scope** | **string**| The scope that identifies a subscription | 
- **code** | **string**| The code that identifies a subscription | 
- **updateSubscription** | [**UpdateSubscription**](UpdateSubscription.md)| The data to update a subscription | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **scope** | **string** | The scope that identifies a subscription |  |
+| **code** | **string** | The code that identifies a subscription |  |
+| **updateSubscription** | [**UpdateSubscription**](UpdateSubscription.md) | The data to update a subscription |  |
 
 ### Return type
 
@@ -383,7 +479,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
 
 

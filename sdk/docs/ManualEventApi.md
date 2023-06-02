@@ -2,14 +2,13 @@
 
 All URIs are relative to *https://www.lusid.com/notification*
 
-Method | HTTP request | Description
-------------- | ------------- | -------------
-[**TriggerManualEvent**](ManualEventApi.md#triggermanualevent) | **POST** /api/manualevent | [EXPERIMENTAL] TriggerManualEvent: Trigger a manual event.
+| Method | HTTP request | Description |
+|--------|--------------|-------------|
+| [**TriggerManualEvent**](ManualEventApi.md#triggermanualevent) | **POST** /api/manualevent | [EXPERIMENTAL] TriggerManualEvent: Trigger a manual event. |
 
-
-<a name="triggermanualevent"></a>
+<a id="triggermanualevent"></a>
 # **TriggerManualEvent**
-> ManualEvent TriggerManualEvent (Object body)
+> ManualEvent TriggerManualEvent (ManualEventRequest manualEventRequest)
 
 [EXPERIMENTAL] TriggerManualEvent: Trigger a manual event.
 
@@ -33,18 +32,18 @@ namespace Example
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
             var apiInstance = new ManualEventApi(config);
-            var body = {"Body":{"subject":"TestSubject","message":"TestMessage","jsonMessage":{"TestField1":"TestValue1","TestField2":"TestValue2"}}};  // Object | The data required to trigger a manual event.
+            var manualEventRequest = new ManualEventRequest(); // ManualEventRequest | The data required to trigger a manual event.
 
             try
             {
                 // [EXPERIMENTAL] TriggerManualEvent: Trigger a manual event.
-                ManualEvent result = apiInstance.TriggerManualEvent(body);
+                ManualEvent result = apiInstance.TriggerManualEvent(manualEventRequest);
                 Debug.WriteLine(result);
             }
             catch (ApiException  e)
             {
-                Debug.Print("Exception when calling ManualEventApi.TriggerManualEvent: " + e.Message );
-                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print("Exception when calling ManualEventApi.TriggerManualEvent: " + e.Message);
+                Debug.Print("Status Code: " + e.ErrorCode);
                 Debug.Print(e.StackTrace);
             }
         }
@@ -52,11 +51,31 @@ namespace Example
 }
 ```
 
+#### Using the TriggerManualEventWithHttpInfo variant
+This returns an ApiResponse object which contains the response data, status code and headers.
+
+```csharp
+try
+{
+    // [EXPERIMENTAL] TriggerManualEvent: Trigger a manual event.
+    ApiResponse<ManualEvent> response = apiInstance.TriggerManualEventWithHttpInfo(manualEventRequest);
+    Debug.Write("Status Code: " + response.StatusCode);
+    Debug.Write("Response Headers: " + response.Headers);
+    Debug.Write("Response Body: " + response.Data);
+}
+catch (ApiException e)
+{
+    Debug.Print("Exception when calling ManualEventApi.TriggerManualEventWithHttpInfo: " + e.Message);
+    Debug.Print("Status Code: " + e.ErrorCode);
+    Debug.Print(e.StackTrace);
+}
+```
+
 ### Parameters
 
-Name | Type | Description  | Notes
-------------- | ------------- | ------------- | -------------
- **body** | **Object**| The data required to trigger a manual event. | 
+| Name | Type | Description | Notes |
+|------|------|-------------|-------|
+| **manualEventRequest** | [**ManualEventRequest**](ManualEventRequest.md) | The data required to trigger a manual event. |  |
 
 ### Return type
 
@@ -68,7 +87,7 @@ Name | Type | Description  | Notes
 
 ### HTTP request headers
 
- - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/*+json
  - **Accept**: application/json
 
 
