@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.721",
+    "version": "0.1.722",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -196,7 +196,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfEventTypeSchema"
-                }
+                },
+                "example": {"values":[{"id":"TestId","eventName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","jsonSchema":{"properties":{"header":[{"name":"eventType","type":"StringFieldValue"},{"name":"requestId","type":"StringFieldValue"},{"name":"userId","type":"StringFieldValue"},{"name":"client","type":"StringFieldValue"},{"name":"action","type":"StringFieldValue"},{"name":"entityType","type":"StringFieldValue"},{"name":"timestamp","type":"DateTimeFieldValue"},{"name":"effectiveAt","type":"DateTimeFieldValue"},{"name":"href","type":"StringFieldValue"}],"body":[{"name":"scope","type":"StringFieldValue"}]}}}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },
@@ -257,7 +258,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/EventTypeSchema"
-                }
+                },
+                "example": {"id":"TestId","eventName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","jsonSchema":{"properties":{"header":[{"name":"eventType","type":"StringFieldValue"},{"name":"requestId","type":"StringFieldValue"},{"name":"userId","type":"StringFieldValue"},{"name":"client","type":"StringFieldValue"},{"name":"action","type":"StringFieldValue"},{"name":"entityType","type":"StringFieldValue"},{"name":"timestamp","type":"DateTimeFieldValue"},{"name":"effectiveAt","type":"DateTimeFieldValue"},{"name":"href","type":"StringFieldValue"}],"body":[{"name":"scope","type":"StringFieldValue"}]}}}
               }
             }
           },
@@ -2471,9 +2473,6 @@
         "additionalProperties": false
       },
       "EventTypeSchema": {
-        "required": [
-          "jsonSchema"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -2503,7 +2502,18 @@
             "nullable": true
           },
           "jsonSchema": {
-            "description": "The schema of the event"
+            "description": "The schema of the event",
+            "nullable": true
+          },
+          "headerSchema": {
+            "description": "Header",
+            "nullable": true,
+            "readOnly": true
+          },
+          "bodySchema": {
+            "description": "Body",
+            "nullable": true,
+            "readOnly": true
           }
         },
         "additionalProperties": false,
