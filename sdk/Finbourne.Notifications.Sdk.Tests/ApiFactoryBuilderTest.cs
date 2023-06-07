@@ -18,7 +18,7 @@ namespace Finbourne.Notifications.Sdk.Tests
             {
                 ["api"] = new Dictionary<string, string>()
                 {
-                    {string.Format("{0}Url", "notifications"), "https://sub-domain.lusid.com/api"},
+                    {"baseUrl", "https://sub-domain.lusid.com/api"},
                     {"tokenUrl", "https://sub-domain.okta.com/oauth2/abcd123/v1/token"},
                     {"clientId", "<clientId>"},
                     {"clientSecret", "<clientSecret>"},
