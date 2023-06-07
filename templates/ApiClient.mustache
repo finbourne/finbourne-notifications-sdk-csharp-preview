@@ -415,7 +415,10 @@ namespace {{packageName}}.Client
         private async Task<ApiResponse<T>> ToApiResponse<T>(HttpResponseMessage response, object responseData, Uri uri)
         {
             T result = (T) responseData;
-            string rawContent = await response.Content.ReadAsStringAsync().ConfigureAwait(false);
+
+            string rawContent = response.Content != null
+                ? await response.Content.ReadAsStringAsync().ConfigureAwait(false)
+                : string.Empty;
 
             var transformed = new ApiResponse<T>(response.StatusCode, new Multimap<string, string>({{#caseInsensitiveResponseHeaders}}StringComparer.OrdinalIgnoreCase{{/caseInsensitiveResponseHeaders}}), result, rawContent)
             {
@@ -433,7 +436,7 @@ namespace {{packageName}}.Client
             }
 
             // process response content headers, e.g. Content-Type
-            if (response.Content.Headers != null)
+            if (response.Content?.Headers != null)
             {
                 foreach (var responseHeader in response.Content.Headers)
                 {
