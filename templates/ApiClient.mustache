@@ -517,7 +517,7 @@ namespace {{packageName}}.Client
                     response = (policyResult.Outcome == OutcomeType.Successful) ?
                         policyResult.Result : new HttpResponseMessage()
                         {
-                            ReasonPhrase = policyResult.FinalException.ToString(),
+                            ReasonPhrase = policyResult.FinalException?.ToString() ?? string.Empty,
                             RequestMessage = policyResult.FinalHandledResult.RequestMessage
                         };
                 }
