@@ -80,8 +80,8 @@ namespace {{packageName}}.Client
 
         public async Task<T> Deserialize<T>(HttpResponseMessage response)
         {
-            var result = (T) await Deserialize(response, typeof(T)).ConfigureAwait(false);
-            return result;
+            var result = await Deserialize(response, typeof(T)).ConfigureAwait(false) ?? default(T);
+            return (T)result;
         }
 
         /// <summary>
@@ -92,6 +92,8 @@ namespace {{packageName}}.Client
         /// <returns>Object representation of the JSON string.</returns>
         internal async Task<object> Deserialize(HttpResponseMessage response, Type type)
         {
+            if (response.Content == null) return null;
+            
             IList<string> headers = response.Headers.Select(x => x.Key + "=" + x.Value).ToList();
 
             if (type == typeof(byte[])) // return byte array
