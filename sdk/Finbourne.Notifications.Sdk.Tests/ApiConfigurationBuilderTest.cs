@@ -11,7 +11,7 @@ namespace Finbourne.Notifications.Sdk.Tests
     [TestFixture]
     public class ApiConfigurationBuilderTest
     {
-        private const string APP = "NOTIFICATIONS";
+        private const string APP = "NOTIFICATION";
         private string _secretsFile;
         private string _cachedTokenUrl;
         private string _cachedNotificationsUrl;
@@ -85,7 +85,7 @@ namespace Finbourne.Notifications.Sdk.Tests
                 {"password", "<password>"},
                 {"clientId", "<clientId>"},
                 {"clientSecret", "<clientSecret>"},
-                {"notificationsUrl", string.Format("<{0}Url>", "notifications")},
+                {"baseUrl", string.Format("<{0}Url>", "notification")},
             });            
             var apiConfiguration = ApiConfigurationBuilder.Build(_secretsFile);
             Assert.That(apiConfiguration.TokenUrl, Is.EqualTo("<tokenUrl>"));
@@ -93,7 +93,7 @@ namespace Finbourne.Notifications.Sdk.Tests
             Assert.That(apiConfiguration.Password, Is.EqualTo("<password>"));
             Assert.That(apiConfiguration.ClientId, Is.EqualTo("<clientId>"));
             Assert.That(apiConfiguration.ClientSecret, Is.EqualTo("<clientSecret>"));
-            Assert.That(apiConfiguration.BaseUrl, Is.EqualTo(string.Format("<{0}Url>", "notifications")));            
+            Assert.That(apiConfiguration.BaseUrl, Is.EqualTo(string.Format("<{0}Url>", "notification")));            
         }
 
         [Test]
@@ -106,7 +106,7 @@ namespace Finbourne.Notifications.Sdk.Tests
                 {"password", "<password>"},
                 // {"clientId", "<clientId>"},
                 {"clientSecret", "<clientSecret>"},
-                {"notificationsUrl", string.Format("<{0}Url>", "notifications")},
+                {"baseUrl", string.Format("<{0}Url>", "notification")},
             });
             var exception = Assert.Throws<MissingConfigException>(() => ApiConfigurationBuilder.Build(_secretsFile));
             Assert.That(exception.Message,
@@ -118,7 +118,7 @@ namespace Finbourne.Notifications.Sdk.Tests
         public void Use_Environment_Variables_If_No_Secrets_File_Provided()
         {
             Environment.SetEnvironmentVariable("FBN_TOKEN_URL", "<env.tokenUrl>");
-            Environment.SetEnvironmentVariable($"FBN_{APP}_API_URL", string.Format("<env.{0}Url>", "notifications"));
+            Environment.SetEnvironmentVariable($"FBN_{APP}_API_URL", string.Format("<env.{0}Url>", "notification"));
             Environment.SetEnvironmentVariable("FBN_CLIENT_ID", "<env.clientId>");
             Environment.SetEnvironmentVariable("FBN_CLIENT_SECRET", "<env.clientSecret>");
             Environment.SetEnvironmentVariable("FBN_USERNAME", "<env.username>");
@@ -130,7 +130,7 @@ namespace Finbourne.Notifications.Sdk.Tests
             Assert.That(apiConfiguration.Password, Is.EqualTo("<env.password>"));
             Assert.That(apiConfiguration.ClientId, Is.EqualTo("<env.clientId>"));
             Assert.That(apiConfiguration.ClientSecret, Is.EqualTo("<env.clientSecret>"));
-            Assert.That(apiConfiguration.BaseUrl, Is.EqualTo(string.Format("<env.{0}Url>", "notifications")));            
+            Assert.That(apiConfiguration.BaseUrl, Is.EqualTo(string.Format("<env.{0}Url>", "notification")));            
         }
 
         [Test]
@@ -159,7 +159,7 @@ namespace Finbourne.Notifications.Sdk.Tests
             var settings = new Dictionary<string, string>
             {
                 { "api:TokenUrl", "<tokenUrl>" },
-                { "api:NotificationsUrl", string.Format("<env.{0}Url>", "notifications") },
+                { "api:BaseUrl", string.Format("<env.{0}Url>", "notifications") },
                 { "api:ClientId", "<clientId>" },
                 { "api:ClientSecret", "<clientSecret>" },
                 { "api:Username", "<username>" },
@@ -192,7 +192,7 @@ namespace Finbourne.Notifications.Sdk.Tests
             var settings = new Dictionary<string, string>
             {
                 { "api:TokenUrl", "<tokenUrl>" },
-                { "api:NotificationsUrl", string.Format("<{0}Url>", "notifications") },
+                { "api:BaseUrl", string.Format("<{0}Url>", "notifications") },
                 { "api:ClientId", "<clientId>" },
                 { "api:ClientSecret", "" },
                 { "api:Username", "<username>" },
