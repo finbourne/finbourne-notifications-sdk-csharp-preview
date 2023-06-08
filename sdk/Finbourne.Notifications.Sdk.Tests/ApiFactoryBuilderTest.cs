@@ -1,7 +1,10 @@
+using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Text.Json;
 using Finbourne.Notifications.Sdk.Extensions;
+using Moq;
 using NUnit.Framework;
 
 namespace Finbourne.Notifications.Sdk.Tests
@@ -35,7 +38,10 @@ namespace Finbourne.Notifications.Sdk.Tests
         public void Build_From_Secrets_Returns_NonNull_ApiFactory()
         {
             var apiConfig = ApiConfigurationBuilder.Build(_secretsFile);
-            var apiFactory = new ApiFactory(apiConfig);
+            
+            // Empty out ApiFactory.ApiTypes to avoid request being made to bogus tokenUrl
+            var apiFactory = new ApiFactory(apiConfig, apiTypes: Enumerable.Empty<Type>());
+            
             Assert.IsNotNull(apiFactory);
         }
 
@@ -43,7 +49,14 @@ namespace Finbourne.Notifications.Sdk.Tests
         [Test]
         public void Build_From_Configuration_Returns_NonNull_ApiFactory()
         {
-            var config = new TokenProviderConfiguration(new ClientCredentialsFlowTokenProvider(ApiConfigurationBuilder.Build(_secretsFile)))
+            // Mock token provider to avoid request being made to bogus tokenUrl
+            var tokenProvider = new Mock<ClientCredentialsFlowTokenProvider>(ApiConfigurationBuilder.Build(_secretsFile));
+            tokenProvider
+                .As<ITokenProvider>()
+                .Setup(x => x.GetAuthenticationTokenAsync())
+                .ReturnsAsync("{{ \"access_token\", \"token\"},{ \"expires_in\", \"30\"}}");
+            
+            var config = new TokenProviderConfiguration(tokenProvider.Object)
             {
                 BasePath = "base path"
             };
