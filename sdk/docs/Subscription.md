@@ -15,6 +15,7 @@ Name | Type | Description | Notes
 **CreatedBy** | **string** | The user who made the subscription | [readonly] 
 **LastModifiedAt** | **DateTimeOffset** | The time at which the subscription was last modified | [readonly] 
 **LastModifiedBy** | **string** | The user who last modified the subscription | [readonly] 
+**UseAsAuth** | **string** | The user to use as auth for the subscription | 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

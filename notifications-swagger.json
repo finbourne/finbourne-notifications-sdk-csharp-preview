@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.723",
+    "version": "0.1.731",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -412,7 +412,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfSubscription"
                 },
-                "example": {"values":[{"notifications":[{"id":"Example id","displayName":"Example name","description":"Example description","deliveryChannel":"Email","recipients":{"EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]},"content":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}],"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
+                "example": {"values":[{"notifications":[{"id":"Example id","displayName":"Example name","description":"Example description","deliveryChannel":"Email","recipients":{"EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]},"content":{"Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}],"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient","useAsAuth":"TestClient"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },
@@ -488,7 +488,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient","useAsAuth":"TestClient"}
               }
             }
           },
@@ -562,7 +562,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient","useAsAuth":"TestClient"}
               }
             }
           },
@@ -674,7 +674,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient"}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"TestClient","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"TestClient","useAsAuth":"TestClient"}
               }
             }
           },
@@ -2348,6 +2348,14 @@
           },
           "matchingPattern": {
             "$ref": "#/components/schemas/MatchingPattern"
+          },
+          "useAsAuth": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9\\-_]+$",
+            "type": "string",
+            "description": "The user to authenticate the subscription",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -3057,7 +3065,8 @@
           "lastModifiedAt",
           "lastModifiedBy",
           "matchingPattern",
-          "status"
+          "status",
+          "useAsAuth"
         ],
         "type": "object",
         "properties": {
@@ -3113,6 +3122,11 @@
             "type": "string",
             "description": "The user who last modified the subscription",
             "readOnly": true
+          },
+          "useAsAuth": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user to use as auth for the subscription"
           }
         },
         "additionalProperties": false,
@@ -3297,6 +3311,14 @@
           },
           "matchingPattern": {
             "$ref": "#/components/schemas/MatchingPattern"
+          },
+          "useAsAuth": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9\\-_]+$",
+            "type": "string",
+            "description": "The user to authenticate with for subscriptions",
+            "nullable": true
           }
         },
         "additionalProperties": false,

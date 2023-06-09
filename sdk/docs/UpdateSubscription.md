@@ -9,6 +9,7 @@ Name | Type | Description | Notes
 **Description** | **string** | The summary of the services provided by the subscription | 
 **Status** | **string** | The current status of the subscription. Possible values are: Active, Inactive | 
 **MatchingPattern** | [**MatchingPattern**](MatchingPattern.md) |  | 
+**UseAsAuth** | **string** | The user to authenticate with for subscriptions | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 
