@@ -15,6 +15,9 @@ using System.Threading.Tasks;
 using Newtonsoft.Json;
 using Polly;
 
+[assembly: InternalsVisibleTo("Finbourne.Notifications.Sdk.Tests")]
+[assembly: InternalsVisibleTo("Finbourne.Notifications.Sdk.IntegrationTests")]
+
 namespace Finbourne.Notifications.Sdk.Extensions
 {
     /// <summary>
