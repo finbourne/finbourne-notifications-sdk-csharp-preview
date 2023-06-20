@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
+using FileParameter = Finbourne.Notifications.Sdk.Client.FileParameter;
 using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConverter;
 
 namespace Finbourne.Notifications.Sdk.Model
@@ -39,12 +40,13 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="notificationId">The identifier of the notification (required).</param>
         /// <param name="displayName">The name of the notification.</param>
         /// <param name="description">The summary of the services provided by the notification.</param>
-        /// <param name="notificationType">The type and contents of the notification (required).</param>
+        /// <param name="notificationType">notificationType (required).</param>
         /// <param name="createdAt">The time at which the subscription was made (required).</param>
         /// <param name="userIdCreated">The user who made the subscription (required).</param>
         /// <param name="modifiedAt">The time at which the subscription was last modified (required).</param>
         /// <param name="userIdModified">The user who last modified the subscription (required).</param>
-        public Notification(string notificationId = default(string), string displayName = default(string), string description = default(string), Object notificationType = default(Object), DateTimeOffset createdAt = default(DateTimeOffset), string userIdCreated = default(string), DateTimeOffset modifiedAt = default(DateTimeOffset), string userIdModified = default(string))
+        /// <param name="href">A URI for retrieving this notification.</param>
+        public Notification(string notificationId = default(string), string displayName = default(string), string description = default(string), NotificationNotificationType notificationType = default(NotificationNotificationType), DateTimeOffset createdAt = default(DateTimeOffset), string userIdCreated = default(string), DateTimeOffset modifiedAt = default(DateTimeOffset), string userIdModified = default(string), string href = default(string))
         {
             // to ensure "notificationId" is required (not null)
             if (notificationId == null)
@@ -74,6 +76,7 @@ namespace Finbourne.Notifications.Sdk.Model
             this.UserIdModified = userIdModified;
             this.DisplayName = displayName;
             this.Description = description;
+            this.Href = href;
         }
 
         /// <summary>
@@ -98,11 +101,10 @@ namespace Finbourne.Notifications.Sdk.Model
         public string Description { get; set; }
 
         /// <summary>
-        /// The type and contents of the notification
+        /// Gets or Sets NotificationType
         /// </summary>
-        /// <value>The type and contents of the notification</value>
         [DataMember(Name = "notificationType", IsRequired = true, EmitDefaultValue = true)]
-        public Object NotificationType { get; set; }
+        public NotificationNotificationType NotificationType { get; set; }
 
         /// <summary>
         /// The time at which the subscription was made
@@ -133,6 +135,13 @@ namespace Finbourne.Notifications.Sdk.Model
         public string UserIdModified { get; set; }
 
         /// <summary>
+        /// A URI for retrieving this notification
+        /// </summary>
+        /// <value>A URI for retrieving this notification</value>
+        [DataMember(Name = "href", EmitDefaultValue = true)]
+        public string Href { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -148,6 +157,7 @@ namespace Finbourne.Notifications.Sdk.Model
             sb.Append("  UserIdCreated: ").Append(UserIdCreated).Append("\n");
             sb.Append("  ModifiedAt: ").Append(ModifiedAt).Append("\n");
             sb.Append("  UserIdModified: ").Append(UserIdModified).Append("\n");
+            sb.Append("  Href: ").Append(Href).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -222,6 +232,11 @@ namespace Finbourne.Notifications.Sdk.Model
                     this.UserIdModified == input.UserIdModified ||
                     (this.UserIdModified != null &&
                     this.UserIdModified.Equals(input.UserIdModified))
+                ) && 
+                (
+                    this.Href == input.Href ||
+                    (this.Href != null &&
+                    this.Href.Equals(input.Href))
                 );
         }
 
@@ -265,6 +280,10 @@ namespace Finbourne.Notifications.Sdk.Model
                 if (this.UserIdModified != null)
                 {
                     hashCode = (hashCode * 59) + this.UserIdModified.GetHashCode();
+                }
+                if (this.Href != null)
+                {
+                    hashCode = (hashCode * 59) + this.Href.GetHashCode();
                 }
                 return hashCode;
             }

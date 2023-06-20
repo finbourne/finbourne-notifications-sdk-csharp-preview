@@ -10,9 +10,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mime;
 using Finbourne.Notifications.Sdk.Client;
-using Finbourne.Notifications.Sdk.Client.Auth;
 using Finbourne.Notifications.Sdk.Model;
 
 namespace Finbourne.Notifications.Sdk.Api
@@ -29,9 +29,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="manualEventRequest">The data required to trigger a manual event.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ManualEvent</returns>
-        ManualEvent TriggerManualEvent(ManualEventRequest manualEventRequest, int operationIndex = 0);
+        ManualEvent TriggerManualEvent(ManualEventRequest manualEventRequest);
 
         /// <summary>
         /// [EXPERIMENTAL] TriggerManualEvent: Trigger a manual event.
@@ -41,9 +40,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="manualEventRequest">The data required to trigger a manual event.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ManualEvent</returns>
-        ApiResponse<ManualEvent> TriggerManualEventWithHttpInfo(ManualEventRequest manualEventRequest, int operationIndex = 0);
+        ApiResponse<ManualEvent> TriggerManualEventWithHttpInfo(ManualEventRequest manualEventRequest);
         #endregion Synchronous Operations
     }
 
@@ -61,10 +59,9 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="manualEventRequest">The data required to trigger a manual event.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ManualEvent</returns>
-        System.Threading.Tasks.Task<ManualEvent> TriggerManualEventAsync(ManualEventRequest manualEventRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ManualEvent> TriggerManualEventAsync(ManualEventRequest manualEventRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// [EXPERIMENTAL] TriggerManualEvent: Trigger a manual event.
@@ -74,10 +71,9 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="manualEventRequest">The data required to trigger a manual event.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ManualEvent)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ManualEvent>> TriggerManualEventWithHttpInfoAsync(ManualEventRequest manualEventRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<ManualEvent>> TriggerManualEventWithHttpInfoAsync(ManualEventRequest manualEventRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -92,12 +88,14 @@ namespace Finbourne.Notifications.Sdk.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class ManualEventApi : IManualEventApi
+    public partial class ManualEventApi : IDisposable, IManualEventApi
     {
         private Finbourne.Notifications.Sdk.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManualEventApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
         /// <returns></returns>
         public ManualEventApi() : this((string)null)
@@ -106,7 +104,11 @@ namespace Finbourne.Notifications.Sdk.Api
 
         /// <summary>
         /// Initializes a new instance of the <see cref="ManualEventApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <exception cref="ArgumentException"></exception>
         /// <returns></returns>
         public ManualEventApi(string basePath)
         {
@@ -114,16 +116,19 @@ namespace Finbourne.Notifications.Sdk.Api
                 Finbourne.Notifications.Sdk.Client.GlobalConfiguration.Instance,
                 new Finbourne.Notifications.Sdk.Client.Configuration { BasePath = basePath }
             );
-            this.Client = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
-            this.AsynchronousClient = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
+            this.ApiClient = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
+            this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
             this.ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="ManualEventApi"/> class
-        /// using Configuration object
+        /// Initializes a new instance of the <see cref="ManualEventApi"/> class using Configuration object.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
-        /// <param name="configuration">An instance of Configuration</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public ManualEventApi(Finbourne.Notifications.Sdk.Client.Configuration configuration)
         {
@@ -133,8 +138,78 @@ namespace Finbourne.Notifications.Sdk.Api
                 Finbourne.Notifications.Sdk.Client.GlobalConfiguration.Instance,
                 configuration
             );
-            this.Client = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
-            this.AsynchronousClient = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
+            this.ApiClient = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
+            this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+            ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManualEventApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public ManualEventApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManualEventApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public ManualEventApi(HttpClient client, string basePath, HttpClientHandler handler = null)
+        {
+            if (client == null) throw new ArgumentNullException("client");
+
+            this.Configuration = Finbourne.Notifications.Sdk.Client.Configuration.MergeConfigurations(
+                Finbourne.Notifications.Sdk.Client.GlobalConfiguration.Instance,
+                new Finbourne.Notifications.Sdk.Client.Configuration { BasePath = basePath }
+            );
+            this.ApiClient = new Finbourne.Notifications.Sdk.Client.ApiClient(client, this.Configuration.BasePath, handler);
+            this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+            this.ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ManualEventApi"/> class using Configuration object.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public ManualEventApi(HttpClient client, Finbourne.Notifications.Sdk.Client.Configuration configuration, HttpClientHandler handler = null)
+        {
+            if (configuration == null) throw new ArgumentNullException("configuration");
+            if (client == null) throw new ArgumentNullException("client");
+
+            this.Configuration = Finbourne.Notifications.Sdk.Client.Configuration.MergeConfigurations(
+                Finbourne.Notifications.Sdk.Client.GlobalConfiguration.Instance,
+                configuration
+            );
+            this.ApiClient = new Finbourne.Notifications.Sdk.Client.ApiClient(client, this.Configuration.BasePath, handler);
+            this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
             ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
         }
 
@@ -145,6 +220,7 @@ namespace Finbourne.Notifications.Sdk.Api
         /// <param name="client">The client interface for synchronous API access.</param>
         /// <param name="asyncClient">The client interface for asynchronous API access.</param>
         /// <param name="configuration">The configuration object.</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public ManualEventApi(Finbourne.Notifications.Sdk.Client.ISynchronousClient client, Finbourne.Notifications.Sdk.Client.IAsynchronousClient asyncClient, Finbourne.Notifications.Sdk.Client.IReadableConfiguration configuration)
         {
             if (client == null) throw new ArgumentNullException("client");
@@ -156,6 +232,19 @@ namespace Finbourne.Notifications.Sdk.Api
             this.Configuration = configuration;
             this.ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
         }
+
+        /// <summary>
+        /// Disposes resources if they were created by us
+        /// </summary>
+        public void Dispose()
+        {
+            this.ApiClient?.Dispose();
+        }
+
+        /// <summary>
+        /// Holds the ApiClient if created
+        /// </summary>
+        public Finbourne.Notifications.Sdk.Client.ApiClient ApiClient { get; set; } = null;
 
         /// <summary>
         /// The client for accessing this underlying API asynchronously.
@@ -203,9 +292,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="manualEventRequest">The data required to trigger a manual event.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ManualEvent</returns>
-        public ManualEvent TriggerManualEvent(ManualEventRequest manualEventRequest, int operationIndex = 0)
+        public ManualEvent TriggerManualEvent(ManualEventRequest manualEventRequest)
         {
             Finbourne.Notifications.Sdk.Client.ApiResponse<ManualEvent> localVarResponse = TriggerManualEventWithHttpInfo(manualEventRequest);
             return localVarResponse.Data;
@@ -216,15 +304,12 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="manualEventRequest">The data required to trigger a manual event.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ManualEvent</returns>
-        public Finbourne.Notifications.Sdk.Client.ApiResponse<ManualEvent> TriggerManualEventWithHttpInfo(ManualEventRequest manualEventRequest, int operationIndex = 0)
+        public Finbourne.Notifications.Sdk.Client.ApiResponse<ManualEvent> TriggerManualEventWithHttpInfo(ManualEventRequest manualEventRequest)
         {
             // verify the required parameter 'manualEventRequest' is set
             if (manualEventRequest == null)
-            {
                 throw new Finbourne.Notifications.Sdk.Client.ApiException(400, "Missing required parameter 'manualEventRequest' when calling ManualEventApi->TriggerManualEvent");
-            }
 
             Finbourne.Notifications.Sdk.Client.RequestOptions localVarRequestOptions = new Finbourne.Notifications.Sdk.Client.RequestOptions();
 
@@ -241,48 +326,27 @@ namespace Finbourne.Notifications.Sdk.Api
             };
 
             var localVarContentType = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
 
             var localVarAccept = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.Data = manualEventRequest;
 
-            localVarRequestOptions.Operation = "ManualEventApi.TriggerManualEvent";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
             // authentication (oauth2) required
             // oauth required
-            if (!localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
             {
-                if (!string.IsNullOrEmpty(this.Configuration.AccessToken))
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-                }
-                else if (!string.IsNullOrEmpty(this.Configuration.OAuthTokenUrl) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientId) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientSecret) &&
-                         this.Configuration.OAuthFlow != null)
-                {
-                    localVarRequestOptions.OAuth = true;
-                }
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
             }
 
             // make the HTTP request
             var localVarResponse = this.Client.Post<ManualEvent>("/api/manualevent", localVarRequestOptions, this.Configuration);
+
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("TriggerManualEvent", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
+                if (_exception != null) throw _exception;
             }
 
             return localVarResponse;
@@ -293,12 +357,11 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="manualEventRequest">The data required to trigger a manual event.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ManualEvent</returns>
-        public async System.Threading.Tasks.Task<ManualEvent> TriggerManualEventAsync(ManualEventRequest manualEventRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ManualEvent> TriggerManualEventAsync(ManualEventRequest manualEventRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Finbourne.Notifications.Sdk.Client.ApiResponse<ManualEvent> localVarResponse = await TriggerManualEventWithHttpInfoAsync(manualEventRequest, operationIndex, cancellationToken).ConfigureAwait(false);
+            Finbourne.Notifications.Sdk.Client.ApiResponse<ManualEvent> localVarResponse = await TriggerManualEventWithHttpInfoAsync(manualEventRequest, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -307,16 +370,13 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="manualEventRequest">The data required to trigger a manual event.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ManualEvent)</returns>
-        public async System.Threading.Tasks.Task<Finbourne.Notifications.Sdk.Client.ApiResponse<ManualEvent>> TriggerManualEventWithHttpInfoAsync(ManualEventRequest manualEventRequest, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Finbourne.Notifications.Sdk.Client.ApiResponse<ManualEvent>> TriggerManualEventWithHttpInfoAsync(ManualEventRequest manualEventRequest, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'manualEventRequest' is set
             if (manualEventRequest == null)
-            {
                 throw new Finbourne.Notifications.Sdk.Client.ApiException(400, "Missing required parameter 'manualEventRequest' when calling ManualEventApi->TriggerManualEvent");
-            }
 
 
             Finbourne.Notifications.Sdk.Client.RequestOptions localVarRequestOptions = new Finbourne.Notifications.Sdk.Client.RequestOptions();
@@ -333,50 +393,30 @@ namespace Finbourne.Notifications.Sdk.Api
                 "application/json"
             };
 
+
             var localVarContentType = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
 
             var localVarAccept = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.Data = manualEventRequest;
 
-            localVarRequestOptions.Operation = "ManualEventApi.TriggerManualEvent";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
             // authentication (oauth2) required
             // oauth required
-            if (!localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
             {
-                if (!string.IsNullOrEmpty(this.Configuration.AccessToken))
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-                }
-                else if (!string.IsNullOrEmpty(this.Configuration.OAuthTokenUrl) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientId) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientSecret) &&
-                         this.Configuration.OAuthFlow != null)
-                {
-                    localVarRequestOptions.OAuth = true;
-                }
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
             }
 
             // make the HTTP request
+
             var localVarResponse = await this.AsynchronousClient.PostAsync<ManualEvent>("/api/manualevent", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("TriggerManualEvent", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
+                if (_exception != null) throw _exception;
             }
 
             return localVarResponse;

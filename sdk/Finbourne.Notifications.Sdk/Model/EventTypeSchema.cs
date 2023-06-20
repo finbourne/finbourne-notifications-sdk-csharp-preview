@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
+using FileParameter = Finbourne.Notifications.Sdk.Client.FileParameter;
 using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConverter;
 
 namespace Finbourne.Notifications.Sdk.Model
@@ -31,31 +32,21 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EventTypeSchema" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected EventTypeSchema() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventTypeSchema" /> class.
-        /// </summary>
         /// <param name="id">The identifier of the event type.</param>
         /// <param name="displayName">Identifier name of the event.</param>
         /// <param name="description">The summary of the event.</param>
         /// <param name="entity">The entity against which the event originated.</param>
         /// <param name="application">The application associated with the event.</param>
-        /// <param name="jsonSchema">The schema of the event (required).</param>
+        /// <param name="jsonSchema">The schema of the event.</param>
         /// <param name="href">A URI for retrieving this schema.</param>
         public EventTypeSchema(string id = default(string), string displayName = default(string), string description = default(string), string entity = default(string), string application = default(string), Object jsonSchema = default(Object), string href = default(string))
         {
-            // to ensure "jsonSchema" is required (not null)
-            if (jsonSchema == null)
-            {
-                throw new ArgumentNullException("jsonSchema is a required property for EventTypeSchema and cannot be null");
-            }
-            this.JsonSchema = jsonSchema;
             this.Id = id;
             this.DisplayName = displayName;
             this.Description = description;
             this.Entity = entity;
             this.Application = application;
+            this.JsonSchema = jsonSchema;
             this.Href = href;
         }
 
@@ -98,9 +89,39 @@ namespace Finbourne.Notifications.Sdk.Model
         /// The schema of the event
         /// </summary>
         /// <value>The schema of the event</value>
-        [DataMember(Name = "jsonSchema", IsRequired = true, EmitDefaultValue = true)]
+        [DataMember(Name = "jsonSchema", EmitDefaultValue = true)]
         public Object JsonSchema { get; set; }
 
+        /// <summary>
+        /// Header
+        /// </summary>
+        /// <value>Header</value>
+        [DataMember(Name = "headerSchema", EmitDefaultValue = true)]
+        public Object HeaderSchema { get; private set; }
+
+        /// <summary>
+        /// Returns false as HeaderSchema should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeHeaderSchema()
+        {
+            return false;
+        }
+        /// <summary>
+        /// Body
+        /// </summary>
+        /// <value>Body</value>
+        [DataMember(Name = "bodySchema", EmitDefaultValue = true)]
+        public Object BodySchema { get; private set; }
+
+        /// <summary>
+        /// Returns false as BodySchema should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeBodySchema()
+        {
+            return false;
+        }
         /// <summary>
         /// A URI for retrieving this schema
         /// </summary>
@@ -122,6 +143,8 @@ namespace Finbourne.Notifications.Sdk.Model
             sb.Append("  Entity: ").Append(Entity).Append("\n");
             sb.Append("  Application: ").Append(Application).Append("\n");
             sb.Append("  JsonSchema: ").Append(JsonSchema).Append("\n");
+            sb.Append("  HeaderSchema: ").Append(HeaderSchema).Append("\n");
+            sb.Append("  BodySchema: ").Append(BodySchema).Append("\n");
             sb.Append("  Href: ").Append(Href).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -189,6 +212,16 @@ namespace Finbourne.Notifications.Sdk.Model
                     this.JsonSchema.Equals(input.JsonSchema))
                 ) && 
                 (
+                    this.HeaderSchema == input.HeaderSchema ||
+                    (this.HeaderSchema != null &&
+                    this.HeaderSchema.Equals(input.HeaderSchema))
+                ) && 
+                (
+                    this.BodySchema == input.BodySchema ||
+                    (this.BodySchema != null &&
+                    this.BodySchema.Equals(input.BodySchema))
+                ) && 
+                (
                     this.Href == input.Href ||
                     (this.Href != null &&
                     this.Href.Equals(input.Href))
@@ -227,6 +260,14 @@ namespace Finbourne.Notifications.Sdk.Model
                 if (this.JsonSchema != null)
                 {
                     hashCode = (hashCode * 59) + this.JsonSchema.GetHashCode();
+                }
+                if (this.HeaderSchema != null)
+                {
+                    hashCode = (hashCode * 59) + this.HeaderSchema.GetHashCode();
+                }
+                if (this.BodySchema != null)
+                {
+                    hashCode = (hashCode * 59) + this.BodySchema.GetHashCode();
                 }
                 if (this.Href != null)
                 {

@@ -15,7 +15,6 @@ using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text;
 using System.Net.Http;
-using Finbourne.Notifications.Sdk.Client.Auth;
 
 namespace Finbourne.Notifications.Sdk.Client
 {
@@ -30,7 +29,7 @@ namespace Finbourne.Notifications.Sdk.Client
         /// Version of the package.
         /// </summary>
         /// <value>Version of the package.</value>
-        public const string Version = "0.1.719";
+        public const string Version = "0.1.748";
 
         /// <summary>
         /// Identifier for ISO 8601 DateTime Format
@@ -54,6 +53,11 @@ namespace Finbourne.Notifications.Sdk.Client
                 return new ApiException(status,
                     string.Format("Error calling {0}: {1}", methodName, response.RawContent),
                     response.RawContent, response.Headers);
+            }
+            if (status == 0)
+            {
+                return new ApiException(status,
+                    string.Format("Error calling {0}: {1}", methodName, response.ErrorText), response.ErrorText);
             }
             return null;
         };
@@ -107,7 +111,7 @@ namespace Finbourne.Notifications.Sdk.Client
         public Configuration()
         {
             Proxy = null;
-            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/0.1.719/csharp");
+            UserAgent = WebUtility.UrlEncode("OpenAPI-Generator/0.1.748/csharp");
             BasePath = "https://www.lusid.com/notification";
             DefaultHeaders = new ConcurrentDictionary<string, string>();
             ApiKey = new ConcurrentDictionary<string, string>();
@@ -259,30 +263,6 @@ namespace Finbourne.Notifications.Sdk.Client
         /// </summary>
         /// <value>The access token.</value>
         public virtual string AccessToken { get; set; }
-
-        /// <summary>
-        /// Gets or sets the token URL for OAuth2 authentication.
-        /// </summary>
-        /// <value>The OAuth Token URL.</value>
-        public virtual string OAuthTokenUrl { get; set; }
-
-        /// <summary>
-        /// Gets or sets the client ID for OAuth2 authentication.
-        /// </summary>
-        /// <value>The OAuth Client ID.</value>
-        public virtual string OAuthClientId { get; set; }
-
-        /// <summary>
-        /// Gets or sets the client secret for OAuth2 authentication.
-        /// </summary>
-        /// <value>The OAuth Client Secret.</value>
-        public virtual string OAuthClientSecret { get; set; }
-
-        /// <summary>
-        /// Gets or sets the flow for OAuth2 authentication.
-        /// </summary>
-        /// <value>The OAuth Flow.</value>
-        public virtual OAuthFlow? OAuthFlow { get; set; }
 
         /// <summary>
         /// Gets or sets the temporary folder path to store the files downloaded from the server.
@@ -466,7 +446,7 @@ namespace Finbourne.Notifications.Sdk.Client
         /// <return>The operation server URL.</return>
         public string GetOperationServerUrl(string operation, int index, Dictionary<string, string> inputVariables)
         {
-            if (operation != null && OperationServers.TryGetValue(operation, out var operationServer))
+            if (OperationServers.TryGetValue(operation, out var operationServer))
             {
                 return GetServerUrl(operationServer, index, inputVariables);
             }
@@ -538,8 +518,8 @@ namespace Finbourne.Notifications.Sdk.Client
             string report = "C# SDK (Finbourne.Notifications.Sdk) Debug Report:\n";
             report += "    OS: " + System.Environment.OSVersion + "\n";
             report += "    .NET Framework Version: " + System.Environment.Version  + "\n";
-            report += "    Version of the API: 0.1.719\n";
-            report += "    SDK Package Version: 0.1.719\n";
+            report += "    Version of the API: 0.1.748\n";
+            report += "    SDK Package Version: 0.1.748\n";
 
             return report;
         }
@@ -598,10 +578,6 @@ namespace Finbourne.Notifications.Sdk.Client
                 Username = second.Username ?? first.Username,
                 Password = second.Password ?? first.Password,
                 AccessToken = second.AccessToken ?? first.AccessToken,
-                OAuthTokenUrl = second.OAuthTokenUrl ?? first.OAuthTokenUrl,
-                OAuthClientId = second.OAuthClientId ?? first.OAuthClientId,
-                OAuthClientSecret = second.OAuthClientSecret ?? first.OAuthClientSecret,
-                OAuthFlow = second.OAuthFlow ?? first.OAuthFlow,
                 TempFolderPath = second.TempFolderPath ?? first.TempFolderPath,
                 DateTimeFormat = second.DateTimeFormat ?? first.DateTimeFormat,
                 ClientCertificates = second.ClientCertificates ?? first.ClientCertificates,

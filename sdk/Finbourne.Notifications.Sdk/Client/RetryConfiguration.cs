@@ -6,7 +6,7 @@
  */
 
 using Polly;
-using RestSharp;
+using System.Net.Http;
 
 namespace Finbourne.Notifications.Sdk.Client
 {
@@ -18,11 +18,11 @@ namespace Finbourne.Notifications.Sdk.Client
         /// <summary>
         /// Retry policy
         /// </summary>
-        public static Policy<RestResponse> RetryPolicy { get; set; }
+        public static Policy<HttpResponseMessage> RetryPolicy { get; set; }
 
         /// <summary>
         /// Async retry policy
         /// </summary>
-        public static AsyncPolicy<RestResponse> AsyncRetryPolicy { get; set; }
+        public static AsyncPolicy<HttpResponseMessage> AsyncRetryPolicy { get; set; }
     }
 }
