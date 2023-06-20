@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.719",
+    "version": "0.1.748",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -20,99 +20,6 @@
     }
   ],
   "paths": {
-    "/api/deliveries": {
-      "get": {
-        "tags": [
-          "Deliveries"
-        ],
-        "summary": "[EXPERIMENTAL] ListDeliveries: List Deliveries",
-        "description": "Currently only returns deliveries with failed attempts.",
-        "operationId": "ListDeliveries",
-        "parameters": [
-          {
-            "name": "page",
-            "in": "query",
-            "description": "The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied.",
-            "schema": {
-              "maxLength": 500,
-              "minLength": 1,
-              "pattern": "^[a-zA-Z0-9\\+/]*={0,3}$",
-              "type": "string"
-            }
-          },
-          {
-            "name": "limit",
-            "in": "query",
-            "description": "The maximum number of delivery attempts to retrieve. Defaults to 5000 if not specified.",
-            "schema": {
-              "type": "integer",
-              "format": "int32"
-            },
-            "x-nullable": true
-          },
-          {
-            "name": "filter",
-            "in": "query",
-            "description": "Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914.",
-            "schema": {
-              "maxLength": 16384,
-              "minLength": 0,
-              "pattern": "^[\\s\\S]*$",
-              "type": "string"
-            }
-          }
-        ],
-        "responses": {
-          "200": {
-            "description": "Success",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/ResourceListOfDelivery"
-                },
-                "example": {"values":[{"id":"e8e2d8d3-0a15-414f-b44a-854cd937ee18","eventId":"0f8fad5b-d9cb-469f-a165-70867728950e","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"80c1e37a-03b0-4a5d-9f4f-b4638926a57e","deliveryChannel":"Email","messageDetails":"{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"Email server not responding."}}]},{"id":"ba2ffdbf-1765-457b-97c5-b36b5d4d990e","eventId":"7c9e6679-7425-40de-944b-e07fc1f90ae7","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"E3FE3114-43C4-4D06-AE2D-F792FAB9B57C","deliveryChannel":"SMS","messageDetails":"{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"SMS limit reached."}}]}],"href":"http://example.com","links":[]}
-              }
-            }
-          },
-          "400": {
-            "description": "The details of the input related failure",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
-                }
-              }
-            }
-          },
-          "404": {
-            "description": "No deliveries exists with the provided filter(s)",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "type": "string"
-                }
-              }
-            }
-          },
-          "default": {
-            "description": "Error response",
-            "content": {
-              "application/json": {
-                "schema": {
-                  "$ref": "#/components/schemas/LusidProblemDetails"
-                }
-              }
-            }
-          }
-        },
-        "security": [
-          {
-            "oauth2": [ ]
-          }
-        ],
-        "x-fbn-apistatus": "Experimental"
-      }
-    },
     "/api/eventtypes": {
       "get": {
         "tags": [
@@ -127,7 +34,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfEventTypeSchema"
-                }
+                },
+                "example": {"values":[{"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"StringFieldValue"},{"name":"requestId","type":"StringFieldValue"},{"name":"userId","type":"StringFieldValue"},{"name":"action","type":"StringFieldValue"},{"name":"entityType","type":"StringFieldValue"},{"name":"timestamp","type":"DateTimeFieldValue"},{"name":"href","type":"StringFieldValue"}],"bodySchema":[{"name":"scope","type":"StringFieldValue"}],"href":"Test:firstString"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },
@@ -188,7 +96,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/EventTypeSchema"
-                }
+                },
+                "example": {"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"StringFieldValue"},{"name":"requestId","type":"StringFieldValue"},{"name":"userId","type":"StringFieldValue"},{"name":"action","type":"StringFieldValue"},{"name":"entityType","type":"StringFieldValue"},{"name":"timestamp","type":"DateTimeFieldValue"},{"name":"href","type":"StringFieldValue"}],"bodySchema":[{"name":"scope","type":"StringFieldValue"}],"href":"Test:firstString"}
               }
             }
           },
@@ -419,7 +328,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfSubscription"
                 },
-                "example": {"values":[{"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
+                "example": {"values":[{"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"TestClient","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },
@@ -495,7 +404,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient"}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"TestClient","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}
               }
             }
           },
@@ -569,7 +478,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient"}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"TestClient","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}
               }
             }
           },
@@ -681,7 +590,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient"}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"TestClient","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}
               }
             }
           },
@@ -1016,19 +925,19 @@
                 },
                 "examples": {
                   "Email Notification": {
-                    "value": {"notificationId":"Example id","displayName":"Example name","description":"Example description","notificationType":{"Type":"Email","Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user"}
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Type":"Email","Subject":"Event with id of {{id}}","PlainTextBody":"Event with message {{message}} and subject {{subject}}","HtmlBody":"<p>Event with message {{message}} and subject {{subject}}</p>","EmailAddressTo":["recipient@finbourne.com"],"EmailAddressCc":["recipientcc@finbourne.com"],"EmailAddressBcc":["recipientbcc@finbourne.com"]},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "SMS Notification": {
-                    "value": {"notificationId":"Example id","displayName":"Example name","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user"}
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "Api Request Notification": {
-                    "value": {"notificationId":"Example id","displayName":"Example name","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user"}
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "Webhook Notification": {
-                    "value": {"notificationId":"Example id","displayName":"Example name","description":"Example description","notificationType":{"Content":{"Key":"Value Example","MessageKey":"{{message}}"},"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","ContentType":"Json","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user"}
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Content":{"Key":"Value Example","MessageKey":"{{message}}"},"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","ContentType":"Json","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "AWS SQS Notification": {
-                    "value": {"notificationId":"Example id","displayName":"Example name","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecretRef","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user"}
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecretRef","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   }
                 }
               }
@@ -1113,7 +1022,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"notificationId":"Example id","displayName":"Example name","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecretRef","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user"}
+                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecretRef","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
               }
             }
           },
@@ -1301,7 +1210,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"notificationId":"Example id","displayName":"Example name","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecretRef","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user"}
+                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecretRef","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
               }
             }
           },
@@ -1603,51 +1512,6 @@
         "additionalProperties": false,
         "description": "The information required to create or update an Api request notification"
       },
-      "Attempt": {
-        "required": [
-          "attemptNumber",
-          "attemptTime",
-          "status"
-        ],
-        "type": "object",
-        "properties": {
-          "attemptNumber": {
-            "type": "integer",
-            "description": "The attempt number of the delivery.",
-            "format": "int32"
-          },
-          "attemptTime": {
-            "type": "string",
-            "description": "The time that the delivery was attempted.",
-            "format": "date-time"
-          },
-          "status": {
-            "$ref": "#/components/schemas/AttemptStatus"
-          }
-        },
-        "additionalProperties": false,
-        "description": "Details of an attempt of delivery."
-      },
-      "AttemptStatus": {
-        "required": [
-          "result"
-        ],
-        "type": "object",
-        "properties": {
-          "result": {
-            "minLength": 1,
-            "type": "string",
-            "description": "Result of the delivery."
-          },
-          "detailedMessage": {
-            "type": "string",
-            "description": "The detailed message from attempting to deliver the message.",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Status of the delivery attempt."
-      },
       "CreateNotificationRequest": {
         "required": [
           "displayName",
@@ -1737,60 +1601,18 @@
           },
           "matchingPattern": {
             "$ref": "#/components/schemas/MatchingPattern"
+          },
+          "useAsAuth": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9\\-_]+$",
+            "type": "string",
+            "description": "The user to authenticate the subscription",
+            "nullable": true
           }
         },
         "additionalProperties": false,
         "description": "The information required to create a subscription"
-      },
-      "Delivery": {
-        "required": [
-          "attempts",
-          "deliveryChannel",
-          "eventId",
-          "id",
-          "messageDetails",
-          "notificationId",
-          "subscriptionId"
-        ],
-        "type": "object",
-        "properties": {
-          "id": {
-            "type": "string",
-            "description": "The identifier of the delivery.",
-            "format": "uuid"
-          },
-          "eventId": {
-            "minLength": 1,
-            "type": "string",
-            "description": "The identifier of the associated event."
-          },
-          "subscriptionId": {
-            "$ref": "#/components/schemas/ResourceId"
-          },
-          "notificationId": {
-            "minLength": 1,
-            "type": "string",
-            "description": "The identifier of the associated notification."
-          },
-          "deliveryChannel": {
-            "minLength": 1,
-            "type": "string",
-            "description": "The delivery channel of the message."
-          },
-          "messageDetails": {
-            "minLength": 1,
-            "type": "string",
-            "description": "The Details of the delivery message as JSON string."
-          },
-          "attempts": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Attempt"
-            },
-            "description": "A list of all the delivery attempts made for this message."
-          }
-        },
-        "additionalProperties": false
       },
       "EmailNotificationType": {
         "required": [
@@ -1860,9 +1682,6 @@
         "description": "The information required to create or update an Email notification"
       },
       "EventTypeSchema": {
-        "required": [
-          "jsonSchema"
-        ],
         "type": "object",
         "properties": {
           "id": {
@@ -1891,7 +1710,18 @@
             "nullable": true
           },
           "jsonSchema": {
-            "description": "The schema of the event"
+            "description": "The schema of the event",
+            "nullable": true
+          },
+          "headerSchema": {
+            "description": "Header",
+            "nullable": true,
+            "readOnly": true
+          },
+          "bodySchema": {
+            "description": "Body",
+            "nullable": true,
+            "readOnly": true
           },
           "href": {
             "type": "string",
@@ -2255,6 +2085,23 @@
             "nullable": true
           },
           "notificationType": {
+            "oneOf": [
+              {
+                "$ref": "#/components/schemas/AmazonSqsNotificationType"
+              },
+              {
+                "$ref": "#/components/schemas/ApiRequestNotificationType"
+              },
+              {
+                "$ref": "#/components/schemas/EmailNotificationType"
+              },
+              {
+                "$ref": "#/components/schemas/SmsNotificationType"
+              },
+              {
+                "$ref": "#/components/schemas/WebhookNotificationType"
+              }
+            ],
             "description": "The type and contents of the notification"
           },
           "createdAt": {
@@ -2276,6 +2123,12 @@
             "minLength": 1,
             "type": "string",
             "description": "The user who last modified the subscription"
+          },
+          "href": {
+            "type": "string",
+            "description": "A URI for retrieving this notification",
+            "format": "uri",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -2331,41 +2184,6 @@
             "type": "array",
             "items": {
               "$ref": "#/components/schemas/AccessControlledResource"
-            }
-          },
-          "href": {
-            "type": "string",
-            "format": "uri",
-            "nullable": true
-          },
-          "links": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Link"
-            },
-            "nullable": true
-          },
-          "nextPage": {
-            "type": "string",
-            "nullable": true
-          },
-          "previousPage": {
-            "type": "string",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false
-      },
-      "ResourceListOfDelivery": {
-        "required": [
-          "values"
-        ],
-        "type": "object",
-        "properties": {
-          "values": {
-            "type": "array",
-            "items": {
-              "$ref": "#/components/schemas/Delivery"
             }
           },
           "href": {
@@ -2537,6 +2355,7 @@
           "matchingPattern",
           "modifiedAt",
           "status",
+          "useAsAuth",
           "userIdCreated",
           "userIdModified"
         ],
@@ -2582,6 +2401,17 @@
             "minLength": 1,
             "type": "string",
             "description": "The user who last modified the subscription"
+          },
+          "useAsAuth": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The user to use as auth for the subscription"
+          },
+          "href": {
+            "type": "string",
+            "description": "A URI for retrieving this subscription",
+            "format": "uri",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -2664,6 +2494,14 @@
           },
           "matchingPattern": {
             "$ref": "#/components/schemas/MatchingPattern"
+          },
+          "useAsAuth": {
+            "maxLength": 64,
+            "minLength": 1,
+            "pattern": "^[a-zA-Z0-9\\-_]+$",
+            "type": "string",
+            "description": "The user to authenticate with for subscriptions",
+            "nullable": true
           }
         },
         "additionalProperties": false,
@@ -2746,10 +2584,6 @@
       "description": "Metadata about the application"
     },
     {
-      "name": "Deliveries",
-      "description": "Methods for managing attempted message deliveries."
-    },
-    {
       "name": "EventTypes",
       "description": "Methods for discovering possible event types."
     },
@@ -2770,7 +2604,6 @@
     "name": "API",
     "tags": [
       "Application Metadata",
-      "Deliveries",
       "EventTypes",
       "ManualEvent",
       "Notifications",

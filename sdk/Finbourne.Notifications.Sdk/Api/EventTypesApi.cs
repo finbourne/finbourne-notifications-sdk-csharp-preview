@@ -10,9 +10,9 @@ using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Net.Mime;
 using Finbourne.Notifications.Sdk.Client;
-using Finbourne.Notifications.Sdk.Client.Auth;
 using Finbourne.Notifications.Sdk.Model;
 
 namespace Finbourne.Notifications.Sdk.Api
@@ -29,9 +29,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="eventType">The event type to retrieve schema for.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>EventTypeSchema</returns>
-        EventTypeSchema GetEventType(string eventType, int operationIndex = 0);
+        EventTypeSchema GetEventType(string eventType);
 
         /// <summary>
         /// [EXPERIMENTAL] GetEventType: Gets the specified event type schema.
@@ -41,16 +40,14 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="eventType">The event type to retrieve schema for.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of EventTypeSchema</returns>
-        ApiResponse<EventTypeSchema> GetEventTypeWithHttpInfo(string eventType, int operationIndex = 0);
+        ApiResponse<EventTypeSchema> GetEventTypeWithHttpInfo(string eventType);
         /// <summary>
         /// [EXPERIMENTAL] ListEventTypes: Lists all of the available event types.
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ResourceListOfEventTypeSchema</returns>
-        ResourceListOfEventTypeSchema ListEventTypes(int operationIndex = 0);
+        ResourceListOfEventTypeSchema ListEventTypes();
 
         /// <summary>
         /// [EXPERIMENTAL] ListEventTypes: Lists all of the available event types.
@@ -59,9 +56,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// 
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ResourceListOfEventTypeSchema</returns>
-        ApiResponse<ResourceListOfEventTypeSchema> ListEventTypesWithHttpInfo(int operationIndex = 0);
+        ApiResponse<ResourceListOfEventTypeSchema> ListEventTypesWithHttpInfo();
         #endregion Synchronous Operations
     }
 
@@ -79,10 +75,9 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="eventType">The event type to retrieve schema for.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of EventTypeSchema</returns>
-        System.Threading.Tasks.Task<EventTypeSchema> GetEventTypeAsync(string eventType, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<EventTypeSchema> GetEventTypeAsync(string eventType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// [EXPERIMENTAL] GetEventType: Gets the specified event type schema.
@@ -92,10 +87,9 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="eventType">The event type to retrieve schema for.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (EventTypeSchema)</returns>
-        System.Threading.Tasks.Task<ApiResponse<EventTypeSchema>> GetEventTypeWithHttpInfoAsync(string eventType, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<EventTypeSchema>> GetEventTypeWithHttpInfoAsync(string eventType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         /// <summary>
         /// [EXPERIMENTAL] ListEventTypes: Lists all of the available event types.
         /// </summary>
@@ -103,10 +97,9 @@ namespace Finbourne.Notifications.Sdk.Api
         /// 
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ResourceListOfEventTypeSchema</returns>
-        System.Threading.Tasks.Task<ResourceListOfEventTypeSchema> ListEventTypesAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ResourceListOfEventTypeSchema> ListEventTypesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
 
         /// <summary>
         /// [EXPERIMENTAL] ListEventTypes: Lists all of the available event types.
@@ -115,10 +108,9 @@ namespace Finbourne.Notifications.Sdk.Api
         /// 
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ResourceListOfEventTypeSchema)</returns>
-        System.Threading.Tasks.Task<ApiResponse<ResourceListOfEventTypeSchema>> ListEventTypesWithHttpInfoAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
+        System.Threading.Tasks.Task<ApiResponse<ResourceListOfEventTypeSchema>> ListEventTypesWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken));
         #endregion Asynchronous Operations
     }
 
@@ -133,12 +125,14 @@ namespace Finbourne.Notifications.Sdk.Api
     /// <summary>
     /// Represents a collection of functions to interact with the API endpoints
     /// </summary>
-    public partial class EventTypesApi : IEventTypesApi
+    public partial class EventTypesApi : IDisposable, IEventTypesApi
     {
         private Finbourne.Notifications.Sdk.Client.ExceptionFactory _exceptionFactory = (name, response) => null;
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventTypesApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
         /// <returns></returns>
         public EventTypesApi() : this((string)null)
@@ -147,7 +141,11 @@ namespace Finbourne.Notifications.Sdk.Api
 
         /// <summary>
         /// Initializes a new instance of the <see cref="EventTypesApi"/> class.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <exception cref="ArgumentException"></exception>
         /// <returns></returns>
         public EventTypesApi(string basePath)
         {
@@ -155,16 +153,19 @@ namespace Finbourne.Notifications.Sdk.Api
                 Finbourne.Notifications.Sdk.Client.GlobalConfiguration.Instance,
                 new Finbourne.Notifications.Sdk.Client.Configuration { BasePath = basePath }
             );
-            this.Client = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
-            this.AsynchronousClient = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
+            this.ApiClient = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
+            this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
             this.ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventTypesApi"/> class
-        /// using Configuration object
+        /// Initializes a new instance of the <see cref="EventTypesApi"/> class using Configuration object.
+        /// **IMPORTANT** This will also create an instance of HttpClient, which is less than ideal.
+        /// It's better to reuse the <see href="https://docs.microsoft.com/en-us/dotnet/architecture/microservices/implement-resilient-applications/use-httpclientfactory-to-implement-resilient-http-requests#issues-with-the-original-httpclient-class-available-in-net">HttpClient and HttpClientHandler</see>.
         /// </summary>
-        /// <param name="configuration">An instance of Configuration</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <exception cref="ArgumentNullException"></exception>
         /// <returns></returns>
         public EventTypesApi(Finbourne.Notifications.Sdk.Client.Configuration configuration)
         {
@@ -174,8 +175,78 @@ namespace Finbourne.Notifications.Sdk.Api
                 Finbourne.Notifications.Sdk.Client.GlobalConfiguration.Instance,
                 configuration
             );
-            this.Client = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
-            this.AsynchronousClient = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
+            this.ApiClient = new Finbourne.Notifications.Sdk.Client.ApiClient(this.Configuration.BasePath);
+            this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+            ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventTypesApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public EventTypesApi(HttpClient client, HttpClientHandler handler = null) : this(client, (string)null, handler)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventTypesApi"/> class.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="basePath">The target service's base path in URL format.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <exception cref="ArgumentException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public EventTypesApi(HttpClient client, string basePath, HttpClientHandler handler = null)
+        {
+            if (client == null) throw new ArgumentNullException("client");
+
+            this.Configuration = Finbourne.Notifications.Sdk.Client.Configuration.MergeConfigurations(
+                Finbourne.Notifications.Sdk.Client.GlobalConfiguration.Instance,
+                new Finbourne.Notifications.Sdk.Client.Configuration { BasePath = basePath }
+            );
+            this.ApiClient = new Finbourne.Notifications.Sdk.Client.ApiClient(client, this.Configuration.BasePath, handler);
+            this.Client =  this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
+            this.ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="EventTypesApi"/> class using Configuration object.
+        /// </summary>
+        /// <param name="client">An instance of HttpClient.</param>
+        /// <param name="configuration">An instance of Configuration.</param>
+        /// <param name="handler">An optional instance of HttpClientHandler that is used by HttpClient.</param>
+        /// <exception cref="ArgumentNullException"></exception>
+        /// <returns></returns>
+        /// <remarks>
+        /// Some configuration settings will not be applied without passing an HttpClientHandler.
+        /// The features affected are: Setting and Retrieving Cookies, Client Certificates, Proxy settings.
+        /// </remarks>
+        public EventTypesApi(HttpClient client, Finbourne.Notifications.Sdk.Client.Configuration configuration, HttpClientHandler handler = null)
+        {
+            if (configuration == null) throw new ArgumentNullException("configuration");
+            if (client == null) throw new ArgumentNullException("client");
+
+            this.Configuration = Finbourne.Notifications.Sdk.Client.Configuration.MergeConfigurations(
+                Finbourne.Notifications.Sdk.Client.GlobalConfiguration.Instance,
+                configuration
+            );
+            this.ApiClient = new Finbourne.Notifications.Sdk.Client.ApiClient(client, this.Configuration.BasePath, handler);
+            this.Client = this.ApiClient;
+            this.AsynchronousClient = this.ApiClient;
             ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
         }
 
@@ -186,6 +257,7 @@ namespace Finbourne.Notifications.Sdk.Api
         /// <param name="client">The client interface for synchronous API access.</param>
         /// <param name="asyncClient">The client interface for asynchronous API access.</param>
         /// <param name="configuration">The configuration object.</param>
+        /// <exception cref="ArgumentNullException"></exception>
         public EventTypesApi(Finbourne.Notifications.Sdk.Client.ISynchronousClient client, Finbourne.Notifications.Sdk.Client.IAsynchronousClient asyncClient, Finbourne.Notifications.Sdk.Client.IReadableConfiguration configuration)
         {
             if (client == null) throw new ArgumentNullException("client");
@@ -197,6 +269,19 @@ namespace Finbourne.Notifications.Sdk.Api
             this.Configuration = configuration;
             this.ExceptionFactory = Finbourne.Notifications.Sdk.Client.Configuration.DefaultExceptionFactory;
         }
+
+        /// <summary>
+        /// Disposes resources if they were created by us
+        /// </summary>
+        public void Dispose()
+        {
+            this.ApiClient?.Dispose();
+        }
+
+        /// <summary>
+        /// Holds the ApiClient if created
+        /// </summary>
+        public Finbourne.Notifications.Sdk.Client.ApiClient ApiClient { get; set; } = null;
 
         /// <summary>
         /// The client for accessing this underlying API asynchronously.
@@ -244,9 +329,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="eventType">The event type to retrieve schema for.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>EventTypeSchema</returns>
-        public EventTypeSchema GetEventType(string eventType, int operationIndex = 0)
+        public EventTypeSchema GetEventType(string eventType)
         {
             Finbourne.Notifications.Sdk.Client.ApiResponse<EventTypeSchema> localVarResponse = GetEventTypeWithHttpInfo(eventType);
             return localVarResponse.Data;
@@ -257,15 +341,12 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="eventType">The event type to retrieve schema for.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of EventTypeSchema</returns>
-        public Finbourne.Notifications.Sdk.Client.ApiResponse<EventTypeSchema> GetEventTypeWithHttpInfo(string eventType, int operationIndex = 0)
+        public Finbourne.Notifications.Sdk.Client.ApiResponse<EventTypeSchema> GetEventTypeWithHttpInfo(string eventType)
         {
             // verify the required parameter 'eventType' is set
             if (eventType == null)
-            {
                 throw new Finbourne.Notifications.Sdk.Client.ApiException(400, "Missing required parameter 'eventType' when calling EventTypesApi->GetEventType");
-            }
 
             Finbourne.Notifications.Sdk.Client.RequestOptions localVarRequestOptions = new Finbourne.Notifications.Sdk.Client.RequestOptions();
 
@@ -278,48 +359,27 @@ namespace Finbourne.Notifications.Sdk.Api
             };
 
             var localVarContentType = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
 
             var localVarAccept = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("eventType", Finbourne.Notifications.Sdk.Client.ClientUtils.ParameterToString(eventType)); // path parameter
 
-            localVarRequestOptions.Operation = "EventTypesApi.GetEventType";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
             // authentication (oauth2) required
             // oauth required
-            if (!localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
             {
-                if (!string.IsNullOrEmpty(this.Configuration.AccessToken))
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-                }
-                else if (!string.IsNullOrEmpty(this.Configuration.OAuthTokenUrl) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientId) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientSecret) &&
-                         this.Configuration.OAuthFlow != null)
-                {
-                    localVarRequestOptions.OAuth = true;
-                }
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
             }
 
             // make the HTTP request
             var localVarResponse = this.Client.Get<EventTypeSchema>("/api/eventtypes/{eventType}", localVarRequestOptions, this.Configuration);
+
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetEventType", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
+                if (_exception != null) throw _exception;
             }
 
             return localVarResponse;
@@ -330,12 +390,11 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="eventType">The event type to retrieve schema for.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of EventTypeSchema</returns>
-        public async System.Threading.Tasks.Task<EventTypeSchema> GetEventTypeAsync(string eventType, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<EventTypeSchema> GetEventTypeAsync(string eventType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Finbourne.Notifications.Sdk.Client.ApiResponse<EventTypeSchema> localVarResponse = await GetEventTypeWithHttpInfoAsync(eventType, operationIndex, cancellationToken).ConfigureAwait(false);
+            Finbourne.Notifications.Sdk.Client.ApiResponse<EventTypeSchema> localVarResponse = await GetEventTypeWithHttpInfoAsync(eventType, cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -344,16 +403,13 @@ namespace Finbourne.Notifications.Sdk.Api
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
         /// <param name="eventType">The event type to retrieve schema for.</param>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (EventTypeSchema)</returns>
-        public async System.Threading.Tasks.Task<Finbourne.Notifications.Sdk.Client.ApiResponse<EventTypeSchema>> GetEventTypeWithHttpInfoAsync(string eventType, int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Finbourne.Notifications.Sdk.Client.ApiResponse<EventTypeSchema>> GetEventTypeWithHttpInfoAsync(string eventType, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
             // verify the required parameter 'eventType' is set
             if (eventType == null)
-            {
                 throw new Finbourne.Notifications.Sdk.Client.ApiException(400, "Missing required parameter 'eventType' when calling EventTypesApi->GetEventType");
-            }
 
 
             Finbourne.Notifications.Sdk.Client.RequestOptions localVarRequestOptions = new Finbourne.Notifications.Sdk.Client.RequestOptions();
@@ -366,50 +422,30 @@ namespace Finbourne.Notifications.Sdk.Api
                 "application/json"
             };
 
+
             var localVarContentType = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
 
             var localVarAccept = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
             localVarRequestOptions.PathParameters.Add("eventType", Finbourne.Notifications.Sdk.Client.ClientUtils.ParameterToString(eventType)); // path parameter
 
-            localVarRequestOptions.Operation = "EventTypesApi.GetEventType";
-            localVarRequestOptions.OperationIndex = operationIndex;
-
             // authentication (oauth2) required
             // oauth required
-            if (!localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
             {
-                if (!string.IsNullOrEmpty(this.Configuration.AccessToken))
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-                }
-                else if (!string.IsNullOrEmpty(this.Configuration.OAuthTokenUrl) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientId) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientSecret) &&
-                         this.Configuration.OAuthFlow != null)
-                {
-                    localVarRequestOptions.OAuth = true;
-                }
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
             }
 
             // make the HTTP request
+
             var localVarResponse = await this.AsynchronousClient.GetAsync<EventTypeSchema>("/api/eventtypes/{eventType}", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("GetEventType", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
+                if (_exception != null) throw _exception;
             }
 
             return localVarResponse;
@@ -419,9 +455,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// [EXPERIMENTAL] ListEventTypes: Lists all of the available event types. 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ResourceListOfEventTypeSchema</returns>
-        public ResourceListOfEventTypeSchema ListEventTypes(int operationIndex = 0)
+        public ResourceListOfEventTypeSchema ListEventTypes()
         {
             Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfEventTypeSchema> localVarResponse = ListEventTypesWithHttpInfo();
             return localVarResponse.Data;
@@ -431,9 +466,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// [EXPERIMENTAL] ListEventTypes: Lists all of the available event types. 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <returns>ApiResponse of ResourceListOfEventTypeSchema</returns>
-        public Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfEventTypeSchema> ListEventTypesWithHttpInfo(int operationIndex = 0)
+        public Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfEventTypeSchema> ListEventTypesWithHttpInfo()
         {
             Finbourne.Notifications.Sdk.Client.RequestOptions localVarRequestOptions = new Finbourne.Notifications.Sdk.Client.RequestOptions();
 
@@ -446,47 +480,26 @@ namespace Finbourne.Notifications.Sdk.Api
             };
 
             var localVarContentType = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
 
             var localVarAccept = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-
-            localVarRequestOptions.Operation = "EventTypesApi.ListEventTypes";
-            localVarRequestOptions.OperationIndex = operationIndex;
 
             // authentication (oauth2) required
             // oauth required
-            if (!localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
             {
-                if (!string.IsNullOrEmpty(this.Configuration.AccessToken))
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-                }
-                else if (!string.IsNullOrEmpty(this.Configuration.OAuthTokenUrl) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientId) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientSecret) &&
-                         this.Configuration.OAuthFlow != null)
-                {
-                    localVarRequestOptions.OAuth = true;
-                }
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
             }
 
             // make the HTTP request
             var localVarResponse = this.Client.Get<ResourceListOfEventTypeSchema>("/api/eventtypes", localVarRequestOptions, this.Configuration);
+
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("ListEventTypes", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
+                if (_exception != null) throw _exception;
             }
 
             return localVarResponse;
@@ -496,12 +509,11 @@ namespace Finbourne.Notifications.Sdk.Api
         /// [EXPERIMENTAL] ListEventTypes: Lists all of the available event types. 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ResourceListOfEventTypeSchema</returns>
-        public async System.Threading.Tasks.Task<ResourceListOfEventTypeSchema> ListEventTypesAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<ResourceListOfEventTypeSchema> ListEventTypesAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
-            Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfEventTypeSchema> localVarResponse = await ListEventTypesWithHttpInfoAsync(operationIndex, cancellationToken).ConfigureAwait(false);
+            Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfEventTypeSchema> localVarResponse = await ListEventTypesWithHttpInfoAsync(cancellationToken).ConfigureAwait(false);
             return localVarResponse.Data;
         }
 
@@ -509,10 +521,9 @@ namespace Finbourne.Notifications.Sdk.Api
         /// [EXPERIMENTAL] ListEventTypes: Lists all of the available event types. 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="operationIndex">Index associated with the operation.</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
         /// <returns>Task of ApiResponse (ResourceListOfEventTypeSchema)</returns>
-        public async System.Threading.Tasks.Task<Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfEventTypeSchema>> ListEventTypesWithHttpInfoAsync(int operationIndex = 0, System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
+        public async System.Threading.Tasks.Task<Finbourne.Notifications.Sdk.Client.ApiResponse<ResourceListOfEventTypeSchema>> ListEventTypesWithHttpInfoAsync(System.Threading.CancellationToken cancellationToken = default(System.Threading.CancellationToken))
         {
 
             Finbourne.Notifications.Sdk.Client.RequestOptions localVarRequestOptions = new Finbourne.Notifications.Sdk.Client.RequestOptions();
@@ -525,49 +536,29 @@ namespace Finbourne.Notifications.Sdk.Api
                 "application/json"
             };
 
+
             var localVarContentType = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderContentType(_contentTypes);
-            if (localVarContentType != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
-            }
+            if (localVarContentType != null) localVarRequestOptions.HeaderParameters.Add("Content-Type", localVarContentType);
 
             var localVarAccept = Finbourne.Notifications.Sdk.Client.ClientUtils.SelectHeaderAccept(_accepts);
-            if (localVarAccept != null)
-            {
-                localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
-            }
+            if (localVarAccept != null) localVarRequestOptions.HeaderParameters.Add("Accept", localVarAccept);
 
-
-            localVarRequestOptions.Operation = "EventTypesApi.ListEventTypes";
-            localVarRequestOptions.OperationIndex = operationIndex;
 
             // authentication (oauth2) required
             // oauth required
-            if (!localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
+            if (!string.IsNullOrEmpty(this.Configuration.AccessToken) && !localVarRequestOptions.HeaderParameters.ContainsKey("Authorization"))
             {
-                if (!string.IsNullOrEmpty(this.Configuration.AccessToken))
-                {
-                    localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
-                }
-                else if (!string.IsNullOrEmpty(this.Configuration.OAuthTokenUrl) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientId) &&
-                         !string.IsNullOrEmpty(this.Configuration.OAuthClientSecret) &&
-                         this.Configuration.OAuthFlow != null)
-                {
-                    localVarRequestOptions.OAuth = true;
-                }
+                localVarRequestOptions.HeaderParameters.Add("Authorization", "Bearer " + this.Configuration.AccessToken);
             }
 
             // make the HTTP request
+
             var localVarResponse = await this.AsynchronousClient.GetAsync<ResourceListOfEventTypeSchema>("/api/eventtypes", localVarRequestOptions, this.Configuration, cancellationToken).ConfigureAwait(false);
 
             if (this.ExceptionFactory != null)
             {
                 Exception _exception = this.ExceptionFactory("ListEventTypes", localVarResponse);
-                if (_exception != null)
-                {
-                    throw _exception;
-                }
+                if (_exception != null) throw _exception;
             }
 
             return localVarResponse;

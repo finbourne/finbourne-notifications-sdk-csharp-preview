@@ -14,6 +14,8 @@ Name | Type | Description | Notes
 **UserIdCreated** | **string** | The user who made the subscription | 
 **ModifiedAt** | **DateTimeOffset** | The time at which the subscription was last modified | 
 **UserIdModified** | **string** | The user who last modified the subscription | 
+**UseAsAuth** | **string** | The user to use as auth for the subscription | 
+**Href** | **string** | A URI for retrieving this subscription | [optional] 
 
 [[Back to Model list]](../README.md#documentation-for-models) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to README]](../README.md)
 

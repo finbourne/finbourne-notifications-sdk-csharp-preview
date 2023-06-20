@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
+using FileParameter = Finbourne.Notifications.Sdk.Client.FileParameter;
 using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConverter;
 
 namespace Finbourne.Notifications.Sdk.Model
@@ -45,7 +46,9 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="userIdCreated">The user who made the subscription (required).</param>
         /// <param name="modifiedAt">The time at which the subscription was last modified (required).</param>
         /// <param name="userIdModified">The user who last modified the subscription (required).</param>
-        public Subscription(ResourceId id = default(ResourceId), string displayName = default(string), string description = default(string), string status = default(string), MatchingPattern matchingPattern = default(MatchingPattern), DateTimeOffset createdAt = default(DateTimeOffset), string userIdCreated = default(string), DateTimeOffset modifiedAt = default(DateTimeOffset), string userIdModified = default(string))
+        /// <param name="useAsAuth">The user to use as auth for the subscription (required).</param>
+        /// <param name="href">A URI for retrieving this subscription.</param>
+        public Subscription(ResourceId id = default(ResourceId), string displayName = default(string), string description = default(string), string status = default(string), MatchingPattern matchingPattern = default(MatchingPattern), DateTimeOffset createdAt = default(DateTimeOffset), string userIdCreated = default(string), DateTimeOffset modifiedAt = default(DateTimeOffset), string userIdModified = default(string), string useAsAuth = default(string), string href = default(string))
         {
             // to ensure "id" is required (not null)
             if (id == null)
@@ -85,7 +88,14 @@ namespace Finbourne.Notifications.Sdk.Model
                 throw new ArgumentNullException("userIdModified is a required property for Subscription and cannot be null");
             }
             this.UserIdModified = userIdModified;
+            // to ensure "useAsAuth" is required (not null)
+            if (useAsAuth == null)
+            {
+                throw new ArgumentNullException("useAsAuth is a required property for Subscription and cannot be null");
+            }
+            this.UseAsAuth = useAsAuth;
             this.Description = description;
+            this.Href = href;
         }
 
         /// <summary>
@@ -150,6 +160,20 @@ namespace Finbourne.Notifications.Sdk.Model
         public string UserIdModified { get; set; }
 
         /// <summary>
+        /// The user to use as auth for the subscription
+        /// </summary>
+        /// <value>The user to use as auth for the subscription</value>
+        [DataMember(Name = "useAsAuth", IsRequired = true, EmitDefaultValue = true)]
+        public string UseAsAuth { get; set; }
+
+        /// <summary>
+        /// A URI for retrieving this subscription
+        /// </summary>
+        /// <value>A URI for retrieving this subscription</value>
+        [DataMember(Name = "href", EmitDefaultValue = true)]
+        public string Href { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -166,6 +190,8 @@ namespace Finbourne.Notifications.Sdk.Model
             sb.Append("  UserIdCreated: ").Append(UserIdCreated).Append("\n");
             sb.Append("  ModifiedAt: ").Append(ModifiedAt).Append("\n");
             sb.Append("  UserIdModified: ").Append(UserIdModified).Append("\n");
+            sb.Append("  UseAsAuth: ").Append(UseAsAuth).Append("\n");
+            sb.Append("  Href: ").Append(Href).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -245,6 +271,16 @@ namespace Finbourne.Notifications.Sdk.Model
                     this.UserIdModified == input.UserIdModified ||
                     (this.UserIdModified != null &&
                     this.UserIdModified.Equals(input.UserIdModified))
+                ) && 
+                (
+                    this.UseAsAuth == input.UseAsAuth ||
+                    (this.UseAsAuth != null &&
+                    this.UseAsAuth.Equals(input.UseAsAuth))
+                ) && 
+                (
+                    this.Href == input.Href ||
+                    (this.Href != null &&
+                    this.Href.Equals(input.Href))
                 );
         }
 
@@ -293,6 +329,14 @@ namespace Finbourne.Notifications.Sdk.Model
                 {
                     hashCode = (hashCode * 59) + this.UserIdModified.GetHashCode();
                 }
+                if (this.UseAsAuth != null)
+                {
+                    hashCode = (hashCode * 59) + this.UseAsAuth.GetHashCode();
+                }
+                if (this.Href != null)
+                {
+                    hashCode = (hashCode * 59) + this.Href.GetHashCode();
+                }
                 return hashCode;
             }
         }
@@ -326,6 +370,12 @@ namespace Finbourne.Notifications.Sdk.Model
             if (this.UserIdModified != null && this.UserIdModified.Length < 1)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for UserIdModified, length must be greater than 1.", new [] { "UserIdModified" });
+            }
+
+            // UseAsAuth (string) minLength
+            if (this.UseAsAuth != null && this.UseAsAuth.Length < 1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for UseAsAuth, length must be greater than 1.", new [] { "UseAsAuth" });
             }
 
             yield break;

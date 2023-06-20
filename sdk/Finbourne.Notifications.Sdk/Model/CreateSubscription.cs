@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
+using FileParameter = Finbourne.Notifications.Sdk.Client.FileParameter;
 using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConverter;
 
 namespace Finbourne.Notifications.Sdk.Model
@@ -41,7 +42,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="description">The summary of the services provided by the subscription.</param>
         /// <param name="status">The current status of the subscription. Possible values are: Active, Inactive (required).</param>
         /// <param name="matchingPattern">matchingPattern (required).</param>
-        public CreateSubscription(ResourceId id = default(ResourceId), string displayName = default(string), string description = default(string), string status = default(string), MatchingPattern matchingPattern = default(MatchingPattern))
+        /// <param name="useAsAuth">The user to authenticate the subscription.</param>
+        public CreateSubscription(ResourceId id = default(ResourceId), string displayName = default(string), string description = default(string), string status = default(string), MatchingPattern matchingPattern = default(MatchingPattern), string useAsAuth = default(string))
         {
             // to ensure "id" is required (not null)
             if (id == null)
@@ -68,6 +70,7 @@ namespace Finbourne.Notifications.Sdk.Model
             }
             this.MatchingPattern = matchingPattern;
             this.Description = description;
+            this.UseAsAuth = useAsAuth;
         }
 
         /// <summary>
@@ -104,6 +107,13 @@ namespace Finbourne.Notifications.Sdk.Model
         public MatchingPattern MatchingPattern { get; set; }
 
         /// <summary>
+        /// The user to authenticate the subscription
+        /// </summary>
+        /// <value>The user to authenticate the subscription</value>
+        [DataMember(Name = "useAsAuth", EmitDefaultValue = true)]
+        public string UseAsAuth { get; set; }
+
+        /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
         /// <returns>String presentation of the object</returns>
@@ -116,6 +126,7 @@ namespace Finbourne.Notifications.Sdk.Model
             sb.Append("  Description: ").Append(Description).Append("\n");
             sb.Append("  Status: ").Append(Status).Append("\n");
             sb.Append("  MatchingPattern: ").Append(MatchingPattern).Append("\n");
+            sb.Append("  UseAsAuth: ").Append(UseAsAuth).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -175,6 +186,11 @@ namespace Finbourne.Notifications.Sdk.Model
                     this.MatchingPattern == input.MatchingPattern ||
                     (this.MatchingPattern != null &&
                     this.MatchingPattern.Equals(input.MatchingPattern))
+                ) && 
+                (
+                    this.UseAsAuth == input.UseAsAuth ||
+                    (this.UseAsAuth != null &&
+                    this.UseAsAuth.Equals(input.UseAsAuth))
                 );
         }
 
@@ -206,6 +222,10 @@ namespace Finbourne.Notifications.Sdk.Model
                 if (this.MatchingPattern != null)
                 {
                     hashCode = (hashCode * 59) + this.MatchingPattern.GetHashCode();
+                }
+                if (this.UseAsAuth != null)
+                {
+                    hashCode = (hashCode * 59) + this.UseAsAuth.GetHashCode();
                 }
                 return hashCode;
             }
@@ -260,6 +280,25 @@ namespace Finbourne.Notifications.Sdk.Model
             if (this.Status != null && this.Status.Length < 1)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Status, length must be greater than 1.", new [] { "Status" });
+            }
+
+            // UseAsAuth (string) maxLength
+            if (this.UseAsAuth != null && this.UseAsAuth.Length > 64)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for UseAsAuth, length must be less than 64.", new [] { "UseAsAuth" });
+            }
+
+            // UseAsAuth (string) minLength
+            if (this.UseAsAuth != null && this.UseAsAuth.Length < 1)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for UseAsAuth, length must be greater than 1.", new [] { "UseAsAuth" });
+            }
+
+            // UseAsAuth (string) pattern
+            Regex regexUseAsAuth = new Regex(@"^[a-zA-Z0-9\-_]+$", RegexOptions.CultureInvariant);
+            if (false == regexUseAsAuth.Match(this.UseAsAuth).Success)
+            {
+                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for UseAsAuth, must match a pattern of " + regexUseAsAuth, new [] { "UseAsAuth" });
             }
 
             yield break;

@@ -20,6 +20,7 @@ All URIs are relative to *https://www.lusid.com/notification*
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -35,7 +36,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new NotificationsApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new NotificationsApi(httpClient, config, httpClientHandler);
             var scope = "scope_example";  // string | The scope that identifies a subscription
             var code = "code_example";  // string | The code that identifies a subscription
             var createNotificationRequest = new CreateNotificationRequest(); // CreateNotificationRequest | The data to create a notification
@@ -118,6 +122,7 @@ catch (ApiException e)
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -133,7 +138,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new NotificationsApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new NotificationsApi(httpClient, config, httpClientHandler);
             var scope = "scope_example";  // string | The scope that identifies a subscription
             var code = "code_example";  // string | The code that identifies a subscription
             var id = "id_example";  // string | The unique identifier of the notification
@@ -213,6 +221,7 @@ void (empty response body)
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -228,7 +237,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new NotificationsApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new NotificationsApi(httpClient, config, httpClientHandler);
             var scope = "scope_example";  // string | The scope that identifies a subscription
             var code = "code_example";  // string | The code that identifies a subscription
             var id = "id_example";  // string | The unique identifier of the notification
@@ -312,6 +324,7 @@ catch (ApiException e)
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -327,7 +340,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new NotificationsApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new NotificationsApi(httpClient, config, httpClientHandler);
             var scope = "scope_example";  // string | The scope that identifies a subscription
             var code = "code_example";  // string | The code that identifies a subscription
 
@@ -409,6 +425,7 @@ catch (ApiException e)
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -424,7 +441,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new NotificationsApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new NotificationsApi(httpClient, config, httpClientHandler);
             var scope = "scope_example";  // string | The scope that identifies a subscription
             var code = "code_example";  // string | The code that identifies a subscription
             var id = "id_example";  // string | The unique identifier of the notification

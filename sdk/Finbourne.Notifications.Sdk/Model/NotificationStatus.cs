@@ -18,6 +18,7 @@ using Newtonsoft.Json;
 using Newtonsoft.Json.Converters;
 using Newtonsoft.Json.Linq;
 using System.ComponentModel.DataAnnotations;
+using FileParameter = Finbourne.Notifications.Sdk.Client.FileParameter;
 using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConverter;
 
 namespace Finbourne.Notifications.Sdk.Model

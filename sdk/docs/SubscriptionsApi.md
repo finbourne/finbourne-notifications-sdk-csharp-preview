@@ -20,6 +20,7 @@ All URIs are relative to *https://www.lusid.com/notification*
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -35,7 +36,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new SubscriptionsApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new SubscriptionsApi(httpClient, config, httpClientHandler);
             var createSubscription = new CreateSubscription(); // CreateSubscription | The data to create a subscription
 
             try
@@ -114,6 +118,7 @@ catch (ApiException e)
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -129,7 +134,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new SubscriptionsApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new SubscriptionsApi(httpClient, config, httpClientHandler);
             var scope = "scope_example";  // string | The scope that identifies a subscription
             var code = "code_example";  // string | The code that identifies a subscription
 
@@ -207,6 +215,7 @@ void (empty response body)
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -222,7 +231,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new SubscriptionsApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new SubscriptionsApi(httpClient, config, httpClientHandler);
             var scope = "scope_example";  // string | The scope that identifies a subscription
             var code = "code_example";  // string | The code that identifies a subscription
 
@@ -296,7 +308,7 @@ catch (ApiException e)
 
 <a id="listsubscriptions"></a>
 # **ListSubscriptions**
-> ResourceListOfSubscription ListSubscriptions (string filter = null, string sortBy = null, string page = null, int? limit = null)
+> ResourceListOfSubscription ListSubscriptions (string? filter = null, string? sortBy = null, string? page = null, int? limit = null)
 
 [EXPERIMENTAL] ListSubscriptions: List subscriptions.
 
@@ -304,6 +316,7 @@ catch (ApiException e)
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -319,10 +332,13 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new SubscriptionsApi(config);
-            var filter = "filter_example";  // string | Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>. (optional) 
-            var sortBy = "sortBy_example";  // string | Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID. (optional) 
-            var page = "page_example";  // string | Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional) 
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new SubscriptionsApi(httpClient, config, httpClientHandler);
+            var filter = "filter_example";  // string? | Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>. (optional) 
+            var sortBy = "sortBy_example";  // string? | Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID. (optional) 
+            var page = "page_example";  // string? | Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional) 
             var limit = 56;  // int? | The maximum number of subscriptions to retrieve. (optional) 
 
             try
@@ -366,9 +382,9 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **filter** | **string** | Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. | [optional]  |
-| **sortBy** | **string** | Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. | [optional]  |
-| **page** | **string** | Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. | [optional]  |
+| **filter** | **string?** | Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. | [optional]  |
+| **sortBy** | **string?** | Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. | [optional]  |
+| **page** | **string?** | Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. | [optional]  |
 | **limit** | **int?** | The maximum number of subscriptions to retrieve. | [optional]  |
 
 ### Return type
@@ -404,6 +420,7 @@ catch (ApiException e)
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -419,7 +436,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new SubscriptionsApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new SubscriptionsApi(httpClient, config, httpClientHandler);
             var scope = "scope_example";  // string | The scope that identifies a subscription
             var code = "code_example";  // string | The code that identifies a subscription
             var updateSubscription = new UpdateSubscription(); // UpdateSubscription | The data to update a subscription

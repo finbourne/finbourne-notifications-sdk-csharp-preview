@@ -18,6 +18,7 @@ Get the comprehensive set of resources that are available for access control
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -33,7 +34,10 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new ApplicationMetadataApi(config);
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new ApplicationMetadataApi(httpClient, config, httpClientHandler);
 
             try
             {
