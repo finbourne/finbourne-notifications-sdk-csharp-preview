@@ -40,13 +40,13 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="notificationId">The identifier of the notification (required).</param>
         /// <param name="displayName">The name of the notification.</param>
         /// <param name="description">The summary of the services provided by the notification.</param>
-        /// <param name="notificationType">notificationType (required).</param>
+        /// <param name="notificationType">The type and contents of the notification (required).</param>
         /// <param name="createdAt">The time at which the subscription was made (required).</param>
         /// <param name="userIdCreated">The user who made the subscription (required).</param>
         /// <param name="modifiedAt">The time at which the subscription was last modified (required).</param>
         /// <param name="userIdModified">The user who last modified the subscription (required).</param>
         /// <param name="href">A URI for retrieving this notification.</param>
-        public Notification(string notificationId = default(string), string displayName = default(string), string description = default(string), NotificationNotificationType notificationType = default(NotificationNotificationType), DateTimeOffset createdAt = default(DateTimeOffset), string userIdCreated = default(string), DateTimeOffset modifiedAt = default(DateTimeOffset), string userIdModified = default(string), string href = default(string))
+        public Notification(string notificationId = default(string), string displayName = default(string), string description = default(string), Object notificationType = default(Object), DateTimeOffset createdAt = default(DateTimeOffset), string userIdCreated = default(string), DateTimeOffset modifiedAt = default(DateTimeOffset), string userIdModified = default(string), string href = default(string))
         {
             // to ensure "notificationId" is required (not null)
             if (notificationId == null)
@@ -101,10 +101,11 @@ namespace Finbourne.Notifications.Sdk.Model
         public string Description { get; set; }
 
         /// <summary>
-        /// Gets or Sets NotificationType
+        /// The type and contents of the notification
         /// </summary>
+        /// <value>The type and contents of the notification</value>
         [DataMember(Name = "notificationType", IsRequired = true, EmitDefaultValue = true)]
-        public NotificationNotificationType NotificationType { get; set; }
+        public Object NotificationType { get; set; }
 
         /// <summary>
         /// The time at which the subscription was made

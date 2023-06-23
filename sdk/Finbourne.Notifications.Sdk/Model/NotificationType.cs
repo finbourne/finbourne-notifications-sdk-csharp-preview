@@ -25,18 +25,18 @@ using System.Reflection;
 namespace Finbourne.Notifications.Sdk.Model
 {
     /// <summary>
-    /// The type and contents of the notification
+    /// Holds information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification that is being created
     /// </summary>
-    [JsonConverter(typeof(NotificationNotificationTypeJsonConverter))]
-    [DataContract(Name = "Notification_notificationType")]
-    public partial class NotificationNotificationType : AbstractOpenAPISchema, IEquatable<NotificationNotificationType>, IValidatableObject
+    [JsonConverter(typeof(NotificationTypeJsonConverter))]
+    [DataContract(Name = "NotificationType")]
+    public partial class NotificationType : AbstractOpenAPISchema, IEquatable<NotificationType>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationType" /> class
         /// with the <see cref="AmazonSqsNotificationType" /> class
         /// </summary>
         /// <param name="actualInstance">An instance of AmazonSqsNotificationType.</param>
-        public NotificationNotificationType(AmazonSqsNotificationType actualInstance)
+        public NotificationType(AmazonSqsNotificationType actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -44,11 +44,11 @@ namespace Finbourne.Notifications.Sdk.Model
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationType" /> class
         /// with the <see cref="ApiRequestNotificationType" /> class
         /// </summary>
         /// <param name="actualInstance">An instance of ApiRequestNotificationType.</param>
-        public NotificationNotificationType(ApiRequestNotificationType actualInstance)
+        public NotificationType(ApiRequestNotificationType actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -56,11 +56,11 @@ namespace Finbourne.Notifications.Sdk.Model
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationType" /> class
         /// with the <see cref="EmailNotificationType" /> class
         /// </summary>
         /// <param name="actualInstance">An instance of EmailNotificationType.</param>
-        public NotificationNotificationType(EmailNotificationType actualInstance)
+        public NotificationType(EmailNotificationType actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -68,11 +68,11 @@ namespace Finbourne.Notifications.Sdk.Model
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationType" /> class
         /// with the <see cref="SmsNotificationType" /> class
         /// </summary>
         /// <param name="actualInstance">An instance of SmsNotificationType.</param>
-        public NotificationNotificationType(SmsNotificationType actualInstance)
+        public NotificationType(SmsNotificationType actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -80,11 +80,11 @@ namespace Finbourne.Notifications.Sdk.Model
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationType" /> class
         /// with the <see cref="WebhookNotificationType" /> class
         /// </summary>
         /// <param name="actualInstance">An instance of WebhookNotificationType.</param>
-        public NotificationNotificationType(WebhookNotificationType actualInstance)
+        public NotificationType(WebhookNotificationType actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -189,7 +189,7 @@ namespace Finbourne.Notifications.Sdk.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class NotificationNotificationType {\n");
+            sb.Append("class NotificationType {\n");
             sb.Append("  ActualInstance: ").Append(this.ActualInstance).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -201,21 +201,21 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>JSON string presentation of the object</returns>
         public override string ToJson()
         {
-            return JsonConvert.SerializeObject(this.ActualInstance, NotificationNotificationType.SerializerSettings);
+            return JsonConvert.SerializeObject(this.ActualInstance, NotificationType.SerializerSettings);
         }
 
         /// <summary>
-        /// Converts the JSON string into an instance of NotificationNotificationType
+        /// Converts the JSON string into an instance of NotificationType
         /// </summary>
         /// <param name="jsonString">JSON string</param>
-        /// <returns>An instance of NotificationNotificationType</returns>
-        public static NotificationNotificationType FromJson(string jsonString)
+        /// <returns>An instance of NotificationType</returns>
+        public static NotificationType FromJson(string jsonString)
         {
-            NotificationNotificationType newNotificationNotificationType = null;
+            NotificationType newNotificationType = null;
 
             if (string.IsNullOrEmpty(jsonString))
             {
-                return newNotificationNotificationType;
+                return newNotificationType;
             }
             int match = 0;
             List<string> matchedTypes = new List<string>();
@@ -225,11 +225,11 @@ namespace Finbourne.Notifications.Sdk.Model
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
                 if (typeof(AmazonSqsNotificationType).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<AmazonSqsNotificationType>(jsonString, NotificationNotificationType.SerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<AmazonSqsNotificationType>(jsonString, NotificationType.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<AmazonSqsNotificationType>(jsonString, NotificationNotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<AmazonSqsNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
                 }
                 matchedTypes.Add("AmazonSqsNotificationType");
                 match++;
@@ -245,11 +245,11 @@ namespace Finbourne.Notifications.Sdk.Model
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
                 if (typeof(ApiRequestNotificationType).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<ApiRequestNotificationType>(jsonString, NotificationNotificationType.SerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<ApiRequestNotificationType>(jsonString, NotificationType.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<ApiRequestNotificationType>(jsonString, NotificationNotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<ApiRequestNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
                 }
                 matchedTypes.Add("ApiRequestNotificationType");
                 match++;
@@ -265,11 +265,11 @@ namespace Finbourne.Notifications.Sdk.Model
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
                 if (typeof(EmailNotificationType).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<EmailNotificationType>(jsonString, NotificationNotificationType.SerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<EmailNotificationType>(jsonString, NotificationType.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<EmailNotificationType>(jsonString, NotificationNotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<EmailNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
                 }
                 matchedTypes.Add("EmailNotificationType");
                 match++;
@@ -285,11 +285,11 @@ namespace Finbourne.Notifications.Sdk.Model
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
                 if (typeof(SmsNotificationType).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<SmsNotificationType>(jsonString, NotificationNotificationType.SerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<SmsNotificationType>(jsonString, NotificationType.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<SmsNotificationType>(jsonString, NotificationNotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<SmsNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
                 }
                 matchedTypes.Add("SmsNotificationType");
                 match++;
@@ -305,11 +305,11 @@ namespace Finbourne.Notifications.Sdk.Model
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
                 if (typeof(WebhookNotificationType).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<WebhookNotificationType>(jsonString, NotificationNotificationType.SerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<WebhookNotificationType>(jsonString, NotificationType.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationNotificationType = new NotificationNotificationType(JsonConvert.DeserializeObject<WebhookNotificationType>(jsonString, NotificationNotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<WebhookNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
                 }
                 matchedTypes.Add("WebhookNotificationType");
                 match++;
@@ -330,7 +330,7 @@ namespace Finbourne.Notifications.Sdk.Model
             }
 
             // deserialization is considered successful at this point if no exception has been thrown.
-            return newNotificationNotificationType;
+            return newNotificationType;
         }
 
         /// <summary>
@@ -340,15 +340,15 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as NotificationNotificationType);
+            return this.Equals(input as NotificationType);
         }
 
         /// <summary>
-        /// Returns true if NotificationNotificationType instances are equal
+        /// Returns true if NotificationType instances are equal
         /// </summary>
-        /// <param name="input">Instance of NotificationNotificationType to be compared</param>
+        /// <param name="input">Instance of NotificationType to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(NotificationNotificationType input)
+        public bool Equals(NotificationType input)
         {
             if (input == null)
                 return false;
@@ -383,9 +383,9 @@ namespace Finbourne.Notifications.Sdk.Model
     }
 
     /// <summary>
-    /// Custom JSON converter for NotificationNotificationType
+    /// Custom JSON converter for NotificationType
     /// </summary>
-    public class NotificationNotificationTypeJsonConverter : JsonConverter
+    public class NotificationTypeJsonConverter : JsonConverter
     {
         /// <summary>
         /// To write the JSON string
@@ -395,7 +395,7 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="serializer">JSON Serializer</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteRawValue((string)(typeof(NotificationNotificationType).GetMethod("ToJson").Invoke(value, null)));
+            writer.WriteRawValue((string)(typeof(NotificationType).GetMethod("ToJson").Invoke(value, null)));
         }
 
         /// <summary>
@@ -410,7 +410,7 @@ namespace Finbourne.Notifications.Sdk.Model
         {
             if(reader.TokenType != JsonToken.Null)
             {
-                return NotificationNotificationType.FromJson(JObject.Load(reader).ToString(Formatting.None));
+                return NotificationType.FromJson(JObject.Load(reader).ToString(Formatting.None));
             }
             return null;
         }

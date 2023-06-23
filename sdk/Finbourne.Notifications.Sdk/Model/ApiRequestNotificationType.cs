@@ -30,6 +30,28 @@ namespace Finbourne.Notifications.Sdk.Model
     public partial class ApiRequestNotificationType : IEquatable<ApiRequestNotificationType>, IValidatableObject
     {
         /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum ApiRequest for value: ApiRequest
+            /// </summary>
+            [EnumMember(Value = "ApiRequest")]
+            ApiRequest = 1
+
+        }
+
+
+        /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
+        public TypeEnum Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="ApiRequestNotificationType" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -41,13 +63,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="httpMethod">The HTTP method such as GET, POST, etc. to use on the Api Request (required).</param>
         /// <param name="pathAndQuery">The url to send the request to. (required).</param>
         /// <param name="content">The content of the request.</param>
-        public ApiRequestNotificationType(string type = default(string), string httpMethod = default(string), string pathAndQuery = default(string), Object content = default(Object))
+        public ApiRequestNotificationType(TypeEnum type = default(TypeEnum), string httpMethod = default(string), string pathAndQuery = default(string), Object content = default(Object))
         {
-            // to ensure "type" is required (not null)
-            if (type == null)
-            {
-                throw new ArgumentNullException("type is a required property for ApiRequestNotificationType and cannot be null");
-            }
             this.Type = type;
             // to ensure "httpMethod" is required (not null)
             if (httpMethod == null)
@@ -63,13 +80,6 @@ namespace Finbourne.Notifications.Sdk.Model
             this.PathAndQuery = pathAndQuery;
             this.Content = content;
         }
-
-        /// <summary>
-        /// The type of delivery mechanism for this notification
-        /// </summary>
-        /// <value>The type of delivery mechanism for this notification</value>
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
-        public string Type { get; set; }
 
         /// <summary>
         /// The HTTP method such as GET, POST, etc. to use on the Api Request
@@ -141,8 +151,7 @@ namespace Finbourne.Notifications.Sdk.Model
             return 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.HttpMethod == input.HttpMethod ||
@@ -170,10 +179,7 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Type != null)
-                {
-                    hashCode = (hashCode * 59) + this.Type.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.Type.GetHashCode();
                 if (this.HttpMethod != null)
                 {
                     hashCode = (hashCode * 59) + this.HttpMethod.GetHashCode();
@@ -197,12 +203,6 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // Type (string) minLength
-            if (this.Type != null && this.Type.Length < 1)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, length must be greater than 1.", new [] { "Type" });
-            }
-
             // HttpMethod (string) minLength
             if (this.HttpMethod != null && this.HttpMethod.Length < 1)
             {

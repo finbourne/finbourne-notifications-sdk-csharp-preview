@@ -30,6 +30,28 @@ namespace Finbourne.Notifications.Sdk.Model
     public partial class AmazonSqsNotificationType : IEquatable<AmazonSqsNotificationType>, IValidatableObject
     {
         /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum AmazonSqs for value: AmazonSqs
+            /// </summary>
+            [EnumMember(Value = "AmazonSqs")]
+            AmazonSqs = 1
+
+        }
+
+
+        /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
+        public TypeEnum Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="AmazonSqsNotificationType" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -42,13 +64,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="apiSecretRef">Reference to API secret from Configuration Store (required).</param>
         /// <param name="body">The body of the Amazon Queue Message (required).</param>
         /// <param name="queueUrlRef">Reference to queue url from Configuration Store (required).</param>
-        public AmazonSqsNotificationType(string type = default(string), string apiKeyRef = default(string), string apiSecretRef = default(string), string body = default(string), string queueUrlRef = default(string))
+        public AmazonSqsNotificationType(TypeEnum type = default(TypeEnum), string apiKeyRef = default(string), string apiSecretRef = default(string), string body = default(string), string queueUrlRef = default(string))
         {
-            // to ensure "type" is required (not null)
-            if (type == null)
-            {
-                throw new ArgumentNullException("type is a required property for AmazonSqsNotificationType and cannot be null");
-            }
             this.Type = type;
             // to ensure "apiKeyRef" is required (not null)
             if (apiKeyRef == null)
@@ -75,13 +92,6 @@ namespace Finbourne.Notifications.Sdk.Model
             }
             this.QueueUrlRef = queueUrlRef;
         }
-
-        /// <summary>
-        /// The type of delivery mechanism for this notification
-        /// </summary>
-        /// <value>The type of delivery mechanism for this notification</value>
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
-        public string Type { get; set; }
 
         /// <summary>
         /// Reference to API key from Configuration Store
@@ -161,8 +171,7 @@ namespace Finbourne.Notifications.Sdk.Model
             return 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.ApiKeyRef == input.ApiKeyRef ||
@@ -195,10 +204,7 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Type != null)
-                {
-                    hashCode = (hashCode * 59) + this.Type.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.Type.GetHashCode();
                 if (this.ApiKeyRef != null)
                 {
                     hashCode = (hashCode * 59) + this.ApiKeyRef.GetHashCode();
@@ -226,12 +232,6 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // Type (string) minLength
-            if (this.Type != null && this.Type.Length < 1)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, length must be greater than 1.", new [] { "Type" });
-            }
-
             // ApiKeyRef (string) minLength
             if (this.ApiKeyRef != null && this.ApiKeyRef.Length < 1)
             {

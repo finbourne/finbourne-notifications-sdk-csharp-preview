@@ -30,6 +30,28 @@ namespace Finbourne.Notifications.Sdk.Model
     public partial class SmsNotificationType : IEquatable<SmsNotificationType>, IValidatableObject
     {
         /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum Sms for value: Sms
+            /// </summary>
+            [EnumMember(Value = "Sms")]
+            Sms = 1
+
+        }
+
+
+        /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
+        public TypeEnum Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="SmsNotificationType" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -40,13 +62,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="type">The type of delivery mechanism for this notification (required).</param>
         /// <param name="body">The body of the SMS (required).</param>
         /// <param name="recipients">The phone numbers to which the SMS will be sent to (E.164 format) (required).</param>
-        public SmsNotificationType(string type = default(string), string body = default(string), List<string> recipients = default(List<string>))
+        public SmsNotificationType(TypeEnum type = default(TypeEnum), string body = default(string), List<string> recipients = default(List<string>))
         {
-            // to ensure "type" is required (not null)
-            if (type == null)
-            {
-                throw new ArgumentNullException("type is a required property for SmsNotificationType and cannot be null");
-            }
             this.Type = type;
             // to ensure "body" is required (not null)
             if (body == null)
@@ -61,13 +78,6 @@ namespace Finbourne.Notifications.Sdk.Model
             }
             this.Recipients = recipients;
         }
-
-        /// <summary>
-        /// The type of delivery mechanism for this notification
-        /// </summary>
-        /// <value>The type of delivery mechanism for this notification</value>
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
-        public string Type { get; set; }
 
         /// <summary>
         /// The body of the SMS
@@ -131,8 +141,7 @@ namespace Finbourne.Notifications.Sdk.Model
             return 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.Body == input.Body ||
@@ -156,10 +165,7 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Type != null)
-                {
-                    hashCode = (hashCode * 59) + this.Type.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.Type.GetHashCode();
                 if (this.Body != null)
                 {
                     hashCode = (hashCode * 59) + this.Body.GetHashCode();
@@ -179,12 +185,6 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // Type (string) minLength
-            if (this.Type != null && this.Type.Length < 1)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, length must be greater than 1.", new [] { "Type" });
-            }
-
             // Body (string) maxLength
             if (this.Body != null && this.Body.Length > 1024)
             {
