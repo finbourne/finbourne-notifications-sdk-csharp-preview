@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.748",
+    "version": "0.1.756",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -373,25 +373,25 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             }
           },
           "required": true
@@ -559,25 +559,25 @@
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             }
           },
           "required": true
@@ -1450,6 +1450,9 @@
         "properties": {
           "type": {
             "minLength": 1,
+            "enum": [
+              "AmazonSqs"
+            ],
             "type": "string",
             "description": "The type of delivery mechanism for this notification"
           },
@@ -1489,6 +1492,9 @@
         "properties": {
           "type": {
             "minLength": 1,
+            "enum": [
+              "ApiRequest"
+            ],
             "type": "string",
             "description": "The type of delivery mechanism for this notification"
           },
@@ -1543,23 +1549,7 @@
             "nullable": true
           },
           "notificationType": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/AmazonSqsNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/ApiRequestNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/EmailNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/SmsNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/WebhookNotificationType"
-              }
-            ],
+            "type": "NotificationType",
             "description": "The contents of the notification type."
           }
         },
@@ -1625,6 +1615,9 @@
         "properties": {
           "type": {
             "minLength": 1,
+            "enum": [
+              "Email"
+            ],
             "type": "string",
             "description": "The type of delivery mechanism for this notification"
           },
@@ -1681,6 +1674,23 @@
         "additionalProperties": false,
         "description": "The information required to create or update an Email notification"
       },
+      "EventFieldDefinition": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the field",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the field",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "An EventFieldDefinition object"
+      },
       "EventTypeSchema": {
         "type": "object",
         "properties": {
@@ -1699,27 +1709,26 @@
             "description": "The summary of the event",
             "nullable": true
           },
-          "entity": {
-            "type": "string",
-            "description": "The entity against which the event originated",
-            "nullable": true
-          },
           "application": {
             "type": "string",
             "description": "The application associated with the event",
             "nullable": true
           },
-          "jsonSchema": {
-            "description": "The schema of the event",
-            "nullable": true
-          },
           "headerSchema": {
-            "description": "Header",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventFieldDefinition"
+            },
+            "description": "The header schema for the event type",
             "nullable": true,
             "readOnly": true
           },
           "bodySchema": {
-            "description": "Body",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventFieldDefinition"
+            },
+            "description": "The body schema for the event type",
             "nullable": true,
             "readOnly": true
           },
@@ -2085,23 +2094,6 @@
             "nullable": true
           },
           "notificationType": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/AmazonSqsNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/ApiRequestNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/EmailNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/SmsNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/WebhookNotificationType"
-              }
-            ],
             "description": "The type and contents of the notification"
           },
           "createdAt": {
@@ -2150,6 +2142,35 @@
         },
         "additionalProperties": false,
         "description": "The status object of a notification"
+      },
+      "NotificationType": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/AmazonSqsNotificationType"
+          },
+          {
+            "$ref": "#/components/schemas/ApiRequestNotificationType"
+          },
+          {
+            "$ref": "#/components/schemas/EmailNotificationType"
+          },
+          {
+            "$ref": "#/components/schemas/SmsNotificationType"
+          },
+          {
+            "$ref": "#/components/schemas/WebhookNotificationType"
+          }
+        ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Holds information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification that is being created"
       },
       "ResourceId": {
         "required": [
@@ -2324,6 +2345,9 @@
         "properties": {
           "type": {
             "minLength": 1,
+            "enum": [
+              "Sms"
+            ],
             "type": "string",
             "description": "The type of delivery mechanism for this notification"
           },
@@ -2440,23 +2464,7 @@
             "nullable": true
           },
           "notificationType": {
-            "oneOf": [
-              {
-                "$ref": "#/components/schemas/AmazonSqsNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/ApiRequestNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/EmailNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/SmsNotificationType"
-              },
-              {
-                "$ref": "#/components/schemas/WebhookNotificationType"
-              }
-            ],
+            "type": "NotificationType",
             "description": "The contents of the notification type."
           }
         },
@@ -2519,6 +2527,9 @@
         "properties": {
           "type": {
             "minLength": 1,
+            "enum": [
+              "Webhook"
+            ],
             "type": "string",
             "description": "The type of delivery mechanism for this notification"
           },

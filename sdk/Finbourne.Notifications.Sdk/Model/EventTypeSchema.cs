@@ -35,18 +35,14 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="id">The identifier of the event type.</param>
         /// <param name="displayName">Identifier name of the event.</param>
         /// <param name="description">The summary of the event.</param>
-        /// <param name="entity">The entity against which the event originated.</param>
         /// <param name="application">The application associated with the event.</param>
-        /// <param name="jsonSchema">The schema of the event.</param>
         /// <param name="href">A URI for retrieving this schema.</param>
-        public EventTypeSchema(string id = default(string), string displayName = default(string), string description = default(string), string entity = default(string), string application = default(string), Object jsonSchema = default(Object), string href = default(string))
+        public EventTypeSchema(string id = default(string), string displayName = default(string), string description = default(string), string application = default(string), string href = default(string))
         {
             this.Id = id;
             this.DisplayName = displayName;
             this.Description = description;
-            this.Entity = entity;
             this.Application = application;
-            this.JsonSchema = jsonSchema;
             this.Href = href;
         }
 
@@ -72,13 +68,6 @@ namespace Finbourne.Notifications.Sdk.Model
         public string Description { get; set; }
 
         /// <summary>
-        /// The entity against which the event originated
-        /// </summary>
-        /// <value>The entity against which the event originated</value>
-        [DataMember(Name = "entity", EmitDefaultValue = true)]
-        public string Entity { get; set; }
-
-        /// <summary>
         /// The application associated with the event
         /// </summary>
         /// <value>The application associated with the event</value>
@@ -86,18 +75,11 @@ namespace Finbourne.Notifications.Sdk.Model
         public string Application { get; set; }
 
         /// <summary>
-        /// The schema of the event
+        /// The header schema for the event type
         /// </summary>
-        /// <value>The schema of the event</value>
-        [DataMember(Name = "jsonSchema", EmitDefaultValue = true)]
-        public Object JsonSchema { get; set; }
-
-        /// <summary>
-        /// Header
-        /// </summary>
-        /// <value>Header</value>
+        /// <value>The header schema for the event type</value>
         [DataMember(Name = "headerSchema", EmitDefaultValue = true)]
-        public Object HeaderSchema { get; private set; }
+        public List<EventFieldDefinition> HeaderSchema { get; private set; }
 
         /// <summary>
         /// Returns false as HeaderSchema should not be serialized given that it's read-only.
@@ -108,11 +90,11 @@ namespace Finbourne.Notifications.Sdk.Model
             return false;
         }
         /// <summary>
-        /// Body
+        /// The body schema for the event type
         /// </summary>
-        /// <value>Body</value>
+        /// <value>The body schema for the event type</value>
         [DataMember(Name = "bodySchema", EmitDefaultValue = true)]
-        public Object BodySchema { get; private set; }
+        public List<EventFieldDefinition> BodySchema { get; private set; }
 
         /// <summary>
         /// Returns false as BodySchema should not be serialized given that it's read-only.
@@ -140,9 +122,7 @@ namespace Finbourne.Notifications.Sdk.Model
             sb.Append("  Id: ").Append(Id).Append("\n");
             sb.Append("  DisplayName: ").Append(DisplayName).Append("\n");
             sb.Append("  Description: ").Append(Description).Append("\n");
-            sb.Append("  Entity: ").Append(Entity).Append("\n");
             sb.Append("  Application: ").Append(Application).Append("\n");
-            sb.Append("  JsonSchema: ").Append(JsonSchema).Append("\n");
             sb.Append("  HeaderSchema: ").Append(HeaderSchema).Append("\n");
             sb.Append("  BodySchema: ").Append(BodySchema).Append("\n");
             sb.Append("  Href: ").Append(Href).Append("\n");
@@ -197,29 +177,21 @@ namespace Finbourne.Notifications.Sdk.Model
                     this.Description.Equals(input.Description))
                 ) && 
                 (
-                    this.Entity == input.Entity ||
-                    (this.Entity != null &&
-                    this.Entity.Equals(input.Entity))
-                ) && 
-                (
                     this.Application == input.Application ||
                     (this.Application != null &&
                     this.Application.Equals(input.Application))
                 ) && 
                 (
-                    this.JsonSchema == input.JsonSchema ||
-                    (this.JsonSchema != null &&
-                    this.JsonSchema.Equals(input.JsonSchema))
-                ) && 
-                (
                     this.HeaderSchema == input.HeaderSchema ||
-                    (this.HeaderSchema != null &&
-                    this.HeaderSchema.Equals(input.HeaderSchema))
+                    this.HeaderSchema != null &&
+                    input.HeaderSchema != null &&
+                    this.HeaderSchema.SequenceEqual(input.HeaderSchema)
                 ) && 
                 (
                     this.BodySchema == input.BodySchema ||
-                    (this.BodySchema != null &&
-                    this.BodySchema.Equals(input.BodySchema))
+                    this.BodySchema != null &&
+                    input.BodySchema != null &&
+                    this.BodySchema.SequenceEqual(input.BodySchema)
                 ) && 
                 (
                     this.Href == input.Href ||
@@ -249,17 +221,9 @@ namespace Finbourne.Notifications.Sdk.Model
                 {
                     hashCode = (hashCode * 59) + this.Description.GetHashCode();
                 }
-                if (this.Entity != null)
-                {
-                    hashCode = (hashCode * 59) + this.Entity.GetHashCode();
-                }
                 if (this.Application != null)
                 {
                     hashCode = (hashCode * 59) + this.Application.GetHashCode();
-                }
-                if (this.JsonSchema != null)
-                {
-                    hashCode = (hashCode * 59) + this.JsonSchema.GetHashCode();
                 }
                 if (this.HeaderSchema != null)
                 {

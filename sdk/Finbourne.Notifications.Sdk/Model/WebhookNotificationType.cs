@@ -30,6 +30,28 @@ namespace Finbourne.Notifications.Sdk.Model
     public partial class WebhookNotificationType : IEquatable<WebhookNotificationType>, IValidatableObject
     {
         /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum Webhook for value: Webhook
+            /// </summary>
+            [EnumMember(Value = "Webhook")]
+            Webhook = 1
+
+        }
+
+
+        /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
+        public TypeEnum Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="WebhookNotificationType" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -44,13 +66,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="authenticationConfigurationItemPaths">The paths of the Configuration Store configuration items that contain the authentication configuration. Each  authentication type requires different keys:  - Lusid - None required  - BasicAuth - Requires &#39;Username&#39; and &#39;Password&#39;  - BearerToken - Requires &#39;BearerToken&#39; and optionally &#39;BearerScheme&#39;                e.g. the following would be valid assuming that the config is present in the configuration store at the  specified paths:                    \&quot;authenticationType\&quot;: \&quot;BasicAuth\&quot;,      \&quot;authenticationConfigurationItemPaths\&quot;: {          \&quot;Username\&quot;: \&quot;config://personal/myUserId/WebhookConfigurations/ExampleService/AdminUser\&quot;,          \&quot;Password\&quot;: \&quot;config://personal/myUserId/WebhookConfigurations/ExampleService/AdminPassword\&quot;      }.</param>
         /// <param name="contentType">The type of the content e.g. Json (required).</param>
         /// <param name="content">The content of the request.</param>
-        public WebhookNotificationType(string type = default(string), string httpMethod = default(string), string url = default(string), string authenticationType = default(string), Dictionary<string, string> authenticationConfigurationItemPaths = default(Dictionary<string, string>), string contentType = default(string), Object content = default(Object))
+        public WebhookNotificationType(TypeEnum type = default(TypeEnum), string httpMethod = default(string), string url = default(string), string authenticationType = default(string), Dictionary<string, string> authenticationConfigurationItemPaths = default(Dictionary<string, string>), string contentType = default(string), Object content = default(Object))
         {
-            // to ensure "type" is required (not null)
-            if (type == null)
-            {
-                throw new ArgumentNullException("type is a required property for WebhookNotificationType and cannot be null");
-            }
             this.Type = type;
             // to ensure "httpMethod" is required (not null)
             if (httpMethod == null)
@@ -79,13 +96,6 @@ namespace Finbourne.Notifications.Sdk.Model
             this.AuthenticationConfigurationItemPaths = authenticationConfigurationItemPaths;
             this.Content = content;
         }
-
-        /// <summary>
-        /// The type of delivery mechanism for this notification
-        /// </summary>
-        /// <value>The type of delivery mechanism for this notification</value>
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
-        public string Type { get; set; }
 
         /// <summary>
         /// The HTTP method such as GET, POST, etc. to use on the request
@@ -181,8 +191,7 @@ namespace Finbourne.Notifications.Sdk.Model
             return 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.HttpMethod == input.HttpMethod ||
@@ -226,10 +235,7 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Type != null)
-                {
-                    hashCode = (hashCode * 59) + this.Type.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.Type.GetHashCode();
                 if (this.HttpMethod != null)
                 {
                     hashCode = (hashCode * 59) + this.HttpMethod.GetHashCode();
@@ -265,12 +271,6 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // Type (string) minLength
-            if (this.Type != null && this.Type.Length < 1)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, length must be greater than 1.", new [] { "Type" });
-            }
-
             // HttpMethod (string) minLength
             if (this.HttpMethod != null && this.HttpMethod.Length < 1)
             {

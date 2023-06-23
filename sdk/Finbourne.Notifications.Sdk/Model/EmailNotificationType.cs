@@ -30,6 +30,28 @@ namespace Finbourne.Notifications.Sdk.Model
     public partial class EmailNotificationType : IEquatable<EmailNotificationType>, IValidatableObject
     {
         /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum Email for value: Email
+            /// </summary>
+            [EnumMember(Value = "Email")]
+            Email = 1
+
+        }
+
+
+        /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
+        public TypeEnum Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="EmailNotificationType" /> class.
         /// </summary>
         [JsonConstructorAttribute]
@@ -44,13 +66,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="emailAddressTo">&#39;To&#39; recipients of the email (required).</param>
         /// <param name="emailAddressCc">&#39;Cc&#39; recipients of the email.</param>
         /// <param name="emailAddressBcc">&#39;Bcc&#39; recipients of the email.</param>
-        public EmailNotificationType(string type = default(string), string subject = default(string), string plainTextBody = default(string), string htmlBody = default(string), List<string> emailAddressTo = default(List<string>), List<string> emailAddressCc = default(List<string>), List<string> emailAddressBcc = default(List<string>))
+        public EmailNotificationType(TypeEnum type = default(TypeEnum), string subject = default(string), string plainTextBody = default(string), string htmlBody = default(string), List<string> emailAddressTo = default(List<string>), List<string> emailAddressCc = default(List<string>), List<string> emailAddressBcc = default(List<string>))
         {
-            // to ensure "type" is required (not null)
-            if (type == null)
-            {
-                throw new ArgumentNullException("type is a required property for EmailNotificationType and cannot be null");
-            }
             this.Type = type;
             // to ensure "subject" is required (not null)
             if (subject == null)
@@ -74,13 +91,6 @@ namespace Finbourne.Notifications.Sdk.Model
             this.EmailAddressCc = emailAddressCc;
             this.EmailAddressBcc = emailAddressBcc;
         }
-
-        /// <summary>
-        /// The type of delivery mechanism for this notification
-        /// </summary>
-        /// <value>The type of delivery mechanism for this notification</value>
-        [DataMember(Name = "type", IsRequired = true, EmitDefaultValue = true)]
-        public string Type { get; set; }
 
         /// <summary>
         /// The subject of the email
@@ -176,8 +186,7 @@ namespace Finbourne.Notifications.Sdk.Model
             return 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.Subject == input.Subject ||
@@ -223,10 +232,7 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Type != null)
-                {
-                    hashCode = (hashCode * 59) + this.Type.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.Type.GetHashCode();
                 if (this.Subject != null)
                 {
                     hashCode = (hashCode * 59) + this.Subject.GetHashCode();
@@ -262,12 +268,6 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Validation Result</returns>
         IEnumerable<System.ComponentModel.DataAnnotations.ValidationResult> IValidatableObject.Validate(ValidationContext validationContext)
         {
-            // Type (string) minLength
-            if (this.Type != null && this.Type.Length < 1)
-            {
-                yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Type, length must be greater than 1.", new [] { "Type" });
-            }
-
             // Subject (string) maxLength
             if (this.Subject != null && this.Subject.Length > 1024)
             {
