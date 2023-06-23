@@ -27,31 +27,35 @@ using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConve
 namespace Finbourne.Notifications.Sdk.Model
 {
     /// <summary>
-    /// EventDetails
+    /// An EventFieldDefinition object
     /// </summary>
-    [DataContract(Name = "EventDetails")]
-    public partial class EventDetails : IEquatable<EventDetails>
+    [DataContract(Name = "EventFieldDefinition")]
+    public partial class EventFieldDefinition : IEquatable<EventFieldDefinition>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="EventDetails" /> class.
+        /// Initializes a new instance of the <see cref="EventFieldDefinition" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        protected EventDetails() { }
-        /// <summary>
-        /// Initializes a new instance of the <see cref="EventDetails" /> class.
-        /// </summary>
-        /// <param name="id">The identifier of the event. (required).</param>
-        public EventDetails(Guid id = default(Guid))
+        /// <param name="name">Name of the field.</param>
+        /// <param name="type">Type of the field.</param>
+        public EventFieldDefinition(string name = default(string), string type = default(string))
         {
-            this.Id = id;
+            this.Name = name;
+            this.Type = type;
         }
 
         /// <summary>
-        /// The identifier of the event.
+        /// Name of the field
         /// </summary>
-        /// <value>The identifier of the event.</value>
-        [DataMember(Name = "id", IsRequired = true, EmitDefaultValue = false)]
-        public Guid Id { get; set; }
+        /// <value>Name of the field</value>
+        [DataMember(Name = "name", EmitDefaultValue = true)]
+        public string Name { get; set; }
+
+        /// <summary>
+        /// Type of the field
+        /// </summary>
+        /// <value>Type of the field</value>
+        [DataMember(Name = "type", EmitDefaultValue = true)]
+        public string Type { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -60,8 +64,9 @@ namespace Finbourne.Notifications.Sdk.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class EventDetails {\n");
-            sb.Append("  Id: ").Append(Id).Append("\n");
+            sb.Append("class EventFieldDefinition {\n");
+            sb.Append("  Name: ").Append(Name).Append("\n");
+            sb.Append("  Type: ").Append(Type).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -82,24 +87,29 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as EventDetails);
+            return this.Equals(input as EventFieldDefinition);
         }
 
         /// <summary>
-        /// Returns true if EventDetails instances are equal
+        /// Returns true if EventFieldDefinition instances are equal
         /// </summary>
-        /// <param name="input">Instance of EventDetails to be compared</param>
+        /// <param name="input">Instance of EventFieldDefinition to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(EventDetails input)
+        public bool Equals(EventFieldDefinition input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.Id == input.Id ||
-                    (this.Id != null &&
-                    this.Id.Equals(input.Id))
+                    this.Name == input.Name ||
+                    (this.Name != null &&
+                    this.Name.Equals(input.Name))
+                ) && 
+                (
+                    this.Type == input.Type ||
+                    (this.Type != null &&
+                    this.Type.Equals(input.Type))
                 );
         }
 
@@ -112,8 +122,10 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Id != null)
-                    hashCode = hashCode * 59 + this.Id.GetHashCode();
+                if (this.Name != null)
+                    hashCode = hashCode * 59 + this.Name.GetHashCode();
+                if (this.Type != null)
+                    hashCode = hashCode * 59 + this.Type.GetHashCode();
                 return hashCode;
             }
         }

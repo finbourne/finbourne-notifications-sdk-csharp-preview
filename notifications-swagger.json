@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.748",
+    "version": "0.1.756",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -457,25 +457,25 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             }
           },
           "required": true
@@ -643,25 +643,25 @@
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
             }
           },
           "required": true
@@ -2480,6 +2480,23 @@
         },
         "additionalProperties": false
       },
+      "EventFieldDefinition": {
+        "type": "object",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "Name of the field",
+            "nullable": true
+          },
+          "type": {
+            "type": "string",
+            "description": "Type of the field",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "An EventFieldDefinition object"
+      },
       "EventTypeSchema": {
         "type": "object",
         "properties": {
@@ -2514,12 +2531,20 @@
             "nullable": true
           },
           "headerSchema": {
-            "description": "Header",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventFieldDefinition"
+            },
+            "description": "The header schema for the event type",
             "nullable": true,
             "readOnly": true
           },
           "bodySchema": {
-            "description": "Body",
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/EventFieldDefinition"
+            },
+            "description": "The body schema for the event type",
             "nullable": true,
             "readOnly": true
           }
