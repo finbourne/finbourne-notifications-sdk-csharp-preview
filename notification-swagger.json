@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.758",
+    "version": "0.1.762",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -1549,8 +1549,7 @@
             "nullable": true
           },
           "notificationType": {
-            "type": "NotificationType",
-            "description": "The contents of the notification type."
+            "$ref": "#/components/schemas/NotificationType"
           }
         },
         "additionalProperties": false,
@@ -2464,8 +2463,7 @@
             "nullable": true
           },
           "notificationType": {
-            "type": "NotificationType",
-            "description": "The contents of the notification type."
+            "$ref": "#/components/schemas/NotificationType"
           }
         },
         "additionalProperties": false,

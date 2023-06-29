@@ -40,7 +40,7 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="notificationId">The identifier of the notification. (required).</param>
         /// <param name="displayName">The name of the notification (required).</param>
         /// <param name="description">The summary of the services provided by the notification.</param>
-        /// <param name="notificationType">The contents of the notification type. (required).</param>
+        /// <param name="notificationType">notificationType (required).</param>
         public CreateNotificationRequest(string notificationId = default(string), string displayName = default(string), string description = default(string), NotificationType notificationType = default(NotificationType))
         {
             // to ensure "notificationId" is required (not null)
@@ -86,9 +86,8 @@ namespace Finbourne.Notifications.Sdk.Model
         public string Description { get; set; }
 
         /// <summary>
-        /// The contents of the notification type.
+        /// Gets or Sets NotificationType
         /// </summary>
-        /// <value>The contents of the notification type.</value>
         [DataMember(Name = "notificationType", IsRequired = true, EmitDefaultValue = true)]
         public NotificationType NotificationType { get; set; }
 
