@@ -6,7 +6,7 @@ A notification object
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
 **NotificationId** | **string** | The identifier of the notification | 
-**DisplayName** | **string** | The name of the notification | [optional] 
+**DisplayName** | **string** | The name of the notification | 
 **Description** | **string** | The summary of the services provided by the notification | [optional] 
 **NotificationType** | **Object** | The type and contents of the notification | 
 **CreatedAt** | **DateTimeOffset** | The time at which the subscription was made | 

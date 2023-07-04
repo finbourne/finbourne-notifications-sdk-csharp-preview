@@ -33,30 +33,36 @@ namespace Finbourne.Notifications.Sdk.Model
         /// Initializes a new instance of the <see cref="ManualEventHeader" /> class.
         /// </summary>
         /// <param name="timestamp">The timestamp of the manual event.</param>
-        /// <param name="eventId">The event ID of the manual event.</param>
         /// <param name="userId">The user ID of the manual event.</param>
         /// <param name="requestId">The request ID of the manual event.</param>
-        public ManualEventHeader(DateTimeOffset timestamp = default(DateTimeOffset), string eventId = default(string), string userId = default(string), string requestId = default(string))
+        public ManualEventHeader(DateTimeOffset timestamp = default(DateTimeOffset), string userId = default(string), string requestId = default(string))
         {
             this.Timestamp = timestamp;
-            this.EventId = eventId;
             this.UserId = userId;
             this.RequestId = requestId;
         }
 
+        /// <summary>
+        /// The event type of the manual event
+        /// </summary>
+        /// <value>The event type of the manual event</value>
+        [DataMember(Name = "eventType", EmitDefaultValue = true)]
+        public string EventType { get; private set; }
+
+        /// <summary>
+        /// Returns false as EventType should not be serialized given that it's read-only.
+        /// </summary>
+        /// <returns>false (boolean)</returns>
+        public bool ShouldSerializeEventType()
+        {
+            return false;
+        }
         /// <summary>
         /// The timestamp of the manual event
         /// </summary>
         /// <value>The timestamp of the manual event</value>
         [DataMember(Name = "timestamp", EmitDefaultValue = false)]
         public DateTimeOffset Timestamp { get; set; }
-
-        /// <summary>
-        /// The event ID of the manual event
-        /// </summary>
-        /// <value>The event ID of the manual event</value>
-        [DataMember(Name = "eventId", EmitDefaultValue = true)]
-        public string EventId { get; set; }
 
         /// <summary>
         /// The user ID of the manual event
@@ -80,8 +86,8 @@ namespace Finbourne.Notifications.Sdk.Model
         {
             StringBuilder sb = new StringBuilder();
             sb.Append("class ManualEventHeader {\n");
+            sb.Append("  EventType: ").Append(EventType).Append("\n");
             sb.Append("  Timestamp: ").Append(Timestamp).Append("\n");
-            sb.Append("  EventId: ").Append(EventId).Append("\n");
             sb.Append("  UserId: ").Append(UserId).Append("\n");
             sb.Append("  RequestId: ").Append(RequestId).Append("\n");
             sb.Append("}\n");
@@ -120,14 +126,14 @@ namespace Finbourne.Notifications.Sdk.Model
             }
             return 
                 (
+                    this.EventType == input.EventType ||
+                    (this.EventType != null &&
+                    this.EventType.Equals(input.EventType))
+                ) && 
+                (
                     this.Timestamp == input.Timestamp ||
                     (this.Timestamp != null &&
                     this.Timestamp.Equals(input.Timestamp))
-                ) && 
-                (
-                    this.EventId == input.EventId ||
-                    (this.EventId != null &&
-                    this.EventId.Equals(input.EventId))
                 ) && 
                 (
                     this.UserId == input.UserId ||
@@ -150,13 +156,13 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
+                if (this.EventType != null)
+                {
+                    hashCode = (hashCode * 59) + this.EventType.GetHashCode();
+                }
                 if (this.Timestamp != null)
                 {
                     hashCode = (hashCode * 59) + this.Timestamp.GetHashCode();
-                }
-                if (this.EventId != null)
-                {
-                    hashCode = (hashCode * 59) + this.EventId.GetHashCode();
                 }
                 if (this.UserId != null)
                 {

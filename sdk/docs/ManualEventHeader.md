@@ -5,8 +5,8 @@ The header of the manual event
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
+**EventType** | **string** | The event type of the manual event | [optional] [readonly] 
 **Timestamp** | **DateTimeOffset** | The timestamp of the manual event | [optional] 
-**EventId** | **string** | The event ID of the manual event | [optional] 
 **UserId** | **string** | The user ID of the manual event | [optional] 
 **RequestId** | **string** | The request ID of the manual event | [optional] 
 

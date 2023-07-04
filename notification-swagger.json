@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.762",
+    "version": "0.1.769",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -35,7 +35,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfEventTypeSchema"
                 },
-                "example": {"values":[{"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"StringFieldValue"},{"name":"requestId","type":"StringFieldValue"},{"name":"userId","type":"StringFieldValue"},{"name":"action","type":"StringFieldValue"},{"name":"entityType","type":"StringFieldValue"},{"name":"timestamp","type":"DateTimeFieldValue"},{"name":"href","type":"StringFieldValue"}],"bodySchema":[{"name":"scope","type":"StringFieldValue"}],"href":"Test:firstString"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
+                "example": {"values":[{"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"String"},{"name":"requestId","type":"String"},{"name":"userId","type":"String"},{"name":"action","type":"String"},{"name":"entityType","type":"String"},{"name":"timestamp","type":"DateTime"},{"name":"href","type":"String"}],"bodySchema":[{"name":"scope","type":"String"}],"href":"Test:firstString"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },
@@ -97,7 +97,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/EventTypeSchema"
                 },
-                "example": {"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"StringFieldValue"},{"name":"requestId","type":"StringFieldValue"},{"name":"userId","type":"StringFieldValue"},{"name":"action","type":"StringFieldValue"},{"name":"entityType","type":"StringFieldValue"},{"name":"timestamp","type":"DateTimeFieldValue"},{"name":"href","type":"StringFieldValue"}],"bodySchema":[{"name":"scope","type":"StringFieldValue"}],"href":"Test:firstString"}
+                "example": {"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"String"},{"name":"requestId","type":"String"},{"name":"userId","type":"String"},{"name":"action","type":"String"},{"name":"entityType","type":"String"},{"name":"timestamp","type":"DateTime"},{"name":"href","type":"String"}],"bodySchema":[{"name":"scope","type":"String"}],"href":"Test:firstString"}
               }
             }
           },
@@ -185,7 +185,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ManualEvent"
                 },
-                "example": {"header":{"timestamp":"1970-01-01T00:00:00.0000000+00:00","eventId":"TestEventId","userId":"TestUserId","requestId":"TestRequestId"},"body":{"subject":"TestSubject","message":"TestMessage","jsonMessage":{"TestField1":"TestValue1","TestField2":"TestValue2"}}}
+                "example": {"header":{"eventType":"Manual","timestamp":"1970-01-01T00:00:00.0000000+00:00","userId":"TestUserId","requestId":"TestRequestId"},"body":{"subject":"TestSubject","message":"TestMessage","jsonMessage":{"TestField1":"TestValue1","TestField2":"TestValue2"}}}
               }
             }
           },
@@ -835,9 +835,6 @@
                 "Create SMS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
                 },
-                "Create Api Request Notification": {
-                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
-                },
                 "Create Webhook Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
@@ -856,9 +853,6 @@
                 },
                 "Create SMS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
-                },
-                "Create Api Request Notification": {
-                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
                 "Create Webhook Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
@@ -879,9 +873,6 @@
                 "Create SMS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
                 },
-                "Create Api Request Notification": {
-                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
-                },
                 "Create Webhook Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
@@ -900,9 +891,6 @@
                 },
                 "Create SMS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
-                },
-                "Create Api Request Notification": {
-                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
                 "Create Webhook Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
@@ -1122,9 +1110,6 @@
                 "Update SMS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
                 },
-                "Update Api Request Notification": {
-                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
-                },
                 "Update Webhook Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
@@ -1143,9 +1128,6 @@
                 },
                 "Update SMS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
-                },
-                "Update Api Request Notification": {
-                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
                 "Update Webhook Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
@@ -1166,9 +1148,6 @@
                 "Update SMS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
                 },
-                "Update Api Request Notification": {
-                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
-                },
                 "Update Webhook Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
@@ -1187,9 +1166,6 @@
                 },
                 "Update SMS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
-                },
-                "Update Api Request Notification": {
-                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
                 "Update Webhook Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
@@ -1481,42 +1457,6 @@
         },
         "additionalProperties": false,
         "description": "The information required to create or update an AWS SQS notification"
-      },
-      "ApiRequestNotificationType": {
-        "required": [
-          "httpMethod",
-          "pathAndQuery",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "minLength": 1,
-            "enum": [
-              "ApiRequest"
-            ],
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification"
-          },
-          "httpMethod": {
-            "minLength": 1,
-            "type": "string",
-            "description": "The HTTP method such as GET, POST, etc. to use on the Api Request"
-          },
-          "pathAndQuery": {
-            "maxLength": 16384,
-            "minLength": 1,
-            "pattern": "^([A-Za-z0-9-._~:\\/?#[\\]@!$&'()*+,;%=]|(\\{\\{([a-zA-Z0-9\\s])*\\}\\}))*$",
-            "type": "string",
-            "description": "The url to send the request to."
-          },
-          "content": {
-            "description": "The content of the request",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "The information required to create or update an Api request notification"
       },
       "CreateNotificationRequest": {
         "required": [
@@ -1998,15 +1938,16 @@
       "ManualEventHeader": {
         "type": "object",
         "properties": {
+          "eventType": {
+            "type": "string",
+            "description": "The event type of the manual event",
+            "nullable": true,
+            "readOnly": true
+          },
           "timestamp": {
             "type": "string",
             "description": "The timestamp of the manual event",
             "format": "date-time"
-          },
-          "eventId": {
-            "type": "string",
-            "description": "The event ID of the manual event",
-            "nullable": true
           },
           "userId": {
             "type": "string",
@@ -2063,6 +2004,7 @@
       "Notification": {
         "required": [
           "createdAt",
+          "displayName",
           "modifiedAt",
           "notificationId",
           "notificationType",
@@ -2081,8 +2023,7 @@
             "minLength": 0,
             "pattern": "^[\\s\\S]*$",
             "type": "string",
-            "description": "The name of the notification",
-            "nullable": true
+            "description": "The name of the notification"
           },
           "description": {
             "maxLength": 512,
@@ -2147,9 +2088,6 @@
         "oneOf": [
           {
             "$ref": "#/components/schemas/AmazonSqsNotificationType"
-          },
-          {
-            "$ref": "#/components/schemas/ApiRequestNotificationType"
           },
           {
             "$ref": "#/components/schemas/EmailNotificationType"

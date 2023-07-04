@@ -38,7 +38,7 @@ namespace Finbourne.Notifications.Sdk.Model
         /// Initializes a new instance of the <see cref="Notification" /> class.
         /// </summary>
         /// <param name="notificationId">The identifier of the notification (required).</param>
-        /// <param name="displayName">The name of the notification.</param>
+        /// <param name="displayName">The name of the notification (required).</param>
         /// <param name="description">The summary of the services provided by the notification.</param>
         /// <param name="notificationType">The type and contents of the notification (required).</param>
         /// <param name="createdAt">The time at which the subscription was made (required).</param>
@@ -54,6 +54,12 @@ namespace Finbourne.Notifications.Sdk.Model
                 throw new ArgumentNullException("notificationId is a required property for Notification and cannot be null");
             }
             this.NotificationId = notificationId;
+            // to ensure "displayName" is required (not null)
+            if (displayName == null)
+            {
+                throw new ArgumentNullException("displayName is a required property for Notification and cannot be null");
+            }
+            this.DisplayName = displayName;
             // to ensure "notificationType" is required (not null)
             if (notificationType == null)
             {
@@ -74,7 +80,6 @@ namespace Finbourne.Notifications.Sdk.Model
                 throw new ArgumentNullException("userIdModified is a required property for Notification and cannot be null");
             }
             this.UserIdModified = userIdModified;
-            this.DisplayName = displayName;
             this.Description = description;
             this.Href = href;
         }
@@ -90,7 +95,7 @@ namespace Finbourne.Notifications.Sdk.Model
         /// The name of the notification
         /// </summary>
         /// <value>The name of the notification</value>
-        [DataMember(Name = "displayName", EmitDefaultValue = true)]
+        [DataMember(Name = "displayName", IsRequired = true, EmitDefaultValue = true)]
         public string DisplayName { get; set; }
 
         /// <summary>
