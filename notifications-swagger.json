@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.762",
+    "version": "0.1.769",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -197,7 +197,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfEventTypeSchema"
                 },
-                "example": {"values":[{"id":"TestId","eventName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","jsonSchema":{"properties":{"header":[{"name":"eventType","type":"StringFieldValue"},{"name":"requestId","type":"StringFieldValue"},{"name":"userId","type":"StringFieldValue"},{"name":"action","type":"StringFieldValue"},{"name":"entityType","type":"StringFieldValue"},{"name":"timestamp","type":"DateTimeFieldValue"},{"name":"href","type":"StringFieldValue"}],"body":[{"name":"scope","type":"StringFieldValue"}]}}}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
+                "example": {"values":[{"id":"TestId","eventName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","jsonSchema":{"properties":{"header":[{"name":"eventType","type":"String"},{"name":"requestId","type":"String"},{"name":"userId","type":"String"},{"name":"action","type":"String"},{"name":"entityType","type":"String"},{"name":"timestamp","type":"DateTime"},{"name":"href","type":"String"}],"body":[{"name":"scope","type":"String"}]}}}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },
@@ -259,7 +259,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/EventTypeSchema"
                 },
-                "example": {"id":"TestId","eventName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","jsonSchema":{"properties":{"header":[{"name":"eventType","type":"StringFieldValue"},{"name":"requestId","type":"StringFieldValue"},{"name":"userId","type":"StringFieldValue"},{"name":"action","type":"StringFieldValue"},{"name":"entityType","type":"StringFieldValue"},{"name":"timestamp","type":"DateTimeFieldValue"},{"name":"href","type":"StringFieldValue"}],"body":[{"name":"scope","type":"StringFieldValue"}]}}}
+                "example": {"id":"TestId","eventName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","jsonSchema":{"properties":{"header":[{"name":"eventType","type":"String"},{"name":"requestId","type":"String"},{"name":"userId","type":"String"},{"name":"action","type":"String"},{"name":"entityType","type":"String"},{"name":"timestamp","type":"DateTime"},{"name":"href","type":"String"}],"body":[{"name":"scope","type":"String"}]}}}
               }
             }
           },
@@ -457,25 +457,25 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"}}
             }
           },
           "required": true
