@@ -519,7 +519,8 @@ namespace Finbourne.Notifications.Sdk.Client
                     response = (policyResult.Outcome == OutcomeType.Successful) ?
                         policyResult.Result : new HttpResponseMessage()
                         {
-                            ReasonPhrase = policyResult.FinalException?.ToString() ?? string.Empty,
+                            Content = new StringContent(policyResult.FinalException?.ToString() ?? string.Empty),
+                            ReasonPhrase = policyResult.FinalException?.GetType().ToString() ?? string.Empty,
                             RequestMessage = policyResult.FinalHandledResult.RequestMessage
                         };
                 }
