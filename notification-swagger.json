@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.772-7",
+    "version": "0.1.772-8",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -1658,20 +1658,17 @@
           "subject": {
             "type": "string",
             "description": "The subject of the email",
-            "nullable": true,
-            "readOnly": true
+            "nullable": true
           },
           "plainTextBody": {
             "type": "string",
             "description": "The plain text body of the email",
-            "nullable": true,
-            "readOnly": true
+            "nullable": true
           },
           "htmlBody": {
             "type": "string",
             "description": "The HTML body of the email (if any)",
-            "nullable": true,
-            "readOnly": true
+            "nullable": true
           },
           "emailAddressTo": {
             "type": "array",
@@ -1679,8 +1676,7 @@
               "type": "string"
             },
             "description": "'To' recipients of the email",
-            "nullable": true,
-            "readOnly": true
+            "nullable": true
           },
           "emailAddressCc": {
             "type": "array",
@@ -1688,8 +1684,7 @@
               "type": "string"
             },
             "description": "'Cc' recipients of the email",
-            "nullable": true,
-            "readOnly": true
+            "nullable": true
           },
           "emailAddressBcc": {
             "type": "array",
@@ -1697,8 +1692,7 @@
               "type": "string"
             },
             "description": "'Bcc' recipients of the email",
-            "nullable": true,
-            "readOnly": true
+            "nullable": true
           }
         },
         "additionalProperties": false,

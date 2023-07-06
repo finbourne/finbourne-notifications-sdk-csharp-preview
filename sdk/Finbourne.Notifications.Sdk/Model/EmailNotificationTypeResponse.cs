@@ -32,9 +32,20 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailNotificationTypeResponse" /> class.
         /// </summary>
-        [JsonConstructorAttribute]
-        public EmailNotificationTypeResponse()
+        /// <param name="subject">The subject of the email.</param>
+        /// <param name="plainTextBody">The plain text body of the email.</param>
+        /// <param name="htmlBody">The HTML body of the email (if any).</param>
+        /// <param name="emailAddressTo">&#39;To&#39; recipients of the email.</param>
+        /// <param name="emailAddressCc">&#39;Cc&#39; recipients of the email.</param>
+        /// <param name="emailAddressBcc">&#39;Bcc&#39; recipients of the email.</param>
+        public EmailNotificationTypeResponse(string subject = default(string), string plainTextBody = default(string), string htmlBody = default(string), List<string> emailAddressTo = default(List<string>), List<string> emailAddressCc = default(List<string>), List<string> emailAddressBcc = default(List<string>))
         {
+            this.Subject = subject;
+            this.PlainTextBody = plainTextBody;
+            this.HtmlBody = htmlBody;
+            this.EmailAddressTo = emailAddressTo;
+            this.EmailAddressCc = emailAddressCc;
+            this.EmailAddressBcc = emailAddressBcc;
         }
 
         /// <summary>
@@ -57,91 +68,43 @@ namespace Finbourne.Notifications.Sdk.Model
         /// </summary>
         /// <value>The subject of the email</value>
         [DataMember(Name = "subject", EmitDefaultValue = true)]
-        public string Subject { get; private set; }
+        public string Subject { get; set; }
 
-        /// <summary>
-        /// Returns false as Subject should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeSubject()
-        {
-            return false;
-        }
         /// <summary>
         /// The plain text body of the email
         /// </summary>
         /// <value>The plain text body of the email</value>
         [DataMember(Name = "plainTextBody", EmitDefaultValue = true)]
-        public string PlainTextBody { get; private set; }
+        public string PlainTextBody { get; set; }
 
-        /// <summary>
-        /// Returns false as PlainTextBody should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializePlainTextBody()
-        {
-            return false;
-        }
         /// <summary>
         /// The HTML body of the email (if any)
         /// </summary>
         /// <value>The HTML body of the email (if any)</value>
         [DataMember(Name = "htmlBody", EmitDefaultValue = true)]
-        public string HtmlBody { get; private set; }
+        public string HtmlBody { get; set; }
 
-        /// <summary>
-        /// Returns false as HtmlBody should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeHtmlBody()
-        {
-            return false;
-        }
         /// <summary>
         /// &#39;To&#39; recipients of the email
         /// </summary>
         /// <value>&#39;To&#39; recipients of the email</value>
         [DataMember(Name = "emailAddressTo", EmitDefaultValue = true)]
-        public List<string> EmailAddressTo { get; private set; }
+        public List<string> EmailAddressTo { get; set; }
 
-        /// <summary>
-        /// Returns false as EmailAddressTo should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeEmailAddressTo()
-        {
-            return false;
-        }
         /// <summary>
         /// &#39;Cc&#39; recipients of the email
         /// </summary>
         /// <value>&#39;Cc&#39; recipients of the email</value>
         [DataMember(Name = "emailAddressCc", EmitDefaultValue = true)]
-        public List<string> EmailAddressCc { get; private set; }
+        public List<string> EmailAddressCc { get; set; }
 
-        /// <summary>
-        /// Returns false as EmailAddressCc should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeEmailAddressCc()
-        {
-            return false;
-        }
         /// <summary>
         /// &#39;Bcc&#39; recipients of the email
         /// </summary>
         /// <value>&#39;Bcc&#39; recipients of the email</value>
         [DataMember(Name = "emailAddressBcc", EmitDefaultValue = true)]
-        public List<string> EmailAddressBcc { get; private set; }
+        public List<string> EmailAddressBcc { get; set; }
 
-        /// <summary>
-        /// Returns false as EmailAddressBcc should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeEmailAddressBcc()
-        {
-            return false;
-        }
         /// <summary>
         /// Returns the string presentation of the object
         /// </summary>
