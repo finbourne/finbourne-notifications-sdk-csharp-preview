@@ -1,4 +1,4 @@
-﻿{
+{
   "openapi": "3.0.1",
   "info": {
     "title": "FINBOURNE Notifications API",
@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.772-4",
+    "version": "0.1.772",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -835,9 +835,6 @@
                 "Create SMS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
                 },
-                "Create Api Request Notification": {
-                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
-                },
                 "Create Webhook Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
@@ -856,9 +853,6 @@
                 },
                 "Create SMS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
-                },
-                "Create Api Request Notification": {
-                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
                 "Create Webhook Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
@@ -879,9 +873,6 @@
                 "Create SMS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
                 },
-                "Create Api Request Notification": {
-                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
-                },
                 "Create Webhook Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
@@ -900,9 +891,6 @@
                 },
                 "Create SMS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
-                },
-                "Create Api Request Notification": {
-                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
                 "Create Webhook Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"TestDescription","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
@@ -934,7 +922,7 @@
                     "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"ApiRequest","httpMethod":"Post","pathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","content":{"Key":"Value Example","MessageKey":"{{message}}"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "Webhook Notification": {
-                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Content":{"Key":"Value Example","MessageKey":"{{message}}"},"type":"Webhook","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","contentType":"Json","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Content":{"Key":"Value Example","MessageKey":"{{message}}"},"type":"Webhook","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","contentType":"Json","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "AWS SQS Notification": {
                     "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqs","body":"Event with message {{message}}","apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecretRef","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
@@ -1122,9 +1110,6 @@
                 "Update SMS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
                 },
-                "Update Api Request Notification": {
-                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
-                },
                 "Update Webhook Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
@@ -1143,9 +1128,6 @@
                 },
                 "Update SMS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
-                },
-                "Update Api Request Notification": {
-                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
                 "Update Webhook Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
@@ -1166,9 +1148,6 @@
                 "Update SMS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
                 },
-                "Update Api Request Notification": {
-                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
-                },
                 "Update Webhook Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
@@ -1187,9 +1166,6 @@
                 },
                 "Update SMS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Sms","Body":"Event with message {{message}} and subject {{subject}}","Recipients":["+447000000000"]}}
-                },
-                "Update Api Request Notification": {
-                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"ApiRequest","HttpMethod":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
                 },
                 "Update Webhook Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"Webhook","HttpMethod":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"},"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}}}
@@ -1482,102 +1458,6 @@
         "additionalProperties": false,
         "description": "The information required to create or update an AWS SQS notification"
       },
-      "AmazonSqsNotificationTypeResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true,
-            "readOnly": true
-          },
-          "apiKeyRef": {
-            "type": "string",
-            "description": "Reference to API key from Configuration Store",
-            "nullable": true
-          },
-          "apiSecretRef": {
-            "type": "string",
-            "description": "Reference to API secret from Configuration Store",
-            "nullable": true
-          },
-          "body": {
-            "type": "string",
-            "description": "The body of the Amazon Queue Message",
-            "nullable": true
-          },
-          "queueUrlRef": {
-            "type": "string",
-            "description": "Reference to queue url from Configuration Store",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Holds readonly information about an AWS SQS notification"
-      },
-      "ApiRequestNotificationType": {
-        "required": [
-          "httpMethod",
-          "pathAndQuery",
-          "type"
-        ],
-        "type": "object",
-        "properties": {
-          "type": {
-            "minLength": 1,
-            "enum": [
-              "ApiRequest"
-            ],
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification"
-          },
-          "httpMethod": {
-            "minLength": 1,
-            "type": "string",
-            "description": "The HTTP method such as GET, POST, etc. to use on the Api Request"
-          },
-          "pathAndQuery": {
-            "maxLength": 16384,
-            "minLength": 1,
-            "pattern": "^([A-Za-z0-9-._~:\\/?#[\\]@!$&'()*+,;%=]|(\\{\\{([a-zA-Z0-9\\s])*\\}\\}))*$",
-            "type": "string",
-            "description": "The url to send the request to."
-          },
-          "content": {
-            "description": "The content of the request",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "The information required to create or update an Api request notification"
-      },
-      "ApiRequestNotificationTypeResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true,
-            "readOnly": true
-          },
-          "httpMethod": {
-            "type": "string",
-            "description": "The HTTP method such as GET, POST, etc. to use on the Api Request",
-            "nullable": true
-          },
-          "pathAndQuery": {
-            "type": "string",
-            "description": "The url to send the request to.",
-            "nullable": true
-          },
-          "content": {
-            "description": "The content of the request",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Holds readonly information about an API request notification"
-      },
       "CreateNotificationRequest": {
         "required": [
           "displayName",
@@ -1732,64 +1612,6 @@
         },
         "additionalProperties": false,
         "description": "The information required to create or update an Email notification"
-      },
-      "EmailNotificationTypeResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true,
-            "readOnly": true
-          },
-          "subject": {
-            "type": "string",
-            "description": "The subject of the email",
-            "nullable": true,
-            "readOnly": true
-          },
-          "plainTextBody": {
-            "type": "string",
-            "description": "The plain text body of the email",
-            "nullable": true,
-            "readOnly": true
-          },
-          "htmlBody": {
-            "type": "string",
-            "description": "The HTML body of the email (if any)",
-            "nullable": true,
-            "readOnly": true
-          },
-          "emailAddressTo": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "'To' recipients of the email",
-            "nullable": true,
-            "readOnly": true
-          },
-          "emailAddressCc": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "'Cc' recipients of the email",
-            "nullable": true,
-            "readOnly": true
-          },
-          "emailAddressBcc": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "'Bcc' recipients of the email",
-            "nullable": true,
-            "readOnly": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Holds readonly information about an Email notification"
       },
       "EventFieldDefinition": {
         "type": "object",
@@ -2212,7 +2034,7 @@
             "nullable": true
           },
           "notificationType": {
-            "$ref": "#/components/schemas/NotificationTypeResponse"
+            "description": "The type and contents of the notification"
           },
           "createdAt": {
             "type": "string",
@@ -2268,9 +2090,6 @@
             "$ref": "#/components/schemas/AmazonSqsNotificationType"
           },
           {
-            "$ref": "#/components/schemas/ApiRequestNotificationType"
-          },
-          {
             "$ref": "#/components/schemas/EmailNotificationType"
           },
           {
@@ -2280,30 +2099,15 @@
             "$ref": "#/components/schemas/WebhookNotificationType"
           }
         ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification",
+            "nullable": true
+          }
+        },
         "additionalProperties": false,
         "description": "Holds information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification that is being created"
-      },
-      "NotificationTypeResponse": {
-        "type": "object",
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/AmazonSqsNotificationTypeResponse"
-          },
-          {
-            "$ref": "#/components/schemas/ApiRequestNotificationTypeResponse"
-          },
-          {
-            "$ref": "#/components/schemas/EmailNotificationTypeResponse"
-          },
-          {
-            "$ref": "#/components/schemas/SmsNotificationTypeResponse"
-          },
-          {
-            "$ref": "#/components/schemas/WebhookNotificationTypeResponse"
-          }
-        ],
-        "additionalProperties": false,
-        "description": "Holds readonly information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification"
       },
       "ResourceId": {
         "required": [
@@ -2504,32 +2308,6 @@
         "additionalProperties": false,
         "description": "The information required to create or update an SMS notification"
       },
-      "SmsNotificationTypeResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true,
-            "readOnly": true
-          },
-          "body": {
-            "type": "string",
-            "description": "The body of the SMS",
-            "nullable": true
-          },
-          "recipients": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "The phone numbers to which the SMS will be sent to (E.164 format)",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Holds readonly information about an SMS notification"
-      },
       "Subscription": {
         "required": [
           "createdAt",
@@ -2729,52 +2507,6 @@
         },
         "additionalProperties": false,
         "description": "The information required to create or update a Webhook notification"
-      },
-      "WebhookNotificationTypeResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true,
-            "readOnly": true
-          },
-          "httpMethod": {
-            "type": "string",
-            "description": "The HTTP method such as GET, POST, etc. to use on the request",
-            "nullable": true
-          },
-          "url": {
-            "type": "string",
-            "description": "The URL to send the request to",
-            "nullable": true
-          },
-          "authenticationType": {
-            "type": "string",
-            "description": "The type of authentication to use on the request",
-            "nullable": true
-          },
-          "authenticationConfigurationItemPaths": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "nullable": true
-            },
-            "description": "The paths of the Configuration Store configuration items that contain the authentication configuration. Each\r\nauthentication type requires different keys:\r\n- Lusid - None required\r\n- BasicAuth - Requires 'Username' and 'Password'\r\n- BearerToken - Requires 'BearerToken' and optionally 'BearerScheme'\r\n            \r\ne.g. the following would be valid assuming that the config is present in the configuration store at the\r\nspecified paths:\r\n            \r\n    \"authenticationType\": \"BasicAuth\",\r\n    \"authenticationConfigurationItemPaths\": {\r\n        \"Username\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminUser\",\r\n        \"Password\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminPassword\"\r\n    }",
-            "nullable": true
-          },
-          "contentType": {
-            "type": "string",
-            "description": "The type of the content e.g. Json",
-            "nullable": true
-          },
-          "content": {
-            "description": "The content of the request",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Holds readonly information about a Webhook notification"
       }
     },
     "securitySchemes": {

@@ -517,7 +517,7 @@ namespace Finbourne.Notifications.Sdk.Client
                         .ExecuteAndCaptureAsync(() => _httpClient.SendAsync(request(), finalToken))
                         .ConfigureAwait(false);
                     response = (policyResult.Outcome == OutcomeType.Successful) ?
-                        policyResult.Result : new HttpResponseMessage()
+                        policyResult.Result : new HttpResponseMessage(0)
                         {
                             Content = new StringContent(policyResult.FinalException?.ToString() ?? string.Empty),
                             ReasonPhrase = policyResult.FinalException?.GetType().ToString() ?? string.Empty,
