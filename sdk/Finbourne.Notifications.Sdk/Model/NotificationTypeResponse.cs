@@ -45,18 +45,6 @@ namespace Finbourne.Notifications.Sdk.Model
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotificationTypeResponse" /> class
-        /// with the <see cref="ApiRequestNotificationTypeResponse" /> class
-        /// </summary>
-        /// <param name="actualInstance">An instance of ApiRequestNotificationTypeResponse.</param>
-        public NotificationTypeResponse(ApiRequestNotificationTypeResponse actualInstance)
-        {
-            this.IsNullable = false;
-            this.SchemaType= "oneOf";
-            this.ActualInstance = actualInstance ?? throw new ArgumentException("Invalid instance found. Must not be null.");
-        }
-
-        /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationTypeResponse" /> class
         /// with the <see cref="EmailNotificationTypeResponse" /> class
         /// </summary>
         /// <param name="actualInstance">An instance of EmailNotificationTypeResponse.</param>
@@ -109,10 +97,6 @@ namespace Finbourne.Notifications.Sdk.Model
                 {
                     this._actualInstance = value;
                 }
-                else if (value.GetType() == typeof(ApiRequestNotificationTypeResponse))
-                {
-                    this._actualInstance = value;
-                }
                 else if (value.GetType() == typeof(EmailNotificationTypeResponse))
                 {
                     this._actualInstance = value;
@@ -127,7 +111,7 @@ namespace Finbourne.Notifications.Sdk.Model
                 }
                 else
                 {
-                    throw new ArgumentException("Invalid instance found. Must be the following types: AmazonSqsNotificationTypeResponse, ApiRequestNotificationTypeResponse, EmailNotificationTypeResponse, SmsNotificationTypeResponse, WebhookNotificationTypeResponse");
+                    throw new ArgumentException("Invalid instance found. Must be the following types: AmazonSqsNotificationTypeResponse, EmailNotificationTypeResponse, SmsNotificationTypeResponse, WebhookNotificationTypeResponse");
                 }
             }
         }
@@ -140,16 +124,6 @@ namespace Finbourne.Notifications.Sdk.Model
         public AmazonSqsNotificationTypeResponse GetAmazonSqsNotificationTypeResponse()
         {
             return (AmazonSqsNotificationTypeResponse)this.ActualInstance;
-        }
-
-        /// <summary>
-        /// Get the actual instance of `ApiRequestNotificationTypeResponse`. If the actual instance is not `ApiRequestNotificationTypeResponse`,
-        /// the InvalidClassException will be thrown
-        /// </summary>
-        /// <returns>An instance of ApiRequestNotificationTypeResponse</returns>
-        public ApiRequestNotificationTypeResponse GetApiRequestNotificationTypeResponse()
-        {
-            return (ApiRequestNotificationTypeResponse)this.ActualInstance;
         }
 
         /// <summary>
@@ -238,26 +212,6 @@ namespace Finbourne.Notifications.Sdk.Model
             {
                 // deserialization failed, try the next one
                 System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into AmazonSqsNotificationTypeResponse: {1}", jsonString, exception.ToString()));
-            }
-
-            try
-            {
-                // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-                if (typeof(ApiRequestNotificationTypeResponse).GetProperty("AdditionalProperties") == null)
-                {
-                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<ApiRequestNotificationTypeResponse>(jsonString, NotificationTypeResponse.SerializerSettings));
-                }
-                else
-                {
-                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<ApiRequestNotificationTypeResponse>(jsonString, NotificationTypeResponse.AdditionalPropertiesSerializerSettings));
-                }
-                matchedTypes.Add("ApiRequestNotificationTypeResponse");
-                match++;
-            }
-            catch (Exception exception)
-            {
-                // deserialization failed, try the next one
-                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into ApiRequestNotificationTypeResponse: {1}", jsonString, exception.ToString()));
             }
 
             try
