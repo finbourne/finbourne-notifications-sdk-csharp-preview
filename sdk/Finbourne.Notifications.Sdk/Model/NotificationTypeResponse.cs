@@ -25,18 +25,18 @@ using System.Reflection;
 namespace Finbourne.Notifications.Sdk.Model
 {
     /// <summary>
-    /// Holds information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification that is being created
+    /// Holds readonly information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification
     /// </summary>
-    [JsonConverter(typeof(NotificationTypeJsonConverter))]
-    [DataContract(Name = "NotificationType")]
-    public partial class NotificationType : AbstractOpenAPISchema, IEquatable<NotificationType>, IValidatableObject
+    [JsonConverter(typeof(NotificationTypeResponseJsonConverter))]
+    [DataContract(Name = "NotificationTypeResponse")]
+    public partial class NotificationTypeResponse : AbstractOpenAPISchema, IEquatable<NotificationTypeResponse>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationType" /> class
-        /// with the <see cref="AmazonSqsNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationTypeResponse" /> class
+        /// with the <see cref="AmazonSqsNotificationTypeResponse" /> class
         /// </summary>
-        /// <param name="actualInstance">An instance of AmazonSqsNotificationType.</param>
-        public NotificationType(AmazonSqsNotificationType actualInstance)
+        /// <param name="actualInstance">An instance of AmazonSqsNotificationTypeResponse.</param>
+        public NotificationTypeResponse(AmazonSqsNotificationTypeResponse actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -44,11 +44,11 @@ namespace Finbourne.Notifications.Sdk.Model
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationType" /> class
-        /// with the <see cref="ApiRequestNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationTypeResponse" /> class
+        /// with the <see cref="ApiRequestNotificationTypeResponse" /> class
         /// </summary>
-        /// <param name="actualInstance">An instance of ApiRequestNotificationType.</param>
-        public NotificationType(ApiRequestNotificationType actualInstance)
+        /// <param name="actualInstance">An instance of ApiRequestNotificationTypeResponse.</param>
+        public NotificationTypeResponse(ApiRequestNotificationTypeResponse actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -56,11 +56,11 @@ namespace Finbourne.Notifications.Sdk.Model
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationType" /> class
-        /// with the <see cref="EmailNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationTypeResponse" /> class
+        /// with the <see cref="EmailNotificationTypeResponse" /> class
         /// </summary>
-        /// <param name="actualInstance">An instance of EmailNotificationType.</param>
-        public NotificationType(EmailNotificationType actualInstance)
+        /// <param name="actualInstance">An instance of EmailNotificationTypeResponse.</param>
+        public NotificationTypeResponse(EmailNotificationTypeResponse actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -68,11 +68,11 @@ namespace Finbourne.Notifications.Sdk.Model
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationType" /> class
-        /// with the <see cref="SmsNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationTypeResponse" /> class
+        /// with the <see cref="SmsNotificationTypeResponse" /> class
         /// </summary>
-        /// <param name="actualInstance">An instance of SmsNotificationType.</param>
-        public NotificationType(SmsNotificationType actualInstance)
+        /// <param name="actualInstance">An instance of SmsNotificationTypeResponse.</param>
+        public NotificationTypeResponse(SmsNotificationTypeResponse actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -80,11 +80,11 @@ namespace Finbourne.Notifications.Sdk.Model
         }
 
         /// <summary>
-        /// Initializes a new instance of the <see cref="NotificationType" /> class
-        /// with the <see cref="WebhookNotificationType" /> class
+        /// Initializes a new instance of the <see cref="NotificationTypeResponse" /> class
+        /// with the <see cref="WebhookNotificationTypeResponse" /> class
         /// </summary>
-        /// <param name="actualInstance">An instance of WebhookNotificationType.</param>
-        public NotificationType(WebhookNotificationType actualInstance)
+        /// <param name="actualInstance">An instance of WebhookNotificationTypeResponse.</param>
+        public NotificationTypeResponse(WebhookNotificationTypeResponse actualInstance)
         {
             this.IsNullable = false;
             this.SchemaType= "oneOf";
@@ -105,81 +105,81 @@ namespace Finbourne.Notifications.Sdk.Model
             }
             set
             {
-                if (value.GetType() == typeof(AmazonSqsNotificationType))
+                if (value.GetType() == typeof(AmazonSqsNotificationTypeResponse))
                 {
                     this._actualInstance = value;
                 }
-                else if (value.GetType() == typeof(ApiRequestNotificationType))
+                else if (value.GetType() == typeof(ApiRequestNotificationTypeResponse))
                 {
                     this._actualInstance = value;
                 }
-                else if (value.GetType() == typeof(EmailNotificationType))
+                else if (value.GetType() == typeof(EmailNotificationTypeResponse))
                 {
                     this._actualInstance = value;
                 }
-                else if (value.GetType() == typeof(SmsNotificationType))
+                else if (value.GetType() == typeof(SmsNotificationTypeResponse))
                 {
                     this._actualInstance = value;
                 }
-                else if (value.GetType() == typeof(WebhookNotificationType))
+                else if (value.GetType() == typeof(WebhookNotificationTypeResponse))
                 {
                     this._actualInstance = value;
                 }
                 else
                 {
-                    throw new ArgumentException("Invalid instance found. Must be the following types: AmazonSqsNotificationType, ApiRequestNotificationType, EmailNotificationType, SmsNotificationType, WebhookNotificationType");
+                    throw new ArgumentException("Invalid instance found. Must be the following types: AmazonSqsNotificationTypeResponse, ApiRequestNotificationTypeResponse, EmailNotificationTypeResponse, SmsNotificationTypeResponse, WebhookNotificationTypeResponse");
                 }
             }
         }
 
         /// <summary>
-        /// Get the actual instance of `AmazonSqsNotificationType`. If the actual instance is not `AmazonSqsNotificationType`,
+        /// Get the actual instance of `AmazonSqsNotificationTypeResponse`. If the actual instance is not `AmazonSqsNotificationTypeResponse`,
         /// the InvalidClassException will be thrown
         /// </summary>
-        /// <returns>An instance of AmazonSqsNotificationType</returns>
-        public AmazonSqsNotificationType GetAmazonSqsNotificationType()
+        /// <returns>An instance of AmazonSqsNotificationTypeResponse</returns>
+        public AmazonSqsNotificationTypeResponse GetAmazonSqsNotificationTypeResponse()
         {
-            return (AmazonSqsNotificationType)this.ActualInstance;
+            return (AmazonSqsNotificationTypeResponse)this.ActualInstance;
         }
 
         /// <summary>
-        /// Get the actual instance of `ApiRequestNotificationType`. If the actual instance is not `ApiRequestNotificationType`,
+        /// Get the actual instance of `ApiRequestNotificationTypeResponse`. If the actual instance is not `ApiRequestNotificationTypeResponse`,
         /// the InvalidClassException will be thrown
         /// </summary>
-        /// <returns>An instance of ApiRequestNotificationType</returns>
-        public ApiRequestNotificationType GetApiRequestNotificationType()
+        /// <returns>An instance of ApiRequestNotificationTypeResponse</returns>
+        public ApiRequestNotificationTypeResponse GetApiRequestNotificationTypeResponse()
         {
-            return (ApiRequestNotificationType)this.ActualInstance;
+            return (ApiRequestNotificationTypeResponse)this.ActualInstance;
         }
 
         /// <summary>
-        /// Get the actual instance of `EmailNotificationType`. If the actual instance is not `EmailNotificationType`,
+        /// Get the actual instance of `EmailNotificationTypeResponse`. If the actual instance is not `EmailNotificationTypeResponse`,
         /// the InvalidClassException will be thrown
         /// </summary>
-        /// <returns>An instance of EmailNotificationType</returns>
-        public EmailNotificationType GetEmailNotificationType()
+        /// <returns>An instance of EmailNotificationTypeResponse</returns>
+        public EmailNotificationTypeResponse GetEmailNotificationTypeResponse()
         {
-            return (EmailNotificationType)this.ActualInstance;
+            return (EmailNotificationTypeResponse)this.ActualInstance;
         }
 
         /// <summary>
-        /// Get the actual instance of `SmsNotificationType`. If the actual instance is not `SmsNotificationType`,
+        /// Get the actual instance of `SmsNotificationTypeResponse`. If the actual instance is not `SmsNotificationTypeResponse`,
         /// the InvalidClassException will be thrown
         /// </summary>
-        /// <returns>An instance of SmsNotificationType</returns>
-        public SmsNotificationType GetSmsNotificationType()
+        /// <returns>An instance of SmsNotificationTypeResponse</returns>
+        public SmsNotificationTypeResponse GetSmsNotificationTypeResponse()
         {
-            return (SmsNotificationType)this.ActualInstance;
+            return (SmsNotificationTypeResponse)this.ActualInstance;
         }
 
         /// <summary>
-        /// Get the actual instance of `WebhookNotificationType`. If the actual instance is not `WebhookNotificationType`,
+        /// Get the actual instance of `WebhookNotificationTypeResponse`. If the actual instance is not `WebhookNotificationTypeResponse`,
         /// the InvalidClassException will be thrown
         /// </summary>
-        /// <returns>An instance of WebhookNotificationType</returns>
-        public WebhookNotificationType GetWebhookNotificationType()
+        /// <returns>An instance of WebhookNotificationTypeResponse</returns>
+        public WebhookNotificationTypeResponse GetWebhookNotificationTypeResponse()
         {
-            return (WebhookNotificationType)this.ActualInstance;
+            return (WebhookNotificationTypeResponse)this.ActualInstance;
         }
 
         /// <summary>
@@ -189,7 +189,7 @@ namespace Finbourne.Notifications.Sdk.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class NotificationType {\n");
+            sb.Append("class NotificationTypeResponse {\n");
             sb.Append("  ActualInstance: ").Append(this.ActualInstance).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
@@ -201,21 +201,21 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>JSON string presentation of the object</returns>
         public override string ToJson()
         {
-            return JsonConvert.SerializeObject(this.ActualInstance, NotificationType.SerializerSettings);
+            return JsonConvert.SerializeObject(this.ActualInstance, NotificationTypeResponse.SerializerSettings);
         }
 
         /// <summary>
-        /// Converts the JSON string into an instance of NotificationType
+        /// Converts the JSON string into an instance of NotificationTypeResponse
         /// </summary>
         /// <param name="jsonString">JSON string</param>
-        /// <returns>An instance of NotificationType</returns>
-        public static NotificationType FromJson(string jsonString)
+        /// <returns>An instance of NotificationTypeResponse</returns>
+        public static NotificationTypeResponse FromJson(string jsonString)
         {
-            NotificationType newNotificationType = null;
+            NotificationTypeResponse newNotificationTypeResponse = null;
 
             if (string.IsNullOrEmpty(jsonString))
             {
-                return newNotificationType;
+                return newNotificationTypeResponse;
             }
             int match = 0;
             List<string> matchedTypes = new List<string>();
@@ -223,101 +223,101 @@ namespace Finbourne.Notifications.Sdk.Model
             try
             {
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-                if (typeof(AmazonSqsNotificationType).GetProperty("AdditionalProperties") == null)
+                if (typeof(AmazonSqsNotificationTypeResponse).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<AmazonSqsNotificationType>(jsonString, NotificationType.SerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<AmazonSqsNotificationTypeResponse>(jsonString, NotificationTypeResponse.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<AmazonSqsNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<AmazonSqsNotificationTypeResponse>(jsonString, NotificationTypeResponse.AdditionalPropertiesSerializerSettings));
                 }
-                matchedTypes.Add("AmazonSqsNotificationType");
+                matchedTypes.Add("AmazonSqsNotificationTypeResponse");
                 match++;
             }
             catch (Exception exception)
             {
                 // deserialization failed, try the next one
-                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into AmazonSqsNotificationType: {1}", jsonString, exception.ToString()));
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into AmazonSqsNotificationTypeResponse: {1}", jsonString, exception.ToString()));
             }
 
             try
             {
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-                if (typeof(ApiRequestNotificationType).GetProperty("AdditionalProperties") == null)
+                if (typeof(ApiRequestNotificationTypeResponse).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<ApiRequestNotificationType>(jsonString, NotificationType.SerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<ApiRequestNotificationTypeResponse>(jsonString, NotificationTypeResponse.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<ApiRequestNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<ApiRequestNotificationTypeResponse>(jsonString, NotificationTypeResponse.AdditionalPropertiesSerializerSettings));
                 }
-                matchedTypes.Add("ApiRequestNotificationType");
+                matchedTypes.Add("ApiRequestNotificationTypeResponse");
                 match++;
             }
             catch (Exception exception)
             {
                 // deserialization failed, try the next one
-                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into ApiRequestNotificationType: {1}", jsonString, exception.ToString()));
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into ApiRequestNotificationTypeResponse: {1}", jsonString, exception.ToString()));
             }
 
             try
             {
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-                if (typeof(EmailNotificationType).GetProperty("AdditionalProperties") == null)
+                if (typeof(EmailNotificationTypeResponse).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<EmailNotificationType>(jsonString, NotificationType.SerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<EmailNotificationTypeResponse>(jsonString, NotificationTypeResponse.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<EmailNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<EmailNotificationTypeResponse>(jsonString, NotificationTypeResponse.AdditionalPropertiesSerializerSettings));
                 }
-                matchedTypes.Add("EmailNotificationType");
+                matchedTypes.Add("EmailNotificationTypeResponse");
                 match++;
             }
             catch (Exception exception)
             {
                 // deserialization failed, try the next one
-                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into EmailNotificationType: {1}", jsonString, exception.ToString()));
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into EmailNotificationTypeResponse: {1}", jsonString, exception.ToString()));
             }
 
             try
             {
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-                if (typeof(SmsNotificationType).GetProperty("AdditionalProperties") == null)
+                if (typeof(SmsNotificationTypeResponse).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<SmsNotificationType>(jsonString, NotificationType.SerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<SmsNotificationTypeResponse>(jsonString, NotificationTypeResponse.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<SmsNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<SmsNotificationTypeResponse>(jsonString, NotificationTypeResponse.AdditionalPropertiesSerializerSettings));
                 }
-                matchedTypes.Add("SmsNotificationType");
+                matchedTypes.Add("SmsNotificationTypeResponse");
                 match++;
             }
             catch (Exception exception)
             {
                 // deserialization failed, try the next one
-                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into SmsNotificationType: {1}", jsonString, exception.ToString()));
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into SmsNotificationTypeResponse: {1}", jsonString, exception.ToString()));
             }
 
             try
             {
                 // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
-                if (typeof(WebhookNotificationType).GetProperty("AdditionalProperties") == null)
+                if (typeof(WebhookNotificationTypeResponse).GetProperty("AdditionalProperties") == null)
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<WebhookNotificationType>(jsonString, NotificationType.SerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<WebhookNotificationTypeResponse>(jsonString, NotificationTypeResponse.SerializerSettings));
                 }
                 else
                 {
-                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<WebhookNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
+                    newNotificationTypeResponse = new NotificationTypeResponse(JsonConvert.DeserializeObject<WebhookNotificationTypeResponse>(jsonString, NotificationTypeResponse.AdditionalPropertiesSerializerSettings));
                 }
-                matchedTypes.Add("WebhookNotificationType");
+                matchedTypes.Add("WebhookNotificationTypeResponse");
                 match++;
             }
             catch (Exception exception)
             {
                 // deserialization failed, try the next one
-                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into WebhookNotificationType: {1}", jsonString, exception.ToString()));
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into WebhookNotificationTypeResponse: {1}", jsonString, exception.ToString()));
             }
 
             if (match == 0)
@@ -330,7 +330,7 @@ namespace Finbourne.Notifications.Sdk.Model
             }
 
             // deserialization is considered successful at this point if no exception has been thrown.
-            return newNotificationType;
+            return newNotificationTypeResponse;
         }
 
         /// <summary>
@@ -340,15 +340,15 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as NotificationType);
+            return this.Equals(input as NotificationTypeResponse);
         }
 
         /// <summary>
-        /// Returns true if NotificationType instances are equal
+        /// Returns true if NotificationTypeResponse instances are equal
         /// </summary>
-        /// <param name="input">Instance of NotificationType to be compared</param>
+        /// <param name="input">Instance of NotificationTypeResponse to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(NotificationType input)
+        public bool Equals(NotificationTypeResponse input)
         {
             if (input == null)
                 return false;
@@ -383,9 +383,9 @@ namespace Finbourne.Notifications.Sdk.Model
     }
 
     /// <summary>
-    /// Custom JSON converter for NotificationType
+    /// Custom JSON converter for NotificationTypeResponse
     /// </summary>
-    public class NotificationTypeJsonConverter : JsonConverter
+    public class NotificationTypeResponseJsonConverter : JsonConverter
     {
         /// <summary>
         /// To write the JSON string
@@ -395,7 +395,7 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="serializer">JSON Serializer</param>
         public override void WriteJson(JsonWriter writer, object value, JsonSerializer serializer)
         {
-            writer.WriteRawValue((string)(typeof(NotificationType).GetMethod("ToJson").Invoke(value, null)));
+            writer.WriteRawValue((string)(typeof(NotificationTypeResponse).GetMethod("ToJson").Invoke(value, null)));
         }
 
         /// <summary>
@@ -410,7 +410,7 @@ namespace Finbourne.Notifications.Sdk.Model
         {
             if(reader.TokenType != JsonToken.Null)
             {
-                return NotificationType.FromJson(JObject.Load(reader).ToString(Formatting.None));
+                return NotificationTypeResponse.FromJson(JObject.Load(reader).ToString(Formatting.None));
             }
             return null;
         }
