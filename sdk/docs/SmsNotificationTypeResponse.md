@@ -5,7 +5,7 @@ Holds readonly information about an SMS notification
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | The type of delivery mechanism for this notification | [optional] [readonly] 
+**Type** | **string** | The type of delivery mechanism for this notification | [optional] 
 **Body** | **string** | The body of the SMS | [optional] 
 **Recipients** | **List&lt;string&gt;** | The phone numbers to which the SMS will be sent to (E.164 format) | [optional] 
 

@@ -32,12 +32,14 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="AmazonSqsNotificationTypeResponse" /> class.
         /// </summary>
+        /// <param name="type">The type of delivery mechanism for this notification.</param>
         /// <param name="apiKeyRef">Reference to API key from Configuration Store.</param>
         /// <param name="apiSecretRef">Reference to API secret from Configuration Store.</param>
         /// <param name="body">The body of the Amazon Queue Message.</param>
         /// <param name="queueUrlRef">Reference to queue url from Configuration Store.</param>
-        public AmazonSqsNotificationTypeResponse(string apiKeyRef = default(string), string apiSecretRef = default(string), string body = default(string), string queueUrlRef = default(string))
+        public AmazonSqsNotificationTypeResponse(string type = default(string), string apiKeyRef = default(string), string apiSecretRef = default(string), string body = default(string), string queueUrlRef = default(string))
         {
+            this.Type = type;
             this.ApiKeyRef = apiKeyRef;
             this.ApiSecretRef = apiSecretRef;
             this.Body = body;
@@ -49,16 +51,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// </summary>
         /// <value>The type of delivery mechanism for this notification</value>
         [DataMember(Name = "type", EmitDefaultValue = true)]
-        public string Type { get; private set; }
+        public string Type { get; set; }
 
-        /// <summary>
-        /// Returns false as Type should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeType()
-        {
-            return false;
-        }
         /// <summary>
         /// Reference to API key from Configuration Store
         /// </summary>

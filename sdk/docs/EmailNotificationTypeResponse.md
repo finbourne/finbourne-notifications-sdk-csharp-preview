@@ -5,7 +5,7 @@ Holds readonly information about an Email notification
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | The type of delivery mechanism for this notification | [optional] [readonly] 
+**Type** | **string** | The type of delivery mechanism for this notification | [optional] 
 **Subject** | **string** | The subject of the email | [optional] 
 **PlainTextBody** | **string** | The plain text body of the email | [optional] 
 **HtmlBody** | **string** | The HTML body of the email (if any) | [optional] 

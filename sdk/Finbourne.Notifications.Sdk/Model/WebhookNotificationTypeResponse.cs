@@ -32,14 +32,16 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="WebhookNotificationTypeResponse" /> class.
         /// </summary>
+        /// <param name="type">The type of delivery mechanism for this notification.</param>
         /// <param name="httpMethod">The HTTP method such as GET, POST, etc. to use on the request.</param>
         /// <param name="url">The URL to send the request to.</param>
         /// <param name="authenticationType">The type of authentication to use on the request.</param>
         /// <param name="authenticationConfigurationItemPaths">The paths of the Configuration Store configuration items that contain the authentication configuration. Each  authentication type requires different keys:  - Lusid - None required  - BasicAuth - Requires &#39;Username&#39; and &#39;Password&#39;  - BearerToken - Requires &#39;BearerToken&#39; and optionally &#39;BearerScheme&#39;                e.g. the following would be valid assuming that the config is present in the configuration store at the  specified paths:                    \&quot;authenticationType\&quot;: \&quot;BasicAuth\&quot;,      \&quot;authenticationConfigurationItemPaths\&quot;: {          \&quot;Username\&quot;: \&quot;config://personal/myUserId/WebhookConfigurations/ExampleService/AdminUser\&quot;,          \&quot;Password\&quot;: \&quot;config://personal/myUserId/WebhookConfigurations/ExampleService/AdminPassword\&quot;      }.</param>
         /// <param name="contentType">The type of the content e.g. Json.</param>
         /// <param name="content">The content of the request.</param>
-        public WebhookNotificationTypeResponse(string httpMethod = default(string), string url = default(string), string authenticationType = default(string), Dictionary<string, string> authenticationConfigurationItemPaths = default(Dictionary<string, string>), string contentType = default(string), Object content = default(Object))
+        public WebhookNotificationTypeResponse(string type = default(string), string httpMethod = default(string), string url = default(string), string authenticationType = default(string), Dictionary<string, string> authenticationConfigurationItemPaths = default(Dictionary<string, string>), string contentType = default(string), Object content = default(Object))
         {
+            this.Type = type;
             this.HttpMethod = httpMethod;
             this.Url = url;
             this.AuthenticationType = authenticationType;
@@ -53,16 +55,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// </summary>
         /// <value>The type of delivery mechanism for this notification</value>
         [DataMember(Name = "type", EmitDefaultValue = true)]
-        public string Type { get; private set; }
+        public string Type { get; set; }
 
-        /// <summary>
-        /// Returns false as Type should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeType()
-        {
-            return false;
-        }
         /// <summary>
         /// The HTTP method such as GET, POST, etc. to use on the request
         /// </summary>

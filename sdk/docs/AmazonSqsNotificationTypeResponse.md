@@ -5,7 +5,7 @@ Holds readonly information about an AWS SQS notification
 
 Name | Type | Description | Notes
 ------------ | ------------- | ------------- | -------------
-**Type** | **string** | The type of delivery mechanism for this notification | [optional] [readonly] 
+**Type** | **string** | The type of delivery mechanism for this notification | [optional] 
 **ApiKeyRef** | **string** | Reference to API key from Configuration Store | [optional] 
 **ApiSecretRef** | **string** | Reference to API secret from Configuration Store | [optional] 
 **Body** | **string** | The body of the Amazon Queue Message | [optional] 

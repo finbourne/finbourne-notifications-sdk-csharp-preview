@@ -32,10 +32,12 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="SmsNotificationTypeResponse" /> class.
         /// </summary>
+        /// <param name="type">The type of delivery mechanism for this notification.</param>
         /// <param name="body">The body of the SMS.</param>
         /// <param name="recipients">The phone numbers to which the SMS will be sent to (E.164 format).</param>
-        public SmsNotificationTypeResponse(string body = default(string), List<string> recipients = default(List<string>))
+        public SmsNotificationTypeResponse(string type = default(string), string body = default(string), List<string> recipients = default(List<string>))
         {
+            this.Type = type;
             this.Body = body;
             this.Recipients = recipients;
         }
@@ -45,16 +47,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// </summary>
         /// <value>The type of delivery mechanism for this notification</value>
         [DataMember(Name = "type", EmitDefaultValue = true)]
-        public string Type { get; private set; }
+        public string Type { get; set; }
 
-        /// <summary>
-        /// Returns false as Type should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeType()
-        {
-            return false;
-        }
         /// <summary>
         /// The body of the SMS
         /// </summary>

@@ -32,14 +32,16 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <summary>
         /// Initializes a new instance of the <see cref="EmailNotificationTypeResponse" /> class.
         /// </summary>
+        /// <param name="type">The type of delivery mechanism for this notification.</param>
         /// <param name="subject">The subject of the email.</param>
         /// <param name="plainTextBody">The plain text body of the email.</param>
         /// <param name="htmlBody">The HTML body of the email (if any).</param>
         /// <param name="emailAddressTo">&#39;To&#39; recipients of the email.</param>
         /// <param name="emailAddressCc">&#39;Cc&#39; recipients of the email.</param>
         /// <param name="emailAddressBcc">&#39;Bcc&#39; recipients of the email.</param>
-        public EmailNotificationTypeResponse(string subject = default(string), string plainTextBody = default(string), string htmlBody = default(string), List<string> emailAddressTo = default(List<string>), List<string> emailAddressCc = default(List<string>), List<string> emailAddressBcc = default(List<string>))
+        public EmailNotificationTypeResponse(string type = default(string), string subject = default(string), string plainTextBody = default(string), string htmlBody = default(string), List<string> emailAddressTo = default(List<string>), List<string> emailAddressCc = default(List<string>), List<string> emailAddressBcc = default(List<string>))
         {
+            this.Type = type;
             this.Subject = subject;
             this.PlainTextBody = plainTextBody;
             this.HtmlBody = htmlBody;
@@ -53,16 +55,8 @@ namespace Finbourne.Notifications.Sdk.Model
         /// </summary>
         /// <value>The type of delivery mechanism for this notification</value>
         [DataMember(Name = "type", EmitDefaultValue = true)]
-        public string Type { get; private set; }
+        public string Type { get; set; }
 
-        /// <summary>
-        /// Returns false as Type should not be serialized given that it's read-only.
-        /// </summary>
-        /// <returns>false (boolean)</returns>
-        public bool ShouldSerializeType()
-        {
-            return false;
-        }
         /// <summary>
         /// The subject of the email
         /// </summary>
