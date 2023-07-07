@@ -41,7 +41,7 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="description">The summary of the services provided by the subscription.</param>
         /// <param name="status">The current status of the subscription. Possible values are: Active, Inactive (required).</param>
         /// <param name="matchingPattern">matchingPattern (required).</param>
-        /// <param name="useAsAuth">The user to authenticate with for subscriptions.</param>
+        /// <param name="useAsAuth">Id of user associated with subscription. All events associated with   the subscription will use this user to check entitlements against   the resource to send a notification. Can be null, in which case   we&#39;ll default to that of the user making this request.</param>
         public UpdateSubscription(string displayName = default(string), string description = default(string), string status = default(string), MatchingPattern matchingPattern = default(MatchingPattern), string useAsAuth = default(string))
         {
             // to ensure "displayName" is required (not null)
@@ -94,9 +94,9 @@ namespace Finbourne.Notifications.Sdk.Model
         public MatchingPattern MatchingPattern { get; set; }
 
         /// <summary>
-        /// The user to authenticate with for subscriptions
+        /// Id of user associated with subscription. All events associated with   the subscription will use this user to check entitlements against   the resource to send a notification. Can be null, in which case   we&#39;ll default to that of the user making this request
         /// </summary>
-        /// <value>The user to authenticate with for subscriptions</value>
+        /// <value>Id of user associated with subscription. All events associated with   the subscription will use this user to check entitlements against   the resource to send a notification. Can be null, in which case   we&#39;ll default to that of the user making this request</value>
         [DataMember(Name = "useAsAuth", EmitDefaultValue = true)]
         public string UseAsAuth { get; set; }
 

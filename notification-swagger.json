@@ -1,4 +1,4 @@
-﻿{
+{
   "openapi": "3.0.1",
   "info": {
     "title": "FINBOURNE Notifications API",
@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.774-2",
+    "version": "0.1.775",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -373,25 +373,25 @@
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/CreateSubscription"
               },
-              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             }
           },
           "required": true
@@ -404,7 +404,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"TestClient","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"Auth user","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}
               }
             }
           },
@@ -478,7 +478,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"TestClient","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"Auth user","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}
               }
             }
           },
@@ -559,25 +559,25 @@
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"}}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             }
           },
           "required": true
@@ -590,7 +590,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Subscription"
                 },
-                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"TestClient","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}
+                "example": {"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"Auth user","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}
               }
             }
           },
@@ -922,7 +922,7 @@
                     "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"ApiRequest","httpMethod":"Post","pathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}","content":{"Key":"Value Example","MessageKey":"{{message}}"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "Webhook Notification": {
-                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Content":{"Key":"Value Example","MessageKey":"{{message}}"},"type":"Webhook","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","contentType":"Json","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Content":{"Key":"Value Example","MessageKey":"{{message}}"},"type":"Webhook","httpMethod":"Post","url":"https://example.com/api/{{id}}/path?examplequery={{id}}","authenticationType":"BearerToken","contentType":"Json","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "AWS SQS Notification": {
                     "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqs","body":"Event with message {{message}}","apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecretRef","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
@@ -1458,38 +1458,6 @@
         "additionalProperties": false,
         "description": "The information required to create or update an AWS SQS notification"
       },
-      "AmazonSqsNotificationTypeResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true
-          },
-          "apiKeyRef": {
-            "type": "string",
-            "description": "Reference to API key from Configuration Store",
-            "nullable": true
-          },
-          "apiSecretRef": {
-            "type": "string",
-            "description": "Reference to API secret from Configuration Store",
-            "nullable": true
-          },
-          "body": {
-            "type": "string",
-            "description": "The body of the Amazon Queue Message",
-            "nullable": true
-          },
-          "queueUrlRef": {
-            "type": "string",
-            "description": "Reference to queue url from Configuration Store",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Holds readonly information about an AWS SQS notification"
-      },
       "CreateNotificationRequest": {
         "required": [
           "displayName",
@@ -1568,7 +1536,7 @@
             "minLength": 1,
             "pattern": "^[a-zA-Z0-9\\-_]+$",
             "type": "string",
-            "description": "The user to authenticate the subscription",
+            "description": "Id of user associated with subscription. All events associated with \r\nthe subscription will use this user to check entitlements against \r\nthe resource to send a notification. Can be null, in which case \r\nwe'll default to that of the user making this request",
             "nullable": true
           }
         },
@@ -1644,57 +1612,6 @@
         },
         "additionalProperties": false,
         "description": "The information required to create or update an Email notification"
-      },
-      "EmailNotificationTypeResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true
-          },
-          "subject": {
-            "type": "string",
-            "description": "The subject of the email",
-            "nullable": true
-          },
-          "plainTextBody": {
-            "type": "string",
-            "description": "The plain text body of the email",
-            "nullable": true
-          },
-          "htmlBody": {
-            "type": "string",
-            "description": "The HTML body of the email (if any)",
-            "nullable": true
-          },
-          "emailAddressTo": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "'To' recipients of the email",
-            "nullable": true
-          },
-          "emailAddressCc": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "'Cc' recipients of the email",
-            "nullable": true
-          },
-          "emailAddressBcc": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "'Bcc' recipients of the email",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Holds readonly information about an Email notification"
       },
       "EventFieldDefinition": {
         "type": "object",
@@ -2117,7 +2034,7 @@
             "nullable": true
           },
           "notificationType": {
-            "$ref": "#/components/schemas/NotificationTypeResponse"
+            "description": "The type and contents of the notification"
           },
           "createdAt": {
             "type": "string",
@@ -2182,27 +2099,15 @@
             "$ref": "#/components/schemas/WebhookNotificationType"
           }
         ],
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification",
+            "nullable": true
+          }
+        },
         "additionalProperties": false,
         "description": "Holds information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification that is being created"
-      },
-      "NotificationTypeResponse": {
-        "type": "object",
-        "oneOf": [
-          {
-            "$ref": "#/components/schemas/AmazonSqsNotificationTypeResponse"
-          },
-          {
-            "$ref": "#/components/schemas/EmailNotificationTypeResponse"
-          },
-          {
-            "$ref": "#/components/schemas/SmsNotificationTypeResponse"
-          },
-          {
-            "$ref": "#/components/schemas/WebhookNotificationTypeResponse"
-          }
-        ],
-        "additionalProperties": false,
-        "description": "Holds readonly information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification"
       },
       "ResourceId": {
         "required": [
@@ -2403,31 +2308,6 @@
         "additionalProperties": false,
         "description": "The information required to create or update an SMS notification"
       },
-      "SmsNotificationTypeResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true
-          },
-          "body": {
-            "type": "string",
-            "description": "The body of the SMS",
-            "nullable": true
-          },
-          "recipients": {
-            "type": "array",
-            "items": {
-              "type": "string"
-            },
-            "description": "The phone numbers to which the SMS will be sent to (E.164 format)",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Holds readonly information about an SMS notification"
-      },
       "Subscription": {
         "required": [
           "createdAt",
@@ -2564,7 +2444,7 @@
             "minLength": 1,
             "pattern": "^[a-zA-Z0-9\\-_]+$",
             "type": "string",
-            "description": "The user to authenticate with for subscriptions",
+            "description": "Id of user associated with subscription. All events associated with \r\nthe subscription will use this user to check entitlements against \r\nthe resource to send a notification. Can be null, in which case \r\nwe'll default to that of the user making this request",
             "nullable": true
           }
         },
@@ -2627,51 +2507,6 @@
         },
         "additionalProperties": false,
         "description": "The information required to create or update a Webhook notification"
-      },
-      "WebhookNotificationTypeResponse": {
-        "type": "object",
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true
-          },
-          "httpMethod": {
-            "type": "string",
-            "description": "The HTTP method such as GET, POST, etc. to use on the request",
-            "nullable": true
-          },
-          "url": {
-            "type": "string",
-            "description": "The URL to send the request to",
-            "nullable": true
-          },
-          "authenticationType": {
-            "type": "string",
-            "description": "The type of authentication to use on the request",
-            "nullable": true
-          },
-          "authenticationConfigurationItemPaths": {
-            "type": "object",
-            "additionalProperties": {
-              "type": "string",
-              "nullable": true
-            },
-            "description": "The paths of the Configuration Store configuration items that contain the authentication configuration. Each\r\nauthentication type requires different keys:\r\n- Lusid - None required\r\n- BasicAuth - Requires 'Username' and 'Password'\r\n- BearerToken - Requires 'BearerToken' and optionally 'BearerScheme'\r\n            \r\ne.g. the following would be valid assuming that the config is present in the configuration store at the\r\nspecified paths:\r\n            \r\n    \"authenticationType\": \"BasicAuth\",\r\n    \"authenticationConfigurationItemPaths\": {\r\n        \"Username\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminUser\",\r\n        \"Password\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminPassword\"\r\n    }",
-            "nullable": true
-          },
-          "contentType": {
-            "type": "string",
-            "description": "The type of the content e.g. Json",
-            "nullable": true
-          },
-          "content": {
-            "description": "The content of the request",
-            "nullable": true
-          }
-        },
-        "additionalProperties": false,
-        "description": "Holds readonly information about a Webhook notification"
       }
     },
     "securitySchemes": {
