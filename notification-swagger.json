@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.779",
+    "version": "0.1.782",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -1458,6 +1458,38 @@
         "additionalProperties": false,
         "description": "The information required to create or update an AWS SQS notification"
       },
+      "AmazonSqsNotificationTypeResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification",
+            "nullable": true
+          },
+          "apiKeyRef": {
+            "type": "string",
+            "description": "Reference to API key from Configuration Store",
+            "nullable": true
+          },
+          "apiSecretRef": {
+            "type": "string",
+            "description": "Reference to API secret from Configuration Store",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "description": "The body of the Amazon Queue Message",
+            "nullable": true
+          },
+          "queueUrlRef": {
+            "type": "string",
+            "description": "Reference to queue url from Configuration Store",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Holds readonly information about an AWS SQS notification"
+      },
       "CreateNotificationRequest": {
         "required": [
           "displayName",
@@ -1612,6 +1644,57 @@
         },
         "additionalProperties": false,
         "description": "The information required to create or update an Email notification"
+      },
+      "EmailNotificationTypeResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification",
+            "nullable": true
+          },
+          "subject": {
+            "type": "string",
+            "description": "The subject of the email",
+            "nullable": true
+          },
+          "plainTextBody": {
+            "type": "string",
+            "description": "The plain text body of the email",
+            "nullable": true
+          },
+          "htmlBody": {
+            "type": "string",
+            "description": "The HTML body of the email (if any)",
+            "nullable": true
+          },
+          "emailAddressTo": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "'To' recipients of the email",
+            "nullable": true
+          },
+          "emailAddressCc": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "'Cc' recipients of the email",
+            "nullable": true
+          },
+          "emailAddressBcc": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "'Bcc' recipients of the email",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Holds readonly information about an Email notification"
       },
       "EventFieldDefinition": {
         "type": "object",
@@ -2034,7 +2117,7 @@
             "nullable": true
           },
           "notificationType": {
-            "description": "The type and contents of the notification"
+            "$ref": "#/components/schemas/NotificationTypeResponse"
           },
           "createdAt": {
             "type": "string",
@@ -2099,15 +2182,27 @@
             "$ref": "#/components/schemas/WebhookNotificationType"
           }
         ],
-        "properties": {
-          "type": {
-            "type": "string",
-            "description": "The type of delivery mechanism for this notification",
-            "nullable": true
-          }
-        },
         "additionalProperties": false,
         "description": "Holds information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification that is being created"
+      },
+      "NotificationTypeResponse": {
+        "type": "object",
+        "oneOf": [
+          {
+            "$ref": "#/components/schemas/AmazonSqsNotificationTypeResponse"
+          },
+          {
+            "$ref": "#/components/schemas/EmailNotificationTypeResponse"
+          },
+          {
+            "$ref": "#/components/schemas/SmsNotificationTypeResponse"
+          },
+          {
+            "$ref": "#/components/schemas/WebhookNotificationTypeResponse"
+          }
+        ],
+        "additionalProperties": false,
+        "description": "Holds readonly information about a Finbourne.Notifications.WebApi.Dtos.Notifications.Notification"
       },
       "ResourceId": {
         "required": [
@@ -2308,6 +2403,31 @@
         "additionalProperties": false,
         "description": "The information required to create or update an SMS notification"
       },
+      "SmsNotificationTypeResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "description": "The body of the SMS",
+            "nullable": true
+          },
+          "recipients": {
+            "type": "array",
+            "items": {
+              "type": "string"
+            },
+            "description": "The phone numbers to which the SMS will be sent to (E.164 format)",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Holds readonly information about an SMS notification"
+      },
       "Subscription": {
         "required": [
           "createdAt",
@@ -2507,6 +2627,51 @@
         },
         "additionalProperties": false,
         "description": "The information required to create or update a Webhook notification"
+      },
+      "WebhookNotificationTypeResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification",
+            "nullable": true
+          },
+          "httpMethod": {
+            "type": "string",
+            "description": "The HTTP method such as GET, POST, etc. to use on the request",
+            "nullable": true
+          },
+          "url": {
+            "type": "string",
+            "description": "The URL to send the request to",
+            "nullable": true
+          },
+          "authenticationType": {
+            "type": "string",
+            "description": "The type of authentication to use on the request",
+            "nullable": true
+          },
+          "authenticationConfigurationItemPaths": {
+            "type": "object",
+            "additionalProperties": {
+              "type": "string",
+              "nullable": true
+            },
+            "description": "The paths of the Configuration Store configuration items that contain the authentication configuration. Each\r\nauthentication type requires different keys:\r\n- Lusid - None required\r\n- BasicAuth - Requires 'Username' and 'Password'\r\n- BearerToken - Requires 'BearerToken' and optionally 'BearerScheme'\r\n            \r\ne.g. the following would be valid assuming that the config is present in the configuration store at the\r\nspecified paths:\r\n            \r\n    \"authenticationType\": \"BasicAuth\",\r\n    \"authenticationConfigurationItemPaths\": {\r\n        \"Username\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminUser\",\r\n        \"Password\": \"config://personal/myUserId/WebhookConfigurations/ExampleService/AdminPassword\"\r\n    }",
+            "nullable": true
+          },
+          "contentType": {
+            "type": "string",
+            "description": "The type of the content e.g. Json",
+            "nullable": true
+          },
+          "content": {
+            "description": "The content of the request",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Holds readonly information about a Webhook notification"
       }
     },
     "securitySchemes": {
