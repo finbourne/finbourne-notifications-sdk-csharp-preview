@@ -116,34 +116,9 @@ namespace Finbourne.Notifications.Sdk.Extensions
             RetryConfiguration.AsyncRetryPolicy =
                 RetryConfiguration.AsyncRetryPolicy ?? PollyApiRetryHandler.DefaultRetryPolicyWithFallbackAsync;
 
-            var handler = new SocketsHttpHandler();
-            handler.ConnectCallback = async (ctx, ct) =>
-            {
-                var s = new Socket(SocketType.Stream, ProtocolType.Tcp) { NoDelay = true };
-                try
-                {
-                    s.SetSocketOption(SocketOptionLevel.Socket, SocketOptionName.KeepAlive, true);
-                    s.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.NoDelay, true);
-                    s.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveTime, 30);
-                    s.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveInterval, 30);
-                    // note that 100 below gives us 50m worth of tcpkeepalive.  That should be plenty for any call.
-                    // note this doesnt work on some windows versions
-                    s.SetSocketOption(SocketOptionLevel.Tcp, SocketOptionName.TcpKeepAliveRetryCount, 100);
-
-                    var addresses = await Dns.GetHostAddressesAsync(ctx.DnsEndPoint.Host);
-                    var endpoint = new IPEndPoint(addresses[0], ctx.DnsEndPoint.Port);
-                    await s.ConnectAsync(endpoint, ct);
-                    return new NetworkStream(s, ownsSocket: true); 
-                }
-                catch
-                {
-                    s.Dispose();
-                    throw;
-                }
-            };
 
             // Create an HttpClient object to be used in the instance creation.
-            var client = new HttpClient(handler);
+            var client = new HttpClient();
 
             var dict = new Dictionary<Type, IApiAccessor>();
             foreach (Type api in ApiTypes)
