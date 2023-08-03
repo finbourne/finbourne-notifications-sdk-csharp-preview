@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.803",
+    "version": "0.1.804",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -185,7 +185,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ManualEvent"
                 },
-                "example": {"header":{"eventType":"Manual","timestamp":"1970-01-01T00:00:00.0000000+00:00","userId":"TestUserId","requestId":"TestRequestId"},"body":{"subject":"TestSubject","message":"TestMessage","jsonMessage":{"TestField1":"TestValue1","TestField2":"TestValue2"}}}
+                "example": {"header":{"eventType":"Manual","timestamp":"1970-01-01T00:00:00.0000000+00:00","userId":"TestUserId","requestId":"TestRequestId"},"body":{"subject":"TestSubject","message":"TestMessage","jsonMessage":{"ExampleJSONField1":"ExampleJSONValue1","ExampleJSONField2":"ExampleJSONValue2"}}}
               }
             }
           },
@@ -277,7 +277,7 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Expression to filter the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</see>.",
+            "description": "Expression to filter the result set. Read more about <a href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</a>.",
             "schema": {
               "maxLength": 16384,
               "minLength": 0,
@@ -288,7 +288,7 @@
           {
             "name": "sortBy",
             "in": "query",
-            "description": "Fields to order the result set. Read more about <see href=\"https://support.lusid.com/filtering-results-from-lusid\" /> filtering results from LUSID.",
+            "description": "Fields to order the result set. Read more about <a href=\"https://support.lusid.com/filtering-results-from-lusid\"> filtering results from LUSID</a>",
             "schema": {
               "maxLength": 16384,
               "minLength": 1,
@@ -328,7 +328,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfSubscription"
                 },
-                "example": {"values":[{"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Entity eq 'Portfolio'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"TestClient","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
+                "example": {"values":[{"id":{"scope":"TestScope","code":"TestCode"},"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'Test'"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"TestClient","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"TestClient","useAsAuth":"TestClient","href":"https://fbn-test.lusid.com/notifications/api/subscriptions/TestScope/TestCode"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },
@@ -559,25 +559,25 @@
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             },
             "application/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             },
             "text/json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             },
             "application/*+json": {
               "schema": {
                 "$ref": "#/components/schemas/UpdateSubscription"
               },
-              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
+              "example": {"displayName":"TestDisplayName","description":"TestDescription","status":"Active","matchingPattern":{"eventType":"Manual","filter":"Body.Message eq 'TestMessage'"},"useAsAuth":"Auth user"}
             }
           },
           "required": true
@@ -747,7 +747,8 @@
               "application/json": {
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfNotification"
-                }
+                },
+                "example": {"values":[{"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqs","body":"Event with message {{message}}","apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecretRef","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },

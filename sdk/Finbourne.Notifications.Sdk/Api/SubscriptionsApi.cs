@@ -86,8 +86,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// [EXPERIMENTAL] ListSubscriptions: List subscriptions.
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="filter">Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. (optional)</param>
-        /// <param name="sortBy">Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. (optional)</param>
+        /// <param name="filter">Expression to filter the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt;. (optional)</param>
+        /// <param name="sortBy">Fields to order the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt; (optional)</param>
         /// <param name="page">Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional)</param>
         /// <param name="limit">The maximum number of subscriptions to retrieve. (optional)</param>
         /// <returns>ResourceListOfSubscription</returns>
@@ -100,8 +100,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// 
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="filter">Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. (optional)</param>
-        /// <param name="sortBy">Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. (optional)</param>
+        /// <param name="filter">Expression to filter the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt;. (optional)</param>
+        /// <param name="sortBy">Fields to order the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt; (optional)</param>
         /// <param name="page">Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional)</param>
         /// <param name="limit">The maximum number of subscriptions to retrieve. (optional)</param>
         /// <returns>ApiResponse of ResourceListOfSubscription</returns>
@@ -217,8 +217,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// 
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="filter">Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. (optional)</param>
-        /// <param name="sortBy">Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. (optional)</param>
+        /// <param name="filter">Expression to filter the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt;. (optional)</param>
+        /// <param name="sortBy">Fields to order the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt; (optional)</param>
         /// <param name="page">Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional)</param>
         /// <param name="limit">The maximum number of subscriptions to retrieve. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -232,8 +232,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// 
         /// </remarks>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="filter">Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. (optional)</param>
-        /// <param name="sortBy">Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. (optional)</param>
+        /// <param name="filter">Expression to filter the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt;. (optional)</param>
+        /// <param name="sortBy">Fields to order the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt; (optional)</param>
         /// <param name="page">Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional)</param>
         /// <param name="limit">The maximum number of subscriptions to retrieve. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -898,8 +898,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// [EXPERIMENTAL] ListSubscriptions: List subscriptions. 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="filter">Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. (optional)</param>
-        /// <param name="sortBy">Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. (optional)</param>
+        /// <param name="filter">Expression to filter the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt;. (optional)</param>
+        /// <param name="sortBy">Fields to order the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt; (optional)</param>
         /// <param name="page">Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional)</param>
         /// <param name="limit">The maximum number of subscriptions to retrieve. (optional)</param>
         /// <returns>ResourceListOfSubscription</returns>
@@ -913,8 +913,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// [EXPERIMENTAL] ListSubscriptions: List subscriptions. 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="filter">Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. (optional)</param>
-        /// <param name="sortBy">Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. (optional)</param>
+        /// <param name="filter">Expression to filter the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt;. (optional)</param>
+        /// <param name="sortBy">Fields to order the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt; (optional)</param>
         /// <param name="page">Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional)</param>
         /// <param name="limit">The maximum number of subscriptions to retrieve. (optional)</param>
         /// <returns>ApiResponse of ResourceListOfSubscription</returns>
@@ -976,8 +976,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// [EXPERIMENTAL] ListSubscriptions: List subscriptions. 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="filter">Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. (optional)</param>
-        /// <param name="sortBy">Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. (optional)</param>
+        /// <param name="filter">Expression to filter the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt;. (optional)</param>
+        /// <param name="sortBy">Fields to order the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt; (optional)</param>
         /// <param name="page">Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional)</param>
         /// <param name="limit">The maximum number of subscriptions to retrieve. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
@@ -992,8 +992,8 @@ namespace Finbourne.Notifications.Sdk.Api
         /// [EXPERIMENTAL] ListSubscriptions: List subscriptions. 
         /// </summary>
         /// <exception cref="Finbourne.Notifications.Sdk.Client.ApiException">Thrown when fails to make API call</exception>
-        /// <param name="filter">Expression to filter the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/see&gt;. (optional)</param>
-        /// <param name="sortBy">Fields to order the result set. Read more about &lt;see href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot; /&gt; filtering results from LUSID. (optional)</param>
+        /// <param name="filter">Expression to filter the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt;. (optional)</param>
+        /// <param name="sortBy">Fields to order the result set. Read more about &lt;a href&#x3D;\&quot;https://support.lusid.com/filtering-results-from-lusid\&quot;&gt; filtering results from LUSID&lt;/a&gt; (optional)</param>
         /// <param name="page">Encoded page string returned from a previous search result that will retrieve the next page of data. When this field is supplied the filter  field should not be supplied. (optional)</param>
         /// <param name="limit">The maximum number of subscriptions to retrieve. (optional)</param>
         /// <param name="cancellationToken">Cancellation Token to cancel the request.</param>
