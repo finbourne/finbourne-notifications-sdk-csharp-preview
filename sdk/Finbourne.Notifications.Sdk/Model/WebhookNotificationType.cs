@@ -290,7 +290,7 @@ namespace Finbourne.Notifications.Sdk.Model
             }
 
             // Url (string) pattern
-            Regex regexUrl = new Regex(@"^([A-Za-z0-9-._~:\/?#[\]@!$&'()*+,;%=]|(\{\{([a-zA-Z0-9\s.])*\}\}))*$", RegexOptions.CultureInvariant);
+            Regex regexUrl = new Regex(@"^([A-Za-z0-9-._~:\/?#[\]@!$&'()*+,;%=]|(\{\{([a-zA-Z0-9\s])*\}\}))*$", RegexOptions.CultureInvariant);
             if (false == regexUrl.Match(this.Url).Success)
             {
                 yield return new System.ComponentModel.DataAnnotations.ValidationResult("Invalid value for Url, must match a pattern of " + regexUrl, new [] { "Url" });
