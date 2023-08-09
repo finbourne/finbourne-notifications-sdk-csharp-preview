@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.819",
+    "version": "0.1.820",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -923,7 +923,7 @@
                     "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"ApiRequest","httpMethod":"Post","pathAndQuery":"notification/api/{{jsonMessage.jsonField1}}/path?examplequery={{jsonMessage.jsonField2}}","content":{"Key":"Value Example","MessageKey":"{{body.message}}"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "Webhook Notification": {
-                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"Content":{"Key":"Value Example","MessageKey":"{{body.message}}"},"type":"Webhook","httpMethod":"Post","url":"https://example.com/api/{{jsonMessage.jsonField1}}/path?examplequery={{jsonMessage.jsonField2}}","authenticationType":"BearerToken","contentType":"Json","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"content":{"Key":"Value Example","MessageKey":"{{body.message}}"},"type":"Webhook","httpMethod":"Post","url":"https://example.com/api/{{jsonMessage.jsonField1}}/path?examplequery={{jsonMessage.jsonField2}}","authenticationType":"BearerToken","contentType":"Json","authenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   },
                   "AWS SQS Notification": {
                     "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqs","body":"Event with message {{body.message}}","apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecretRef","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
