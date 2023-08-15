@@ -8,7 +8,7 @@ All URIs are relative to *https://www.lusid.com/notification*
 
 <a id="listdeliveries"></a>
 # **ListDeliveries**
-> ResourceListOfDelivery ListDeliveries (string page = null, int? limit = null, string filter = null)
+> ResourceListOfDelivery ListDeliveries (string? page = null, int? limit = null, string? filter = null)
 
 [EXPERIMENTAL] ListDeliveries: List Deliveries
 
@@ -18,6 +18,7 @@ Currently only returns deliveries with failed attempts.
 ```csharp
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.Net.Http;
 using Finbourne.Notifications.Sdk.Api;
 using Finbourne.Notifications.Sdk.Client;
 using Finbourne.Notifications.Sdk.Model;
@@ -33,10 +34,13 @@ namespace Example
             // Configure OAuth2 access token for authorization: oauth2
             config.AccessToken = "YOUR_ACCESS_TOKEN";
 
-            var apiInstance = new DeliveriesApi(config);
-            var page = "page_example";  // string | The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied. (optional) 
-            var limit = 56;  // int? | The maximum number of delivery attempts to retrieve. Defaults to 5000 if not specified. (optional) 
-            var filter = "filter_example";  // string | Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914. (optional) 
+            // create instances of HttpClient, HttpClientHandler to be reused later with different Api classes
+            HttpClient httpClient = new HttpClient();
+            HttpClientHandler httpClientHandler = new HttpClientHandler();
+            var apiInstance = new DeliveriesApi(httpClient, config, httpClientHandler);
+            var page = "page_example";  // string? | The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied. (optional) 
+            var limit = 56;  // int? | The maximum number of delivery attempts to retrieve. Defaults to 200 if not specified. (optional) 
+            var filter = "filter_example";  // string? | Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914.  By default, we set this filter to only query for the last week's worth of Deliveries, however if a filter is explicitly set, this will be overriden. (optional) 
 
             try
             {
@@ -79,9 +83,9 @@ catch (ApiException e)
 
 | Name | Type | Description | Notes |
 |------|------|-------------|-------|
-| **page** | **string** | The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied. | [optional]  |
-| **limit** | **int?** | The maximum number of delivery attempts to retrieve. Defaults to 5000 if not specified. | [optional]  |
-| **filter** | **string** | Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914. | [optional]  |
+| **page** | **string?** | The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied. | [optional]  |
+| **limit** | **int?** | The maximum number of delivery attempts to retrieve. Defaults to 200 if not specified. | [optional]  |
+| **filter** | **string?** | Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914.  By default, we set this filter to only query for the last week&#39;s worth of Deliveries, however if a filter is explicitly set, this will be overriden. | [optional]  |
 
 ### Return type
 

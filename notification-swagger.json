@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.824",
+    "version": "0.1.827",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -20,6 +20,99 @@
     }
   ],
   "paths": {
+    "/api/deliveries": {
+      "get": {
+        "tags": [
+          "Deliveries"
+        ],
+        "summary": "[EXPERIMENTAL] ListDeliveries: List Deliveries",
+        "description": "Currently only returns deliveries with failed attempts.",
+        "operationId": "ListDeliveries",
+        "parameters": [
+          {
+            "name": "page",
+            "in": "query",
+            "description": "The pagination token to use to continue listing delivery attempts. This value is returned from the previous call. When this field is supplied the filter field should not be supplied.",
+            "schema": {
+              "maxLength": 500,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\+/]*={0,3}$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "limit",
+            "in": "query",
+            "description": "The maximum number of delivery attempts to retrieve. Defaults to 200 if not specified.",
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            },
+            "x-nullable": true
+          },
+          {
+            "name": "filter",
+            "in": "query",
+            "description": "Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914.\r\nBy default, we set this filter to only query for the last week's worth of Deliveries, however if a filter is explicitly set, this will be overriden.",
+            "schema": {
+              "maxLength": 16384,
+              "minLength": 0,
+              "pattern": "^[\\s\\S]*$",
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/ResourceListOfDelivery"
+                },
+                "example": {"values":[{"id":"e8e2d8d3-0a15-414f-b44a-854cd937ee18","eventId":"0f8fad5b-d9cb-469f-a165-70867728950e","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"80c1e37a-03b0-4a5d-9f4f-b4638926a57e","deliveryChannel":"Email","messageDetails":"{\"BccAddresses\":[\"AlanShearer@email.com\"], \"CcAddresses\":[\"MortenPederson@email.com\"], \"ToAddresses\":[\"KennyDalglish@email.com\"], \"Subject\":\"Portfolio Created!\", \"PlainTextBody\":\"Portfolio has been created.\", \"HtmlBody\":\"<p>Body</p>\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"Email server not responding."}}]},{"id":"ba2ffdbf-1765-457b-97c5-b36b5d4d990e","eventId":"7c9e6679-7425-40de-944b-e07fc1f90ae7","subscriptionId":{"scope":"Scope","code":"Code"},"notificationId":"E3FE3114-43C4-4D06-AE2D-F792FAB9B57C","deliveryChannel":"SMS","messageDetails":"{\"Recipient\":\"+447000000000\",\"TextBody\":\"Your reconciliation request has completed.\"}","attempts":[{"attemptNumber":1,"attemptTime":"2021-08-03T12:00:00.0000000+00:00","status":{"result":"Failed","detailedMessage":"SMS limit reached."}}]}],"href":"http://example.com","links":[]}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No deliveries exists with the provided filter(s)",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
     "/api/eventtypes": {
       "get": {
         "tags": [
@@ -1491,6 +1584,51 @@
         "additionalProperties": false,
         "description": "Holds readonly information about an AWS SQS notification"
       },
+      "Attempt": {
+        "required": [
+          "attemptNumber",
+          "attemptTime",
+          "status"
+        ],
+        "type": "object",
+        "properties": {
+          "attemptNumber": {
+            "type": "integer",
+            "description": "The attempt number of the delivery.",
+            "format": "int32"
+          },
+          "attemptTime": {
+            "type": "string",
+            "description": "The time that the delivery was attempted.",
+            "format": "date-time"
+          },
+          "status": {
+            "$ref": "#/components/schemas/AttemptStatus"
+          }
+        },
+        "additionalProperties": false,
+        "description": "Details of an attempt of delivery."
+      },
+      "AttemptStatus": {
+        "required": [
+          "result"
+        ],
+        "type": "object",
+        "properties": {
+          "result": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Result of the delivery."
+          },
+          "detailedMessage": {
+            "type": "string",
+            "description": "The detailed message from attempting to deliver the message.",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Status of the delivery attempt."
+      },
       "CreateNotificationRequest": {
         "required": [
           "displayName",
@@ -1575,6 +1713,56 @@
         },
         "additionalProperties": false,
         "description": "The information required to create a subscription"
+      },
+      "Delivery": {
+        "required": [
+          "attempts",
+          "deliveryChannel",
+          "eventId",
+          "id",
+          "messageDetails",
+          "notificationId",
+          "subscriptionId"
+        ],
+        "type": "object",
+        "properties": {
+          "id": {
+            "type": "string",
+            "description": "The identifier of the delivery.",
+            "format": "uuid"
+          },
+          "eventId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The identifier of the associated event."
+          },
+          "subscriptionId": {
+            "$ref": "#/components/schemas/ResourceId"
+          },
+          "notificationId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The identifier of the associated notification."
+          },
+          "deliveryChannel": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The delivery channel of the message."
+          },
+          "messageDetails": {
+            "minLength": 1,
+            "type": "string",
+            "description": "The Details of the delivery message as JSON string."
+          },
+          "attempts": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Attempt"
+            },
+            "description": "A list of all the delivery attempts made for this message."
+          }
+        },
+        "additionalProperties": false
       },
       "EmailNotificationType": {
         "required": [
@@ -2263,6 +2451,41 @@
         },
         "additionalProperties": false
       },
+      "ResourceListOfDelivery": {
+        "required": [
+          "values"
+        ],
+        "type": "object",
+        "properties": {
+          "values": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Delivery"
+            }
+          },
+          "href": {
+            "type": "string",
+            "format": "uri",
+            "nullable": true
+          },
+          "links": {
+            "type": "array",
+            "items": {
+              "$ref": "#/components/schemas/Link"
+            },
+            "nullable": true
+          },
+          "nextPage": {
+            "type": "string",
+            "nullable": true
+          },
+          "previousPage": {
+            "type": "string",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false
+      },
       "ResourceListOfEventTypeSchema": {
         "required": [
           "values"
@@ -2697,6 +2920,10 @@
       "description": "Metadata about the application"
     },
     {
+      "name": "Deliveries",
+      "description": "Methods for managing attempted message deliveries."
+    },
+    {
       "name": "EventTypes",
       "description": "Methods for discovering possible event types."
     },
@@ -2717,6 +2944,7 @@
     "name": "API",
     "tags": [
       "Application Metadata",
+      "Deliveries",
       "EventTypes",
       "ManualEvent",
       "Notifications",
