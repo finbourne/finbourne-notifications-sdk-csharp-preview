@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.824",
+    "version": "0.1.827",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -43,7 +43,7 @@
           {
             "name": "limit",
             "in": "query",
-            "description": "The maximum number of delivery attempts to retrieve. Defaults to 5000 if not specified.",
+            "description": "The maximum number of delivery attempts to retrieve. Defaults to 200 if not specified.",
             "schema": {
               "type": "integer",
               "format": "int32"
@@ -53,7 +53,7 @@
           {
             "name": "filter",
             "in": "query",
-            "description": "Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914.",
+            "description": "Expression to filter the result set. For more information about filtering results, see https://support.lusid.com/knowledgebase/article/KA-01914.\r\nBy default, we set this filter to only query for the last week's worth of Deliveries, however if a filter is explicitly set, this will be overriden.",
             "schema": {
               "maxLength": 16384,
               "minLength": 0,
