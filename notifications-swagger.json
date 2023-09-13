@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.858",
+    "version": "0.1.860",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -3432,12 +3432,12 @@
       "description": "Methods for managing attempted message deliveries."
     },
     {
-      "name": "EventTypes",
-      "description": "Methods for discovering possible event types."
-    },
-    {
       "name": "Events",
       "description": "Methods for triggering events."
+    },
+    {
+      "name": "EventTypes",
+      "description": "Methods for discovering possible event types."
     },
     {
       "name": "Notifications",
@@ -3453,8 +3453,8 @@
     "tags": [
       "Application Metadata",
       "Deliveries",
-      "EventTypes",
       "Events",
+      "EventTypes",
       "Notifications",
       "Subscriptions"
     ]
