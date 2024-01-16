@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.905",
+    "version": "0.1.906",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -128,7 +128,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/ResourceListOfEventTypeSchema"
                 },
-                "example": {"values":[{"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"String"},{"name":"requestId","type":"String"},{"name":"userId","type":"String"},{"name":"action","type":"String"},{"name":"entityType","type":"String"},{"name":"timestamp","type":"DateTime"},{"name":"href","type":"String"}],"bodySchema":[{"name":"scope","type":"String"}],"href":"Test:firstString"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
+                "example": {"values":[{"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"String"},{"name":"requestId","type":"String"},{"name":"userId","type":"String"},{"name":"action","type":"String"},{"name":"entityType","type":"String"},{"name":"timestamp","type":"DateTime"},{"name":"href","type":"String"}],"bodySchema":[{"name":"scope","type":"String"},{"name":"lusidInstrumentId","type":"String"},{"name":"identifiers","type":"CollectionOfIdentifiers"}],"href":"Test:firstString"}],"href":"Test:hrefUriString","nextPage":"nextString","previousPage":"previousString","links":[{"relation":"NextPage","href":"Test:nextUriString","method":"GET"},{"relation":"PreviousPage","href":"Test:previousUriString","method":"GET"}]}
               }
             }
           },
@@ -190,7 +190,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/EventTypeSchema"
                 },
-                "example": {"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"String"},{"name":"requestId","type":"String"},{"name":"userId","type":"String"},{"name":"action","type":"String"},{"name":"entityType","type":"String"},{"name":"timestamp","type":"DateTime"},{"name":"href","type":"String"}],"bodySchema":[{"name":"scope","type":"String"}],"href":"Test:firstString"}
+                "example": {"id":"TestId","displayName":"TestDisplayName","description":"TestDescription","entity":"TestEntity","application":"TestApplication","headerSchema":[{"name":"eventType","type":"String"},{"name":"requestId","type":"String"},{"name":"userId","type":"String"},{"name":"action","type":"String"},{"name":"entityType","type":"String"},{"name":"timestamp","type":"DateTime"},{"name":"href","type":"String"}],"bodySchema":[{"name":"scope","type":"String"},{"name":"lusidInstrumentId","type":"String"},{"name":"identifiers","type":"CollectionOfIdentifiers"}],"href":"Test:firstString"}
               }
             }
           },
