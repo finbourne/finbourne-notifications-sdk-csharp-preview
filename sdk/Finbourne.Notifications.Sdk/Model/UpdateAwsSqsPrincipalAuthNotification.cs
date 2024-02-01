@@ -27,31 +27,38 @@ using OpenAPIDateConverter = Finbourne.Notifications.Sdk.Client.OpenAPIDateConve
 namespace Finbourne.Notifications.Sdk.Model
 {
     /// <summary>
-    /// The information required to update an SMS notification
+    /// The information required to create a notification which, when processed, will send an notification to Amazon SQS using principal authentication
     /// </summary>
-    [DataContract(Name = "UpdateSmsNotification")]
-    public partial class UpdateSmsNotification : IEquatable<UpdateSmsNotification>
+    [DataContract(Name = "UpdateAwsSqsPrincipalAuthNotification")]
+    public partial class UpdateAwsSqsPrincipalAuthNotification : IEquatable<UpdateAwsSqsPrincipalAuthNotification>
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateSmsNotification" /> class.
+        /// Initializes a new instance of the <see cref="UpdateAwsSqsPrincipalAuthNotification" /> class.
         /// </summary>
         [JsonConstructorAttribute]
-        protected UpdateSmsNotification() { }
+        protected UpdateAwsSqsPrincipalAuthNotification() { }
         /// <summary>
-        /// Initializes a new instance of the <see cref="UpdateSmsNotification" /> class.
+        /// Initializes a new instance of the <see cref="UpdateAwsSqsPrincipalAuthNotification" /> class.
         /// </summary>
+        /// <param name="body">The body of the Amazon Queue Message (required).</param>
         /// <param name="description">The summary of the services provided by the notification (required).</param>
-        /// <param name="body">The body of the SMS (required).</param>
-        /// <param name="recipients">The phone numbers to which the SMS will be sent to (E.164 format) (required).</param>
-        public UpdateSmsNotification(string description = default(string), string body = default(string), List<string> recipients = default(List<string>))
+        /// <param name="queueUrlRef">Reference to queue url from Configuration Store (required).</param>
+        public UpdateAwsSqsPrincipalAuthNotification(string body = default(string), string description = default(string), string queueUrlRef = default(string))
         {
-            // to ensure "description" is required (not null)
-            this.Description = description ?? throw new ArgumentNullException("description is a required property for UpdateSmsNotification and cannot be null");
             // to ensure "body" is required (not null)
-            this.Body = body ?? throw new ArgumentNullException("body is a required property for UpdateSmsNotification and cannot be null");
-            // to ensure "recipients" is required (not null)
-            this.Recipients = recipients ?? throw new ArgumentNullException("recipients is a required property for UpdateSmsNotification and cannot be null");
+            this.Body = body ?? throw new ArgumentNullException("body is a required property for UpdateAwsSqsPrincipalAuthNotification and cannot be null");
+            // to ensure "description" is required (not null)
+            this.Description = description ?? throw new ArgumentNullException("description is a required property for UpdateAwsSqsPrincipalAuthNotification and cannot be null");
+            // to ensure "queueUrlRef" is required (not null)
+            this.QueueUrlRef = queueUrlRef ?? throw new ArgumentNullException("queueUrlRef is a required property for UpdateAwsSqsPrincipalAuthNotification and cannot be null");
         }
+
+        /// <summary>
+        /// The body of the Amazon Queue Message
+        /// </summary>
+        /// <value>The body of the Amazon Queue Message</value>
+        [DataMember(Name = "body", IsRequired = true, EmitDefaultValue = false)]
+        public string Body { get; set; }
 
         /// <summary>
         /// The summary of the services provided by the notification
@@ -61,18 +68,11 @@ namespace Finbourne.Notifications.Sdk.Model
         public string Description { get; set; }
 
         /// <summary>
-        /// The body of the SMS
+        /// Reference to queue url from Configuration Store
         /// </summary>
-        /// <value>The body of the SMS</value>
-        [DataMember(Name = "body", IsRequired = true, EmitDefaultValue = false)]
-        public string Body { get; set; }
-
-        /// <summary>
-        /// The phone numbers to which the SMS will be sent to (E.164 format)
-        /// </summary>
-        /// <value>The phone numbers to which the SMS will be sent to (E.164 format)</value>
-        [DataMember(Name = "recipients", IsRequired = true, EmitDefaultValue = false)]
-        public List<string> Recipients { get; set; }
+        /// <value>Reference to queue url from Configuration Store</value>
+        [DataMember(Name = "queueUrlRef", IsRequired = true, EmitDefaultValue = false)]
+        public string QueueUrlRef { get; set; }
 
         /// <summary>
         /// Returns the string presentation of the object
@@ -81,10 +81,10 @@ namespace Finbourne.Notifications.Sdk.Model
         public override string ToString()
         {
             var sb = new StringBuilder();
-            sb.Append("class UpdateSmsNotification {\n");
-            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("class UpdateAwsSqsPrincipalAuthNotification {\n");
             sb.Append("  Body: ").Append(Body).Append("\n");
-            sb.Append("  Recipients: ").Append(Recipients).Append("\n");
+            sb.Append("  Description: ").Append(Description).Append("\n");
+            sb.Append("  QueueUrlRef: ").Append(QueueUrlRef).Append("\n");
             sb.Append("}\n");
             return sb.ToString();
         }
@@ -105,35 +105,34 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <returns>Boolean</returns>
         public override bool Equals(object input)
         {
-            return this.Equals(input as UpdateSmsNotification);
+            return this.Equals(input as UpdateAwsSqsPrincipalAuthNotification);
         }
 
         /// <summary>
-        /// Returns true if UpdateSmsNotification instances are equal
+        /// Returns true if UpdateAwsSqsPrincipalAuthNotification instances are equal
         /// </summary>
-        /// <param name="input">Instance of UpdateSmsNotification to be compared</param>
+        /// <param name="input">Instance of UpdateAwsSqsPrincipalAuthNotification to be compared</param>
         /// <returns>Boolean</returns>
-        public bool Equals(UpdateSmsNotification input)
+        public bool Equals(UpdateAwsSqsPrincipalAuthNotification input)
         {
             if (input == null)
                 return false;
 
             return 
                 (
-                    this.Description == input.Description ||
-                    (this.Description != null &&
-                    this.Description.Equals(input.Description))
-                ) && 
-                (
                     this.Body == input.Body ||
                     (this.Body != null &&
                     this.Body.Equals(input.Body))
                 ) && 
                 (
-                    this.Recipients == input.Recipients ||
-                    this.Recipients != null &&
-                    input.Recipients != null &&
-                    this.Recipients.SequenceEqual(input.Recipients)
+                    this.Description == input.Description ||
+                    (this.Description != null &&
+                    this.Description.Equals(input.Description))
+                ) && 
+                (
+                    this.QueueUrlRef == input.QueueUrlRef ||
+                    (this.QueueUrlRef != null &&
+                    this.QueueUrlRef.Equals(input.QueueUrlRef))
                 );
         }
 
@@ -146,12 +145,12 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Description != null)
-                    hashCode = hashCode * 59 + this.Description.GetHashCode();
                 if (this.Body != null)
                     hashCode = hashCode * 59 + this.Body.GetHashCode();
-                if (this.Recipients != null)
-                    hashCode = hashCode * 59 + this.Recipients.GetHashCode();
+                if (this.Description != null)
+                    hashCode = hashCode * 59 + this.Description.GetHashCode();
+                if (this.QueueUrlRef != null)
+                    hashCode = hashCode * 59 + this.QueueUrlRef.GetHashCode();
                 return hashCode;
             }
         }

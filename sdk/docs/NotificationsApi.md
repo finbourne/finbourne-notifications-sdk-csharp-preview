@@ -5,6 +5,7 @@ All URIs are relative to *https://www.lusid.com/notifications*
 Method | HTTP request | Description
 ------------- | ------------- | -------------
 [**CreateAwsSqsNotification**](NotificationsApi.md#createawssqsnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/awssqs | [EXPERIMENTAL] CreateAwsSqsNotification: Add an AWS SQS notification to a subscription.
+[**CreateAwsSqsPrincipalAuthNotification**](NotificationsApi.md#createawssqsprincipalauthnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/awssqsprincipalauth | [EXPERIMENTAL] CreateAwsSqsPrincipalAuthNotification: Add an AWS SQS notification with principal authentication to a subscription.
 [**CreateEmailNotification**](NotificationsApi.md#createemailnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/email | [EXPERIMENTAL] CreateEmailNotification: Add an email notification to a subscription.
 [**CreateSmsNotification**](NotificationsApi.md#createsmsnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/sms | [EXPERIMENTAL] CreateSmsNotification: Add an SMS notification to a subscription.
 [**CreateWebhookNotification**](NotificationsApi.md#createwebhooknotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/webhook | [EXPERIMENTAL] CreateWebhookNotification: Add a Webhook notification to a subscription.
@@ -12,6 +13,7 @@ Method | HTTP request | Description
 [**GetNotification**](NotificationsApi.md#getnotification) | **GET** /api/subscriptions/{scope}/{code}/notifications/{id} | [EXPERIMENTAL] GetNotification: Get a notification on a subscription.
 [**ListNotifications**](NotificationsApi.md#listnotifications) | **GET** /api/subscriptions/{scope}/{code}/notifications | [EXPERIMENTAL] ListNotifications: List all notifications on a subscription.
 [**UpdateAwsSqsNotification**](NotificationsApi.md#updateawssqsnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/awssqs/{id} | [EXPERIMENTAL] UpdateAwsSqsNotification: Update an AWS SQS notification for a given subscription.
+[**UpdateAwsSqsPrincipalAuthNotification**](NotificationsApi.md#updateawssqsprincipalauthnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/awssqsprincipalauth/{id} | [EXPERIMENTAL] UpdateAwsSqsPrincipalAuthNotification: Update an AWS SQS notification with principal authentication for a given subscription.
 [**UpdateEmailNotification**](NotificationsApi.md#updateemailnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/email/{id} | [EXPERIMENTAL] UpdateEmailNotification: Update an email notification for a given subscription.
 [**UpdateSmsNotification**](NotificationsApi.md#updatesmsnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/sms/{id} | [EXPERIMENTAL] UpdateSmsNotification: Update an SMS notification for a given subscription.
 [**UpdateWebhookNotification**](NotificationsApi.md#updatewebhooknotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/webhook/{id} | [EXPERIMENTAL] UpdateWebhookNotification: Update a Webhook notification for a given subscription.
@@ -71,6 +73,84 @@ Name | Type | Description  | Notes
  **scope** | **string**| The scope that identifies a notification | 
  **code** | **string**| The code that identifies a notification | 
  **createAwsSqsNotification** | [**CreateAwsSqsNotification**](CreateAwsSqsNotification.md)| The data to create an message sent to AWS Simple Queue Service | 
+
+### Return type
+
+[**Notification**](Notification.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  -  |
+| **400** | The details of the input related failure |  -  |
+| **0** | Error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="createawssqsprincipalauthnotification"></a>
+# **CreateAwsSqsPrincipalAuthNotification**
+> Notification CreateAwsSqsPrincipalAuthNotification (string scope, string code, CreateAwsSqsPrincipalAuthNotification createAwsSqsPrincipalAuthNotification)
+
+[EXPERIMENTAL] CreateAwsSqsPrincipalAuthNotification: Add an AWS SQS notification with principal authentication to a subscription.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Finbourne.Notifications.Sdk.Api;
+using Finbourne.Notifications.Sdk.Client;
+using Finbourne.Notifications.Sdk.Model;
+
+namespace Example
+{
+    public class CreateAwsSqsPrincipalAuthNotificationExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.lusid.com/notifications";
+            // Configure OAuth2 access token for authorization: oauth2
+            config.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new NotificationsApi(config);
+            var scope = scope_example;  // string | The scope that identifies a notification
+            var code = code_example;  // string | The code that identifies a notification
+            var createAwsSqsPrincipalAuthNotification = new CreateAwsSqsPrincipalAuthNotification(); // CreateAwsSqsPrincipalAuthNotification | The data to create an message sent to AWS Simple Queue Service
+
+            try
+            {
+                // [EXPERIMENTAL] CreateAwsSqsPrincipalAuthNotification: Add an AWS SQS notification with principal authentication to a subscription.
+                Notification result = apiInstance.CreateAwsSqsPrincipalAuthNotification(scope, code, createAwsSqsPrincipalAuthNotification);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling NotificationsApi.CreateAwsSqsPrincipalAuthNotification: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scope** | **string**| The scope that identifies a notification | 
+ **code** | **string**| The code that identifies a notification | 
+ **createAwsSqsPrincipalAuthNotification** | [**CreateAwsSqsPrincipalAuthNotification**](CreateAwsSqsPrincipalAuthNotification.md)| The data to create an message sent to AWS Simple Queue Service | 
 
 ### Return type
 
@@ -619,6 +699,87 @@ Name | Type | Description  | Notes
  **code** | **string**| The code that identifies a notification | 
  **id** | **string**| The unique identifier of the notification | 
  **updateAwsSqsNotification** | [**UpdateAwsSqsNotification**](UpdateAwsSqsNotification.md)| The data to update a notification | 
+
+### Return type
+
+[**Notification**](Notification.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | No notification exists in current scope |  -  |
+| **0** | Error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="updateawssqsprincipalauthnotification"></a>
+# **UpdateAwsSqsPrincipalAuthNotification**
+> Notification UpdateAwsSqsPrincipalAuthNotification (string scope, string code, string id, UpdateAwsSqsPrincipalAuthNotification updateAwsSqsPrincipalAuthNotification)
+
+[EXPERIMENTAL] UpdateAwsSqsPrincipalAuthNotification: Update an AWS SQS notification with principal authentication for a given subscription.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Finbourne.Notifications.Sdk.Api;
+using Finbourne.Notifications.Sdk.Client;
+using Finbourne.Notifications.Sdk.Model;
+
+namespace Example
+{
+    public class UpdateAwsSqsPrincipalAuthNotificationExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.lusid.com/notifications";
+            // Configure OAuth2 access token for authorization: oauth2
+            config.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new NotificationsApi(config);
+            var scope = scope_example;  // string | The scope that identifies a notification
+            var code = code_example;  // string | The code that identifies a notification
+            var id = id_example;  // string | The unique identifier of the notification
+            var updateAwsSqsPrincipalAuthNotification = new UpdateAwsSqsPrincipalAuthNotification(); // UpdateAwsSqsPrincipalAuthNotification | The data to update a notification
+
+            try
+            {
+                // [EXPERIMENTAL] UpdateAwsSqsPrincipalAuthNotification: Update an AWS SQS notification with principal authentication for a given subscription.
+                Notification result = apiInstance.UpdateAwsSqsPrincipalAuthNotification(scope, code, id, updateAwsSqsPrincipalAuthNotification);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling NotificationsApi.UpdateAwsSqsPrincipalAuthNotification: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scope** | **string**| The scope that identifies a notification | 
+ **code** | **string**| The code that identifies a notification | 
+ **id** | **string**| The unique identifier of the notification | 
+ **updateAwsSqsPrincipalAuthNotification** | [**UpdateAwsSqsPrincipalAuthNotification**](UpdateAwsSqsPrincipalAuthNotification.md)| The data to update a notification | 
 
 ### Return type
 
