@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.906",
+    "version": "0.1.909",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -934,6 +934,9 @@
                 },
                 "Create AWS SQS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{body.message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Create AWS SQS Notification with Principal Authentication": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
                 }
               }
             },
@@ -953,6 +956,9 @@
                 },
                 "Create AWS SQS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{body.message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Create AWS SQS Notification with Principal Authentication": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
                 }
               }
             },
@@ -972,6 +978,9 @@
                 },
                 "Create AWS SQS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{body.message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Create AWS SQS Notification with Principal Authentication": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
                 }
               }
             },
@@ -991,6 +1000,9 @@
                 },
                 "Create AWS SQS Notification": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{body.message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Create AWS SQS Notification with Principal Authentication": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
                 }
               }
             }
@@ -1020,6 +1032,9 @@
                   },
                   "AWS SQS Notification": {
                     "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqs","body":"Event with message {{body.message}}","apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecretRef","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
+                  },
+                  "AWS SQS Principal Authentication Notification": {
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqsPrincipalAuth","body":"Event with message {{body.message}}","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   }
                 }
               }
@@ -1104,7 +1119,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqs","body":"Event with message {{body.message}}","apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecretRef","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
+                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqsPrincipalAuth","body":"Event with message {{body.message}}","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
               }
             }
           },
@@ -1209,6 +1224,9 @@
                 },
                 "Update AWS SQS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{body.message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Update AWS SQS Notification with Principal Authentication": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
                 }
               }
             },
@@ -1228,6 +1246,9 @@
                 },
                 "Update AWS SQS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{body.message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Update AWS SQS Notification with Principal Authentication": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
                 }
               }
             },
@@ -1247,6 +1268,9 @@
                 },
                 "Update AWS SQS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{body.message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Update AWS SQS Notification with Principal Authentication": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
                 }
               }
             },
@@ -1266,6 +1290,9 @@
                 },
                 "Update AWS SQS Notification": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqs","Body":"Event with message {{body.message}}","ApiKeyRef":"config://shared/official/system-a-config/apiKey","ApiSecretRef":"config://shared/official/system-a-config/apiSecret","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Update AWS SQS Notification with Principal Authentication": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
                 }
               }
             }
@@ -1280,7 +1307,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqs","body":"Event with message {{body.message}}","apiKeyRef":"config://shared/official/system-a-config/apiKey","apiSecretRef":"config://shared/official/system-a-config/apiSecretRef","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
+                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqsPrincipalAuth","body":"Event with message {{body.message}}","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
               }
             }
           },
@@ -1583,6 +1610,60 @@
         },
         "additionalProperties": false,
         "description": "Holds readonly information about an AWS SQS notification"
+      },
+      "AmazonSqsPrincipalAuthNotificationType": {
+        "required": [
+          "body",
+          "queueUrlRef",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "minLength": 1,
+            "enum": [
+              "AmazonSqsPrincipalAuth"
+            ],
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification"
+          },
+          "body": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The body of the Amazon Queue Message"
+          },
+          "queueUrlRef": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to queue url from Configuration Store"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to create or update an AWS SQS notification with principal authentication"
+      },
+      "AmazonSqsPrincipalAuthNotificationTypeResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "description": "The body of the Amazon Queue Message",
+            "nullable": true
+          },
+          "queueUrlRef": {
+            "type": "string",
+            "description": "Reference to queue url from Configuration Store",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Holds readonly information about an AWS SQS with Principal Authentication notification"
       },
       "Attempt": {
         "required": [
@@ -2362,6 +2443,9 @@
             "$ref": "#/components/schemas/AmazonSqsNotificationType"
           },
           {
+            "$ref": "#/components/schemas/AmazonSqsPrincipalAuthNotificationType"
+          },
+          {
             "$ref": "#/components/schemas/EmailNotificationType"
           },
           {
@@ -2379,6 +2463,9 @@
         "oneOf": [
           {
             "$ref": "#/components/schemas/AmazonSqsNotificationTypeResponse"
+          },
+          {
+            "$ref": "#/components/schemas/AmazonSqsPrincipalAuthNotificationTypeResponse"
           },
           {
             "$ref": "#/components/schemas/EmailNotificationTypeResponse"

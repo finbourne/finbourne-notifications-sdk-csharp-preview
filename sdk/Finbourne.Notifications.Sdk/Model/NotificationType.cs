@@ -45,6 +45,18 @@ namespace Finbourne.Notifications.Sdk.Model
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotificationType" /> class
+        /// with the <see cref="AmazonSqsPrincipalAuthNotificationType" /> class
+        /// </summary>
+        /// <param name="actualInstance">An instance of AmazonSqsPrincipalAuthNotificationType.</param>
+        public NotificationType(AmazonSqsPrincipalAuthNotificationType actualInstance)
+        {
+            this.IsNullable = false;
+            this.SchemaType= "oneOf";
+            this.ActualInstance = actualInstance ?? throw new ArgumentException("Invalid instance found. Must not be null.");
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotificationType" /> class
         /// with the <see cref="EmailNotificationType" /> class
         /// </summary>
         /// <param name="actualInstance">An instance of EmailNotificationType.</param>
@@ -97,6 +109,10 @@ namespace Finbourne.Notifications.Sdk.Model
                 {
                     this._actualInstance = value;
                 }
+                else if (value.GetType() == typeof(AmazonSqsPrincipalAuthNotificationType))
+                {
+                    this._actualInstance = value;
+                }
                 else if (value.GetType() == typeof(EmailNotificationType))
                 {
                     this._actualInstance = value;
@@ -111,7 +127,7 @@ namespace Finbourne.Notifications.Sdk.Model
                 }
                 else
                 {
-                    throw new ArgumentException("Invalid instance found. Must be the following types: AmazonSqsNotificationType, EmailNotificationType, SmsNotificationType, WebhookNotificationType");
+                    throw new ArgumentException("Invalid instance found. Must be the following types: AmazonSqsNotificationType, AmazonSqsPrincipalAuthNotificationType, EmailNotificationType, SmsNotificationType, WebhookNotificationType");
                 }
             }
         }
@@ -124,6 +140,16 @@ namespace Finbourne.Notifications.Sdk.Model
         public AmazonSqsNotificationType GetAmazonSqsNotificationType()
         {
             return (AmazonSqsNotificationType)this.ActualInstance;
+        }
+
+        /// <summary>
+        /// Get the actual instance of `AmazonSqsPrincipalAuthNotificationType`. If the actual instance is not `AmazonSqsPrincipalAuthNotificationType`,
+        /// the InvalidClassException will be thrown
+        /// </summary>
+        /// <returns>An instance of AmazonSqsPrincipalAuthNotificationType</returns>
+        public AmazonSqsPrincipalAuthNotificationType GetAmazonSqsPrincipalAuthNotificationType()
+        {
+            return (AmazonSqsPrincipalAuthNotificationType)this.ActualInstance;
         }
 
         /// <summary>
@@ -212,6 +238,26 @@ namespace Finbourne.Notifications.Sdk.Model
             {
                 // deserialization failed, try the next one
                 System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into AmazonSqsNotificationType: {1}", jsonString, exception.ToString()));
+            }
+
+            try
+            {
+                // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
+                if (typeof(AmazonSqsPrincipalAuthNotificationType).GetProperty("AdditionalProperties") == null)
+                {
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<AmazonSqsPrincipalAuthNotificationType>(jsonString, NotificationType.SerializerSettings));
+                }
+                else
+                {
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<AmazonSqsPrincipalAuthNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
+                }
+                matchedTypes.Add("AmazonSqsPrincipalAuthNotificationType");
+                match++;
+            }
+            catch (Exception exception)
+            {
+                // deserialization failed, try the next one
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into AmazonSqsPrincipalAuthNotificationType: {1}", jsonString, exception.ToString()));
             }
 
             try
