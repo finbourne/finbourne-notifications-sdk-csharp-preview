@@ -4,6 +4,7 @@ All URIs are relative to *https://www.lusid.com/notifications*
 
 Method | HTTP request | Description
 ------------- | ------------- | -------------
+[**CreateASBNotification**](NotificationsApi.md#createasbnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/asb | [EXPERIMENTAL] CreateASBNotification: Add an Azure Service Bus notification to a subscription.
 [**CreateAwsSqsNotification**](NotificationsApi.md#createawssqsnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/awssqs | [EXPERIMENTAL] CreateAwsSqsNotification: Add an AWS SQS notification to a subscription.
 [**CreateAwsSqsPrincipalAuthNotification**](NotificationsApi.md#createawssqsprincipalauthnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/awssqsprincipalauth | [EXPERIMENTAL] CreateAwsSqsPrincipalAuthNotification: Add an AWS SQS notification with principal authentication to a subscription.
 [**CreateEmailNotification**](NotificationsApi.md#createemailnotification) | **POST** /api/subscriptions/{scope}/{code}/notifications/email | [EXPERIMENTAL] CreateEmailNotification: Add an email notification to a subscription.
@@ -14,10 +15,89 @@ Method | HTTP request | Description
 [**ListNotifications**](NotificationsApi.md#listnotifications) | **GET** /api/subscriptions/{scope}/{code}/notifications | [EXPERIMENTAL] ListNotifications: List all notifications on a subscription.
 [**UpdateAwsSqsNotification**](NotificationsApi.md#updateawssqsnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/awssqs/{id} | [EXPERIMENTAL] UpdateAwsSqsNotification: Update an AWS SQS notification for a given subscription.
 [**UpdateAwsSqsPrincipalAuthNotification**](NotificationsApi.md#updateawssqsprincipalauthnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/awssqsprincipalauth/{id} | [EXPERIMENTAL] UpdateAwsSqsPrincipalAuthNotification: Update an AWS SQS notification with principal authentication for a given subscription.
+[**UpdateAzureServiceBusNotification**](NotificationsApi.md#updateazureservicebusnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/asb/{id} | [EXPERIMENTAL] UpdateAzureServiceBusNotification: Update an Azure Service Bus notification for a given subscription.
 [**UpdateEmailNotification**](NotificationsApi.md#updateemailnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/email/{id} | [EXPERIMENTAL] UpdateEmailNotification: Update an email notification for a given subscription.
 [**UpdateSmsNotification**](NotificationsApi.md#updatesmsnotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/sms/{id} | [EXPERIMENTAL] UpdateSmsNotification: Update an SMS notification for a given subscription.
 [**UpdateWebhookNotification**](NotificationsApi.md#updatewebhooknotification) | **PUT** /api/subscriptions/{scope}/{code}/notifications/webhook/{id} | [EXPERIMENTAL] UpdateWebhookNotification: Update a Webhook notification for a given subscription.
 
+
+<a name="createasbnotification"></a>
+# **CreateASBNotification**
+> Notification CreateASBNotification (string scope, string code, CreateAzureServiceBusNotification createAzureServiceBusNotification)
+
+[EXPERIMENTAL] CreateASBNotification: Add an Azure Service Bus notification to a subscription.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Finbourne.Notifications.Sdk.Api;
+using Finbourne.Notifications.Sdk.Client;
+using Finbourne.Notifications.Sdk.Model;
+
+namespace Example
+{
+    public class CreateASBNotificationExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.lusid.com/notifications";
+            // Configure OAuth2 access token for authorization: oauth2
+            config.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new NotificationsApi(config);
+            var scope = scope_example;  // string | The scope that identifies a notification
+            var code = code_example;  // string | The code that identifies a notification
+            var createAzureServiceBusNotification = new CreateAzureServiceBusNotification(); // CreateAzureServiceBusNotification | The data to create an message sent to Azure Service              Bus
+
+            try
+            {
+                // [EXPERIMENTAL] CreateASBNotification: Add an Azure Service Bus notification to a subscription.
+                Notification result = apiInstance.CreateASBNotification(scope, code, createAzureServiceBusNotification);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling NotificationsApi.CreateASBNotification: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scope** | **string**| The scope that identifies a notification | 
+ **code** | **string**| The code that identifies a notification | 
+ **createAzureServiceBusNotification** | [**CreateAzureServiceBusNotification**](CreateAzureServiceBusNotification.md)| The data to create an message sent to Azure Service              Bus | 
+
+### Return type
+
+[**Notification**](Notification.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **201** | Created |  -  |
+| **400** | The details of the input related failure |  -  |
+| **0** | Error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
 
 <a name="createawssqsnotification"></a>
 # **CreateAwsSqsNotification**
@@ -780,6 +860,87 @@ Name | Type | Description  | Notes
  **code** | **string**| The code that identifies a notification | 
  **id** | **string**| The unique identifier of the notification | 
  **updateAwsSqsPrincipalAuthNotification** | [**UpdateAwsSqsPrincipalAuthNotification**](UpdateAwsSqsPrincipalAuthNotification.md)| The data to update a notification | 
+
+### Return type
+
+[**Notification**](Notification.md)
+
+### Authorization
+
+[oauth2](../README.md#oauth2)
+
+### HTTP request headers
+
+ - **Content-Type**: application/json-patch+json, application/json, text/json, application/_*+json
+ - **Accept**: application/json
+
+
+### HTTP response details
+| Status code | Description | Response headers |
+|-------------|-------------|------------------|
+| **200** | Success |  -  |
+| **400** | The details of the input related failure |  -  |
+| **404** | No notification exists in current scope |  -  |
+| **0** | Error response |  -  |
+
+[[Back to top]](#) [[Back to API list]](../README.md#documentation-for-api-endpoints) [[Back to Model list]](../README.md#documentation-for-models) [[Back to README]](../README.md)
+
+<a name="updateazureservicebusnotification"></a>
+# **UpdateAzureServiceBusNotification**
+> Notification UpdateAzureServiceBusNotification (string scope, string code, string id, UpdateAzureServiceBusNotification updateAzureServiceBusNotification)
+
+[EXPERIMENTAL] UpdateAzureServiceBusNotification: Update an Azure Service Bus notification for a given subscription.
+
+### Example
+```csharp
+using System.Collections.Generic;
+using System.Diagnostics;
+using Finbourne.Notifications.Sdk.Api;
+using Finbourne.Notifications.Sdk.Client;
+using Finbourne.Notifications.Sdk.Model;
+
+namespace Example
+{
+    public class UpdateAzureServiceBusNotificationExample
+    {
+        public static void Main()
+        {
+            Configuration config = new Configuration();
+            config.BasePath = "https://www.lusid.com/notifications";
+            // Configure OAuth2 access token for authorization: oauth2
+            config.AccessToken = "YOUR_ACCESS_TOKEN";
+
+            var apiInstance = new NotificationsApi(config);
+            var scope = scope_example;  // string | The scope that identifies a notification
+            var code = code_example;  // string | The code that identifies a notification
+            var id = id_example;  // string | The unique identifier of the notification
+            var updateAzureServiceBusNotification = new UpdateAzureServiceBusNotification(); // UpdateAzureServiceBusNotification | The data to update a notification
+
+            try
+            {
+                // [EXPERIMENTAL] UpdateAzureServiceBusNotification: Update an Azure Service Bus notification for a given subscription.
+                Notification result = apiInstance.UpdateAzureServiceBusNotification(scope, code, id, updateAzureServiceBusNotification);
+                Debug.WriteLine(result);
+            }
+            catch (ApiException  e)
+            {
+                Debug.Print("Exception when calling NotificationsApi.UpdateAzureServiceBusNotification: " + e.Message );
+                Debug.Print("Status Code: "+ e.ErrorCode);
+                Debug.Print(e.StackTrace);
+            }
+        }
+    }
+}
+```
+
+### Parameters
+
+Name | Type | Description  | Notes
+------------- | ------------- | ------------- | -------------
+ **scope** | **string**| The scope that identifies a notification | 
+ **code** | **string**| The code that identifies a notification | 
+ **id** | **string**| The unique identifier of the notification | 
+ **updateAzureServiceBusNotification** | [**UpdateAzureServiceBusNotification**](UpdateAzureServiceBusNotification.md)| The data to update a notification | 
 
 ### Return type
 

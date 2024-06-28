@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.963",
+    "version": "0.1.968",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -875,6 +875,236 @@
         "x-fbn-apistatus": "Experimental"
       }
     },
+    "/api/subscriptions/{scope}/{code}/notifications/asb": {
+      "post": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "[EXPERIMENTAL] CreateASBNotification: Add an Azure Service Bus notification to a subscription.",
+        "operationId": "CreateASBNotification",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a notification",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a notification",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The data to create an message sent to Azure Service\r\n            Bus",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAzureServiceBusNotification"
+              },
+              "example": {"namespace":"config://shared/official/system-a-config/namespace","queueName":"config://shared/official/system-a-config/queueName","body":"Event with message {{message}}","description":"Example description","tenantId":"config://shared/official/system-a-config/tenantId","clientId":"config://shared/official/system-a-config/clientId","clientSecret":"config://shared/official/system-a-config/clientSecret"}
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAzureServiceBusNotification"
+              },
+              "example": {"namespace":"config://shared/official/system-a-config/namespace","queueName":"config://shared/official/system-a-config/queueName","body":"Event with message {{message}}","description":"Example description","tenantId":"config://shared/official/system-a-config/tenantId","clientId":"config://shared/official/system-a-config/clientId","clientSecret":"config://shared/official/system-a-config/clientSecret"}
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAzureServiceBusNotification"
+              },
+              "example": {"namespace":"config://shared/official/system-a-config/namespace","queueName":"config://shared/official/system-a-config/queueName","body":"Event with message {{message}}","description":"Example description","tenantId":"config://shared/official/system-a-config/tenantId","clientId":"config://shared/official/system-a-config/clientId","clientSecret":"config://shared/official/system-a-config/clientSecret"}
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/CreateAzureServiceBusNotification"
+              },
+              "example": {"namespace":"config://shared/official/system-a-config/namespace","queueName":"config://shared/official/system-a-config/queueName","body":"Event with message {{message}}","description":"Example description","tenantId":"config://shared/official/system-a-config/tenantId","clientId":"config://shared/official/system-a-config/clientId","clientSecret":"config://shared/official/system-a-config/clientSecret"}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "201": {
+            "description": "Created",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                },
+                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
+    "/api/subscriptions/{scope}/{code}/notifications/asb/{id}": {
+      "put": {
+        "tags": [
+          "Notifications"
+        ],
+        "summary": "[EXPERIMENTAL] UpdateAzureServiceBusNotification: Update an Azure Service Bus notification for a given subscription.",
+        "operationId": "UpdateAzureServiceBusNotification",
+        "parameters": [
+          {
+            "name": "scope",
+            "in": "path",
+            "description": "The scope that identifies a notification",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "code",
+            "in": "path",
+            "description": "The code that identifies a notification",
+            "required": true,
+            "schema": {
+              "maxLength": 100,
+              "minLength": 1,
+              "pattern": "^[a-zA-Z0-9\\-_]+$",
+              "type": "string"
+            }
+          },
+          {
+            "name": "id",
+            "in": "path",
+            "description": "The unique identifier of the notification",
+            "required": true,
+            "schema": {
+              "maxLength": 40,
+              "minLength": 30,
+              "pattern": "^[a-zA-Z0-9\\-]+$",
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "description": "The data to update a notification",
+          "content": {
+            "application/json-patch+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAzureServiceBusNotification"
+              },
+              "example": {"namespace":"config://shared/official/system-a-config/namespace","queueName":"config://shared/official/system-a-config/queueName","body":"Event with message {{message}}","description":"Example description","tenantId":"config://shared/official/system-a-config/tenantId","clientId":"config://shared/official/system-a-config/clientId","clientSecret":"config://shared/official/system-a-config/clientSecret"}
+            },
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAzureServiceBusNotification"
+              },
+              "example": {"namespace":"config://shared/official/system-a-config/namespace","queueName":"config://shared/official/system-a-config/queueName","body":"Event with message {{message}}","description":"Example description","tenantId":"config://shared/official/system-a-config/tenantId","clientId":"config://shared/official/system-a-config/clientId","clientSecret":"config://shared/official/system-a-config/clientSecret"}
+            },
+            "text/json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAzureServiceBusNotification"
+              },
+              "example": {"namespace":"config://shared/official/system-a-config/namespace","queueName":"config://shared/official/system-a-config/queueName","body":"Event with message {{message}}","description":"Example description","tenantId":"config://shared/official/system-a-config/tenantId","clientId":"config://shared/official/system-a-config/clientId","clientSecret":"config://shared/official/system-a-config/clientSecret"}
+            },
+            "application/*+json": {
+              "schema": {
+                "$ref": "#/components/schemas/UpdateAzureServiceBusNotification"
+              },
+              "example": {"namespace":"config://shared/official/system-a-config/namespace","queueName":"config://shared/official/system-a-config/queueName","body":"Event with message {{message}}","description":"Example description","tenantId":"config://shared/official/system-a-config/tenantId","clientId":"config://shared/official/system-a-config/clientId","clientSecret":"config://shared/official/system-a-config/clientSecret"}
+            }
+          },
+          "required": true
+        },
+        "responses": {
+          "200": {
+            "description": "Success",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/Notification"
+                },
+                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+              }
+            }
+          },
+          "400": {
+            "description": "The details of the input related failure",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidValidationProblemDetails"
+                }
+              }
+            }
+          },
+          "404": {
+            "description": "No notification exists in current scope",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "type": "string"
+                }
+              }
+            }
+          },
+          "default": {
+            "description": "Error response",
+            "content": {
+              "application/json": {
+                "schema": {
+                  "$ref": "#/components/schemas/LusidProblemDetails"
+                }
+              }
+            }
+          }
+        },
+        "security": [
+          {
+            "oauth2": [ ]
+          }
+        ],
+        "x-fbn-apistatus": "Experimental"
+      }
+    },
     "/api/subscriptions/{scope}/{code}/notifications/awssqs": {
       "post": {
         "tags": [
@@ -1062,7 +1292,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AwsSqsPrincipalAuth","recipients":{"QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
               }
             }
           },
@@ -1292,7 +1522,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AwsSqsPrincipalAuth","recipients":{"QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
               }
             }
           },
@@ -1541,7 +1771,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AwsSqsPrincipalAuth","recipients":{"QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
               }
             }
           },
@@ -1790,7 +2020,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AwsSqsPrincipalAuth","recipients":{"QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
               }
             }
           },
@@ -2039,7 +2269,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AwsSqsPrincipalAuth","recipients":{"QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
               }
             }
           },
@@ -2132,7 +2362,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AwsSqsPrincipalAuth","recipients":{"QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+                "example": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
               }
             }
           },
@@ -2478,6 +2708,66 @@
         },
         "additionalProperties": false,
         "description": "The information required to create a notification which, when processed, will send an notification to Amazon SQS using principal authentication"
+      },
+      "CreateAzureServiceBusNotification": {
+        "required": [
+          "body",
+          "clientId",
+          "clientSecret",
+          "description",
+          "namespace",
+          "queueName",
+          "tenantId"
+        ],
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to namespace from Configuration Store"
+          },
+          "queueName": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to  queue name from Configuration Store"
+          },
+          "body": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The body of the Azure Service Bus Message"
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The summary of the services provided by the notification"
+          },
+          "tenantId": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to tenant ID from Configuration Store"
+          },
+          "clientId": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to client ID from Configuration Store"
+          },
+          "clientSecret": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to client Secret from Configuration Store"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to create a notification which, when processed, will send an notification to Azure service bus"
       },
       "CreateEmailNotification": {
         "required": [
@@ -3501,6 +3791,66 @@
         },
         "additionalProperties": false,
         "description": "The information required to create a notification which, when processed, will send an notification to Amazon SQS using principal authentication"
+      },
+      "UpdateAzureServiceBusNotification": {
+        "required": [
+          "body",
+          "clientId",
+          "clientSecret",
+          "description",
+          "namespace",
+          "queueName",
+          "tenantId"
+        ],
+        "type": "object",
+        "properties": {
+          "namespace": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to namespace from Configuration Store"
+          },
+          "queueName": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to  queue name from Configuration Store"
+          },
+          "body": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The body of the Azure Service Bus Message"
+          },
+          "description": {
+            "maxLength": 512,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The summary of the services provided by the notification"
+          },
+          "tenantId": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to tenant ID from Configuration Store"
+          },
+          "clientId": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to client ID from Configuration Store"
+          },
+          "clientSecret": {
+            "maxLength": 2147483647,
+            "minLength": 0,
+            "type": "string",
+            "description": "Reference to client Secret from Configuration Store"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to create a notification which, when processed, will send an notification to Azure\r\nService Bus"
       },
       "UpdateEmailNotification": {
         "required": [
