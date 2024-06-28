@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.963",
+    "version": "0.1.968",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -1119,7 +1119,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqsPrincipalAuth","body":"Event with message {{body.message}}","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
+                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AzureServiceBus","body":"Event with message {{body.message}}","namespaceRef":"config://shared/official/system-a-config/namespace","queueNameRef":"config://shared/official/system-a-config/queueName","tenantIdRef":"config://shared/official/system-a-config/tenantId","clientIdRef":"config://shared/official/system-a-config/clientId","clientSecretRef":"config://shared/official/system-a-config/clientSecret"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
               }
             }
           },
@@ -1307,7 +1307,7 @@
                 "schema": {
                   "$ref": "#/components/schemas/Notification"
                 },
-                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqsPrincipalAuth","body":"Event with message {{body.message}}","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
+                "example": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AzureServiceBus","body":"Event with message {{body.message}}","namespaceRef":"config://shared/official/system-a-config/namespace","queueNameRef":"config://shared/official/system-a-config/queueName","tenantIdRef":"config://shared/official/system-a-config/tenantId","clientIdRef":"config://shared/official/system-a-config/clientId","clientSecretRef":"config://shared/official/system-a-config/clientSecret"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
               }
             }
           },
@@ -1709,6 +1709,104 @@
         },
         "additionalProperties": false,
         "description": "Status of the delivery attempt."
+      },
+      "AzureServiceBusNotificationType": {
+        "required": [
+          "body",
+          "clientId",
+          "clientSecret",
+          "namespace",
+          "queueName",
+          "tenantId",
+          "type"
+        ],
+        "type": "object",
+        "properties": {
+          "type": {
+            "minLength": 1,
+            "enum": [
+              "AzureServiceBus"
+            ],
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification"
+          },
+          "namespace": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to namespace from Configuration Store"
+          },
+          "queueName": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to queue name from Configuration Store"
+          },
+          "body": {
+            "maxLength": 1024,
+            "minLength": 1,
+            "pattern": "^[\\s\\S]*$",
+            "type": "string",
+            "description": "The body of the Azure Service Bus Message"
+          },
+          "tenantId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to tenant id from Configuration Store"
+          },
+          "clientId": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to client id from Configuration Store"
+          },
+          "clientSecret": {
+            "minLength": 1,
+            "type": "string",
+            "description": "Reference to client secret from Configuration Store"
+          }
+        },
+        "additionalProperties": false,
+        "description": "The information required to create or update an Azure Service Bus notification"
+      },
+      "AzureServiceBusTypeResponse": {
+        "type": "object",
+        "properties": {
+          "type": {
+            "type": "string",
+            "description": "The type of delivery mechanism for this notification",
+            "nullable": true
+          },
+          "namespaceRef": {
+            "type": "string",
+            "description": "Reference to namespace from Configuration Store",
+            "nullable": true
+          },
+          "queueNameRef": {
+            "type": "string",
+            "description": "Reference to queue name from Configuration Store",
+            "nullable": true
+          },
+          "body": {
+            "type": "string",
+            "description": "The body of the Azure service bus Message",
+            "nullable": true
+          },
+          "tenantIdRef": {
+            "type": "string",
+            "description": "Reference to tenant id  from Configuration Store",
+            "nullable": true
+          },
+          "clientIdRef": {
+            "type": "string",
+            "description": "Reference to client id from Configuration Store",
+            "nullable": true
+          },
+          "clientSecretRef": {
+            "type": "string",
+            "description": "Reference to client secret from Configuration Store",
+            "nullable": true
+          }
+        },
+        "additionalProperties": false,
+        "description": "Holds readonly information about an Azure Service Bus notification"
       },
       "CreateNotificationRequest": {
         "required": [
@@ -2446,6 +2544,9 @@
             "$ref": "#/components/schemas/AmazonSqsPrincipalAuthNotificationType"
           },
           {
+            "$ref": "#/components/schemas/AzureServiceBusNotificationType"
+          },
+          {
             "$ref": "#/components/schemas/EmailNotificationType"
           },
           {
@@ -2466,6 +2567,9 @@
           },
           {
             "$ref": "#/components/schemas/AmazonSqsPrincipalAuthNotificationTypeResponse"
+          },
+          {
+            "$ref": "#/components/schemas/AzureServiceBusTypeResponse"
           },
           {
             "$ref": "#/components/schemas/EmailNotificationTypeResponse"

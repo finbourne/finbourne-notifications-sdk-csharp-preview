@@ -57,6 +57,18 @@ namespace Finbourne.Notifications.Sdk.Model
 
         /// <summary>
         /// Initializes a new instance of the <see cref="NotificationType" /> class
+        /// with the <see cref="AzureServiceBusNotificationType" /> class
+        /// </summary>
+        /// <param name="actualInstance">An instance of AzureServiceBusNotificationType.</param>
+        public NotificationType(AzureServiceBusNotificationType actualInstance)
+        {
+            this.IsNullable = false;
+            this.SchemaType= "oneOf";
+            this.ActualInstance = actualInstance ?? throw new ArgumentException("Invalid instance found. Must not be null.");
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="NotificationType" /> class
         /// with the <see cref="EmailNotificationType" /> class
         /// </summary>
         /// <param name="actualInstance">An instance of EmailNotificationType.</param>
@@ -113,6 +125,10 @@ namespace Finbourne.Notifications.Sdk.Model
                 {
                     this._actualInstance = value;
                 }
+                else if (value.GetType() == typeof(AzureServiceBusNotificationType))
+                {
+                    this._actualInstance = value;
+                }
                 else if (value.GetType() == typeof(EmailNotificationType))
                 {
                     this._actualInstance = value;
@@ -127,7 +143,7 @@ namespace Finbourne.Notifications.Sdk.Model
                 }
                 else
                 {
-                    throw new ArgumentException("Invalid instance found. Must be the following types: AmazonSqsNotificationType, AmazonSqsPrincipalAuthNotificationType, EmailNotificationType, SmsNotificationType, WebhookNotificationType");
+                    throw new ArgumentException("Invalid instance found. Must be the following types: AmazonSqsNotificationType, AmazonSqsPrincipalAuthNotificationType, AzureServiceBusNotificationType, EmailNotificationType, SmsNotificationType, WebhookNotificationType");
                 }
             }
         }
@@ -150,6 +166,16 @@ namespace Finbourne.Notifications.Sdk.Model
         public AmazonSqsPrincipalAuthNotificationType GetAmazonSqsPrincipalAuthNotificationType()
         {
             return (AmazonSqsPrincipalAuthNotificationType)this.ActualInstance;
+        }
+
+        /// <summary>
+        /// Get the actual instance of `AzureServiceBusNotificationType`. If the actual instance is not `AzureServiceBusNotificationType`,
+        /// the InvalidClassException will be thrown
+        /// </summary>
+        /// <returns>An instance of AzureServiceBusNotificationType</returns>
+        public AzureServiceBusNotificationType GetAzureServiceBusNotificationType()
+        {
+            return (AzureServiceBusNotificationType)this.ActualInstance;
         }
 
         /// <summary>
@@ -258,6 +284,26 @@ namespace Finbourne.Notifications.Sdk.Model
             {
                 // deserialization failed, try the next one
                 System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into AmazonSqsPrincipalAuthNotificationType: {1}", jsonString, exception.ToString()));
+            }
+
+            try
+            {
+                // if it does not contains "AdditionalProperties", use SerializerSettings to deserialize
+                if (typeof(AzureServiceBusNotificationType).GetProperty("AdditionalProperties") == null)
+                {
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<AzureServiceBusNotificationType>(jsonString, NotificationType.SerializerSettings));
+                }
+                else
+                {
+                    newNotificationType = new NotificationType(JsonConvert.DeserializeObject<AzureServiceBusNotificationType>(jsonString, NotificationType.AdditionalPropertiesSerializerSettings));
+                }
+                matchedTypes.Add("AzureServiceBusNotificationType");
+                match++;
+            }
+            catch (Exception exception)
+            {
+                // deserialization failed, try the next one
+                System.Diagnostics.Debug.WriteLine(string.Format("Failed to deserialize `{0}` into AzureServiceBusNotificationType: {1}", jsonString, exception.ToString()));
             }
 
             try
