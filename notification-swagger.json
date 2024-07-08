@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.971",
+    "version": "0.1.972",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -937,6 +937,9 @@
                 },
                 "Create AWS SQS Notification with Principal Authentication": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Create Azure Service Bus Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AzureServiceBus","Body":"Event with message {{body.message}}","Namespace":"config://shared/official/system-a-config/namespace","QueueName":"config://shared/official/system-a-config/queueName","TenantId":"config://shared/official/system-a-config/tenantId","ClientId":"config://shared/official/system-a-config/clientId","ClientSecret":"config://shared/official/system-a-config/clientSecret"}}
                 }
               }
             },
@@ -959,6 +962,9 @@
                 },
                 "Create AWS SQS Notification with Principal Authentication": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Create Azure Service Bus Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AzureServiceBus","Body":"Event with message {{body.message}}","Namespace":"config://shared/official/system-a-config/namespace","QueueName":"config://shared/official/system-a-config/queueName","TenantId":"config://shared/official/system-a-config/tenantId","ClientId":"config://shared/official/system-a-config/clientId","ClientSecret":"config://shared/official/system-a-config/clientSecret"}}
                 }
               }
             },
@@ -981,6 +987,9 @@
                 },
                 "Create AWS SQS Notification with Principal Authentication": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Create Azure Service Bus Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AzureServiceBus","Body":"Event with message {{body.message}}","Namespace":"config://shared/official/system-a-config/namespace","QueueName":"config://shared/official/system-a-config/queueName","TenantId":"config://shared/official/system-a-config/tenantId","ClientId":"config://shared/official/system-a-config/clientId","ClientSecret":"config://shared/official/system-a-config/clientSecret"}}
                 }
               }
             },
@@ -1003,6 +1012,9 @@
                 },
                 "Create AWS SQS Notification with Principal Authentication": {
                   "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Create Azure Service Bus Notification": {
+                  "value": {"notificationId":"TestId","displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AzureServiceBus","Body":"Event with message {{body.message}}","Namespace":"config://shared/official/system-a-config/namespace","QueueName":"config://shared/official/system-a-config/queueName","TenantId":"config://shared/official/system-a-config/tenantId","ClientId":"config://shared/official/system-a-config/clientId","ClientSecret":"config://shared/official/system-a-config/clientSecret"}}
                 }
               }
             }
@@ -1035,6 +1047,9 @@
                   },
                   "AWS SQS Principal Authentication Notification": {
                     "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AmazonSqsPrincipalAuth","body":"Event with message {{body.message}}","queueUrlRef":"config://shared/official/system-a-config/queueUrl"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
+                  },
+                  "Azure Service Bus Notification": {
+                    "value": {"notificationId":"ExampleId","displayName":"Example name","description":"Example description","notificationType":{"type":"AzureServiceBus","body":"Event with message {{body.message}}","namespaceRef":"config://shared/official/system-a-config/namespace","queueNameRef":"config://shared/official/system-a-config/queueName","tenantIdRef":"config://shared/official/system-a-config/tenantId","clientIdRef":"config://shared/official/system-a-config/clientId","clientSecretRef":"config://shared/official/system-a-config/clientSecret"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","userIdCreated":"Example user","modifiedAt":"2020-06-20T12:00:00.0000000+00:00","userIdModified":"Example user","href":"http://fbn-test/api/subscriptions/testScope/testCode/notifications/ExampleId"}
                   }
                 }
               }
@@ -1227,6 +1242,9 @@
                 },
                 "Update AWS SQS Notification with Principal Authentication": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Update Azure Service Bus Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AzureServiceBus","Body":"Event with message {{body.message}}","Namespace":"config://shared/official/system-a-config/namespace","QueueName":"config://shared/official/system-a-config/queueName","TenantId":"config://shared/official/system-a-config/tenantId","ClientId":"config://shared/official/system-a-config/clientId","ClientSecret":"config://shared/official/system-a-config/clientSecret"}}
                 }
               }
             },
@@ -1249,6 +1267,9 @@
                 },
                 "Update AWS SQS Notification with Principal Authentication": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Update Azure Service Bus Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AzureServiceBus","Body":"Event with message {{body.message}}","Namespace":"config://shared/official/system-a-config/namespace","QueueName":"config://shared/official/system-a-config/queueName","TenantId":"config://shared/official/system-a-config/tenantId","ClientId":"config://shared/official/system-a-config/clientId","ClientSecret":"config://shared/official/system-a-config/clientSecret"}}
                 }
               }
             },
@@ -1271,6 +1292,9 @@
                 },
                 "Update AWS SQS Notification with Principal Authentication": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Update Azure Service Bus Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AzureServiceBus","Body":"Event with message {{body.message}}","Namespace":"config://shared/official/system-a-config/namespace","QueueName":"config://shared/official/system-a-config/queueName","TenantId":"config://shared/official/system-a-config/tenantId","ClientId":"config://shared/official/system-a-config/clientId","ClientSecret":"config://shared/official/system-a-config/clientSecret"}}
                 }
               }
             },
@@ -1293,6 +1317,9 @@
                 },
                 "Update AWS SQS Notification with Principal Authentication": {
                   "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AmazonSqsPrincipalAuth","Body":"Event with message {{body.message}}","QueueUrlRef":"config://shared/official/system-a-config/queueUrl"}}
+                },
+                "Update Azure Service Bus Notification": {
+                  "value": {"displayName":"TestDisplayName","description":"Example description","notificationType":{"Type":"AzureServiceBus","Body":"Event with message {{body.message}}","Namespace":"config://shared/official/system-a-config/namespace","QueueName":"config://shared/official/system-a-config/queueName","TenantId":"config://shared/official/system-a-config/tenantId","ClientId":"config://shared/official/system-a-config/clientId","ClientSecret":"config://shared/official/system-a-config/clientSecret"}}
                 }
               }
             }
