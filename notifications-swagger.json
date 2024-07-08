@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.971",
+    "version": "0.1.972",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -1654,6 +1654,9 @@
                   },
                   "AWS SQS Principal Authentication Notification": {
                     "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AwsSqsPrincipalAuth","recipients":{"QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+                  },
+                  "Azure Service Bus Notification": {
+                    "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
                   }
                 }
               }
@@ -1903,6 +1906,9 @@
                   },
                   "AWS SQS Principal Authentication Notification": {
                     "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AwsSqsPrincipalAuth","recipients":{"QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+                  },
+                  "Azure Service Bus Notification": {
+                    "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
                   }
                 }
               }
@@ -2152,6 +2158,9 @@
                   },
                   "AWS SQS Principal Authentication Notification": {
                     "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AwsSqsPrincipalAuth","recipients":{"QueueUrlRef":"config://shared/official/system-a-config/queueUrl"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
+                  },
+                  "Azure Service Bus Notification": {
+                    "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"AzureServiceBus","recipients":{"NamespaceRef":"config://shared/official/system-a-config/namespace","QueueNameRef":"config://shared/official/system-a-config/queueName","TenantIdRef":"config://shared/official/system-a-config/tenantId","ClientIdRef":"config://shared/official/system-a-config/clientId","ClientSecretRef":"config://shared/official/system-a-config/clientSecret"},"content":{"Body":"Event with message {{message}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
                   }
                 }
               }
