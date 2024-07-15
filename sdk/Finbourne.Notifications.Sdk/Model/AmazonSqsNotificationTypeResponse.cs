@@ -30,6 +30,28 @@ namespace Finbourne.Notifications.Sdk.Model
     public partial class AmazonSqsNotificationTypeResponse : IEquatable<AmazonSqsNotificationTypeResponse>, IValidatableObject
     {
         /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum AmazonSqs for value: AmazonSqs
+            /// </summary>
+            [EnumMember(Value = "AmazonSqs")]
+            AmazonSqs = 1
+
+        }
+
+
+        /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [DataMember(Name = "type", EmitDefaultValue = true)]
+        public TypeEnum? Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="AmazonSqsNotificationTypeResponse" /> class.
         /// </summary>
         /// <param name="type">The type of delivery mechanism for this notification.</param>
@@ -37,7 +59,7 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="apiSecretRef">Reference to API secret from Configuration Store.</param>
         /// <param name="body">The body of the Amazon Queue Message.</param>
         /// <param name="queueUrlRef">Reference to queue url from Configuration Store.</param>
-        public AmazonSqsNotificationTypeResponse(string type = default(string), string apiKeyRef = default(string), string apiSecretRef = default(string), string body = default(string), string queueUrlRef = default(string))
+        public AmazonSqsNotificationTypeResponse(TypeEnum? type = default(TypeEnum?), string apiKeyRef = default(string), string apiSecretRef = default(string), string body = default(string), string queueUrlRef = default(string))
         {
             this.Type = type;
             this.ApiKeyRef = apiKeyRef;
@@ -45,13 +67,6 @@ namespace Finbourne.Notifications.Sdk.Model
             this.Body = body;
             this.QueueUrlRef = queueUrlRef;
         }
-
-        /// <summary>
-        /// The type of delivery mechanism for this notification
-        /// </summary>
-        /// <value>The type of delivery mechanism for this notification</value>
-        [DataMember(Name = "type", EmitDefaultValue = true)]
-        public string Type { get; set; }
 
         /// <summary>
         /// Reference to API key from Configuration Store
@@ -131,8 +146,7 @@ namespace Finbourne.Notifications.Sdk.Model
             return 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.ApiKeyRef == input.ApiKeyRef ||
@@ -165,10 +179,7 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Type != null)
-                {
-                    hashCode = (hashCode * 59) + this.Type.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.Type.GetHashCode();
                 if (this.ApiKeyRef != null)
                 {
                     hashCode = (hashCode * 59) + this.ApiKeyRef.GetHashCode();

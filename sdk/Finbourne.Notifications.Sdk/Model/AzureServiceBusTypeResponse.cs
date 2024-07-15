@@ -30,6 +30,28 @@ namespace Finbourne.Notifications.Sdk.Model
     public partial class AzureServiceBusTypeResponse : IEquatable<AzureServiceBusTypeResponse>, IValidatableObject
     {
         /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
+        {
+            /// <summary>
+            /// Enum AzureServiceBus for value: AzureServiceBus
+            /// </summary>
+            [EnumMember(Value = "AzureServiceBus")]
+            AzureServiceBus = 1
+
+        }
+
+
+        /// <summary>
+        /// The type of delivery mechanism for this notification
+        /// </summary>
+        /// <value>The type of delivery mechanism for this notification</value>
+        [DataMember(Name = "type", EmitDefaultValue = true)]
+        public TypeEnum? Type { get; set; }
+        /// <summary>
         /// Initializes a new instance of the <see cref="AzureServiceBusTypeResponse" /> class.
         /// </summary>
         /// <param name="type">The type of delivery mechanism for this notification.</param>
@@ -39,7 +61,7 @@ namespace Finbourne.Notifications.Sdk.Model
         /// <param name="tenantIdRef">Reference to tenant id  from Configuration Store.</param>
         /// <param name="clientIdRef">Reference to client id from Configuration Store.</param>
         /// <param name="clientSecretRef">Reference to client secret from Configuration Store.</param>
-        public AzureServiceBusTypeResponse(string type = default(string), string namespaceRef = default(string), string queueNameRef = default(string), string body = default(string), string tenantIdRef = default(string), string clientIdRef = default(string), string clientSecretRef = default(string))
+        public AzureServiceBusTypeResponse(TypeEnum? type = default(TypeEnum?), string namespaceRef = default(string), string queueNameRef = default(string), string body = default(string), string tenantIdRef = default(string), string clientIdRef = default(string), string clientSecretRef = default(string))
         {
             this.Type = type;
             this.NamespaceRef = namespaceRef;
@@ -49,13 +71,6 @@ namespace Finbourne.Notifications.Sdk.Model
             this.ClientIdRef = clientIdRef;
             this.ClientSecretRef = clientSecretRef;
         }
-
-        /// <summary>
-        /// The type of delivery mechanism for this notification
-        /// </summary>
-        /// <value>The type of delivery mechanism for this notification</value>
-        [DataMember(Name = "type", EmitDefaultValue = true)]
-        public string Type { get; set; }
 
         /// <summary>
         /// Reference to namespace from Configuration Store
@@ -151,8 +166,7 @@ namespace Finbourne.Notifications.Sdk.Model
             return 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.NamespaceRef == input.NamespaceRef ||
@@ -195,10 +209,7 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Type != null)
-                {
-                    hashCode = (hashCode * 59) + this.Type.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.Type.GetHashCode();
                 if (this.NamespaceRef != null)
                 {
                     hashCode = (hashCode * 59) + this.NamespaceRef.GetHashCode();

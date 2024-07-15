@@ -30,24 +30,39 @@ namespace Finbourne.Notifications.Sdk.Model
     public partial class AmazonSqsPrincipalAuthNotificationTypeResponse : IEquatable<AmazonSqsPrincipalAuthNotificationTypeResponse>, IValidatableObject
     {
         /// <summary>
-        /// Initializes a new instance of the <see cref="AmazonSqsPrincipalAuthNotificationTypeResponse" /> class.
+        /// The type of delivery mechanism for this notification
         /// </summary>
-        /// <param name="type">The type of delivery mechanism for this notification.</param>
-        /// <param name="body">The body of the Amazon Queue Message.</param>
-        /// <param name="queueUrlRef">Reference to queue url from Configuration Store.</param>
-        public AmazonSqsPrincipalAuthNotificationTypeResponse(string type = default(string), string body = default(string), string queueUrlRef = default(string))
+        /// <value>The type of delivery mechanism for this notification</value>
+        [JsonConverter(typeof(StringEnumConverter))]
+        public enum TypeEnum
         {
-            this.Type = type;
-            this.Body = body;
-            this.QueueUrlRef = queueUrlRef;
+            /// <summary>
+            /// Enum AmazonSqsPrincipalAuth for value: AmazonSqsPrincipalAuth
+            /// </summary>
+            [EnumMember(Value = "AmazonSqsPrincipalAuth")]
+            AmazonSqsPrincipalAuth = 1
+
         }
+
 
         /// <summary>
         /// The type of delivery mechanism for this notification
         /// </summary>
         /// <value>The type of delivery mechanism for this notification</value>
         [DataMember(Name = "type", EmitDefaultValue = true)]
-        public string Type { get; set; }
+        public TypeEnum? Type { get; set; }
+        /// <summary>
+        /// Initializes a new instance of the <see cref="AmazonSqsPrincipalAuthNotificationTypeResponse" /> class.
+        /// </summary>
+        /// <param name="type">The type of delivery mechanism for this notification.</param>
+        /// <param name="body">The body of the Amazon Queue Message.</param>
+        /// <param name="queueUrlRef">Reference to queue url from Configuration Store.</param>
+        public AmazonSqsPrincipalAuthNotificationTypeResponse(TypeEnum? type = default(TypeEnum?), string body = default(string), string queueUrlRef = default(string))
+        {
+            this.Type = type;
+            this.Body = body;
+            this.QueueUrlRef = queueUrlRef;
+        }
 
         /// <summary>
         /// The body of the Amazon Queue Message
@@ -111,8 +126,7 @@ namespace Finbourne.Notifications.Sdk.Model
             return 
                 (
                     this.Type == input.Type ||
-                    (this.Type != null &&
-                    this.Type.Equals(input.Type))
+                    this.Type.Equals(input.Type)
                 ) && 
                 (
                     this.Body == input.Body ||
@@ -135,10 +149,7 @@ namespace Finbourne.Notifications.Sdk.Model
             unchecked // Overflow is fine, just wrap
             {
                 int hashCode = 41;
-                if (this.Type != null)
-                {
-                    hashCode = (hashCode * 59) + this.Type.GetHashCode();
-                }
+                hashCode = (hashCode * 59) + this.Type.GetHashCode();
                 if (this.Body != null)
                 {
                     hashCode = (hashCode * 59) + this.Body.GetHashCode();
