@@ -8,7 +8,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.991",
+    "version": "0.1.992",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -1643,9 +1643,6 @@
                   "SMS Notification": {
                     "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"SMS","recipients":{"Recipients":["+447000000000"]},"content":{"Body":"Event with message {{message}} and subject {{subject}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
                   },
-                  "Api Request Notification": {
-                    "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"ApiRequest","recipients":{"Method":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}"},"content":{"Content":{"Key":"Value Example","MessageKey":"{{message}}"}},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
-                  },
                   "Webhook Notification": {
                     "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"Webhook","recipients":{"Method":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"content":{"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
                   },
@@ -1895,9 +1892,6 @@
                   "SMS Notification": {
                     "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"SMS","recipients":{"Recipients":["+447000000000"]},"content":{"Body":"Event with message {{message}} and subject {{subject}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
                   },
-                  "Api Request Notification": {
-                    "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"ApiRequest","recipients":{"Method":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}"},"content":{"Content":{"Key":"Value Example","MessageKey":"{{message}}"}},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
-                  },
                   "Webhook Notification": {
                     "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"Webhook","recipients":{"Method":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"content":{"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
                   },
@@ -2146,9 +2140,6 @@
                   },
                   "SMS Notification": {
                     "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"SMS","recipients":{"Recipients":["+447000000000"]},"content":{"Body":"Event with message {{message}} and subject {{subject}}"},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
-                  },
-                  "Api Request Notification": {
-                    "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"ApiRequest","recipients":{"Method":"Post","PathAndQuery":"notification/api/{{id}}/path?examplequery={{id}}"},"content":{"Content":{"Key":"Value Example","MessageKey":"{{message}}"}},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
                   },
                   "Webhook Notification": {
                     "value": {"id":"ExampleId","displayName":"Example name","description":"Example description","deliveryChannel":"Webhook","recipients":{"Method":"Post","Url":"https://example.com/api/{{id}}/path?examplequery={{id}}","AuthenticationType":"BearerToken","AuthenticationConfigurationItemPaths":{"BearerToken":"config://personal/myUserId/WebhookConfigurations/ExampleService/BearerToken"}},"content":{"ContentType":"Json","Content":{"Key":"Value Example","MessageKey":"{{message}}"}},"status":{"result":"Unprocessed","lastUpdated":"0001-01-01T00:00:00.0000000+00:00"},"createdAt":"2020-06-15T12:00:00.0000000+00:00","createdBy":"Example user","lastModifiedAt":"2020-06-20T12:00:00.0000000+00:00","lastModifiedBy":"Example user"}
