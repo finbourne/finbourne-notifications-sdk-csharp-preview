@@ -12,7 +12,7 @@
     <Description>A library generated from a OpenAPI doc</Description>
     <Copyright>FINBOURNE Technology Ltd</Copyright>
     <RootNamespace>Finbourne.Notifications.Sdk</RootNamespace>
-    <Version>0.1.991</Version>
+    <Version>0.1.992</Version>
     <DocumentationFile>bin\$(Configuration)\$(TargetFramework)\Finbourne.Notifications.Sdk.xml</DocumentationFile>
     <RepositoryUrl>https://github.com/finbourne/notifications-sdk-csharp-preview.git</RepositoryUrl>
     <RepositoryType>git</RepositoryType>
