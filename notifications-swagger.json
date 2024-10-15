@@ -9,7 +9,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.1053",
+    "version": "0.1.1055",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -1018,8 +1018,8 @@
             "description": "The unique identifier of the notification",
             "required": true,
             "schema": {
-              "maxLength": 40,
-              "minLength": 30,
+              "maxLength": 36,
+              "minLength": 36,
               "pattern": "^[a-zA-Z0-9\\-]+$",
               "type": "string"
             }
@@ -1248,8 +1248,8 @@
             "description": "The unique identifier of the notification",
             "required": true,
             "schema": {
-              "maxLength": 40,
-              "minLength": 30,
+              "maxLength": 36,
+              "minLength": 36,
               "pattern": "^[a-zA-Z0-9\\-]+$",
               "type": "string"
             }
@@ -1478,8 +1478,8 @@
             "description": "The unique identifier of the notification",
             "required": true,
             "schema": {
-              "maxLength": 40,
-              "minLength": 30,
+              "maxLength": 36,
+              "minLength": 36,
               "pattern": "^[a-zA-Z0-9\\-]+$",
               "type": "string"
             }
@@ -1727,8 +1727,8 @@
             "description": "The unique identifier of the notification",
             "required": true,
             "schema": {
-              "maxLength": 40,
-              "minLength": 30,
+              "maxLength": 36,
+              "minLength": 36,
               "pattern": "^[a-zA-Z0-9\\-]+$",
               "type": "string"
             }
@@ -1976,8 +1976,8 @@
             "description": "The unique identifier of the notification",
             "required": true,
             "schema": {
-              "maxLength": 40,
-              "minLength": 30,
+              "maxLength": 36,
+              "minLength": 36,
               "pattern": "^[a-zA-Z0-9\\-]+$",
               "type": "string"
             }
@@ -2225,8 +2225,8 @@
             "description": "The unique identifier of the notification",
             "required": true,
             "schema": {
-              "maxLength": 40,
-              "minLength": 30,
+              "maxLength": 36,
+              "minLength": 36,
               "pattern": "^[a-zA-Z0-9\\-]+$",
               "type": "string"
             }
@@ -2584,7 +2584,7 @@
             "type": "string"
           },
           "entity": {
-            "maxLength": 25,
+            "maxLength": 40,
             "minLength": 3,
             "type": "string"
           }
