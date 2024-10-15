@@ -9,7 +9,7 @@
       "url": "https://www.finbourne.com",
       "email": "info@finbourne.com"
     },
-    "version": "0.1.1053",
+    "version": "0.1.1055",
     "x-logo": {
       "url": "https://www.lusid.com/app/assets/logo_white.png",
       "backgroundColor": "#415464"
@@ -1553,7 +1553,7 @@
             "type": "string"
           },
           "entity": {
-            "maxLength": 25,
+            "maxLength": 40,
             "minLength": 3,
             "type": "string"
           }
